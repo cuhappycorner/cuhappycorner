@@ -1,0 +1,2 @@
+module Shopkeepers::ActivationHelper
+end

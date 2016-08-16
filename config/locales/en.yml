@@ -1,0 +1,136 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  hello: "Hello world"
+  shopname: "山城角樂 CU Happy Corner"
+
+  ui:
+    logout: "Logout"
+
+  shopkeeper_panel:
+    name: "Shopkeeper"
+    second_hand_good_transaction:
+      name: "2nd Hand Transaction"
+    activation:
+      name: "Activation"
+      page1:
+        msg: "Please enter the SID / Staff ID of the customer."
+        id: "SID / Staff ID"
+        id_placeholder: ""
+        submit: "Submit"
+
+      page2:
+        tab1: "Confirm User Information"
+        tab2: "Register CU Link"
+        confirminfo_msg: "Please check the user information."
+        confirminfo_msg2: "Make sure that the Name, Contact No. and Email are correct."
+        confirminfo_msg3: "Smile:) Have a good day."
+        contact_info: "Name and Contact Information"
+        regculink_msg: "Please put the CU Link onto the card reader."
+        regculink_msg2: "If card reader is not ready, you can type in the first 8 characters printed on the bottom-left corner of the CU Link manually."
+        regculink_cardid: "Card ID"
+        name: "Name"
+        mobile: "Contact No. (HK)"
+        email: "Email"
+        regculink_cardid_placeholder: "First 8 characters on bottom-left corner on CU Link"
+
+    transaction:
+      name: "Transaction"
+      page1:
+        cid:
+          msg: "Please put the CU Link onto the card reader."
+          msg2: "If card reader is not ready, you can type in the first 8 characters printed on the bottom-left corner of the CU Link manually."
+          id: "CU Link ID"
+          id_placeholder: ""
+          submit: "Submit"
+
+        cuid:
+          msg: "Please enter the SID / Staff ID of the customer."
+          id: "SID / Staff ID"
+          id_placeholder: ""
+          submit: "Submit"
+
+        email:
+          msg: "Please enter the Email of the customer."
+          id: "Email"
+          id_placeholder: ""
+          submit: "Submit"
+
+      page2:
+        msg: "Please enter the detail of the transaction."
+        msg2: "Make sure the customer has enough credit for deduction. (although the system can handle it well:)."
+        name: "Name"
+        cuid: "SID / Staff ID"
+        current_amount: "Current Amount of Credit"
+        type: "Transaction Type"
+        remark: "Remark"
+        remark_placeholder: "Please mark down the details, such as the good type (will add a dropdown menu later)"
+        amount: "Amount of Credit in Transaction"
+        amount_placeholder: "Add: 10, Deduct: -10 (Example)"
+        submit: "Submit"
+
+      success:
+        name: "Success"
+        detail: "Transaction Completed"
+        no: "Transaction No.:"
+        type: "Transaction Type:"
+        remark: "Remark:"
+        amount_changed: "Amount Changed:"
+        new_amount: "New Amount inside %{user}'s account:"
+
+      error:
+        name: "Error"
+        detail: "Not Enough Credit!"
+        hint: "Please make sure the customer has enough credit in his/her account."
+
+      error2:
+        detail: "Not Activated"
+        hint: "The account is not activated. Please finish the activation process first."
+
+  index:
+    name: "Home"
+    your_credit: "Your Credit"
+    your_credit_hint_text: "Come and use your credit!"
+    transaction_record: "Transaction Record"
+    transaction_out: "OUT"
+    transaction_in : "IN"
+    not_activated_error: "歡迎加入山城角樂！請攜同你的 CU Link 到我們的攤位進行確認手續！"
+
+  users:
+    sessions:
+      new:
+        title: "Sign in"
+        login: "Sign in"
+        photo1:
+          title: "這裡會有想象"
+          caption: "All work copyright of respective owner."
+
+        signintoac: "Sign into your account"
+        form:
+          email: "E-mail"
+          credentials: "Credentials"
+          remember_me: "Keep Me Signed in"
+
+        help: "Help? Contact Support"
+
+  quote:
+    s1: ""

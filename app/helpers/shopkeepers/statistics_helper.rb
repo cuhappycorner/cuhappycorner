@@ -1,0 +1,2 @@
+module Shopkeepers::StatisticsHelper
+end

@@ -1,0 +1,2 @@
+module Shopkeepers::SecondHandGoodHelper
+end

@@ -1,0 +1,106 @@
+<!-- START JUMBOTRON -->
+<div class="jumbotron" data-pages="parallax">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <!-- START BREADCRUMB -->
+      <ul class="breadcrumb">
+        <li>
+          <p><%= t('shopkeepers.name') %></p>
+        </li>
+        <li><a href="#" class="active"><%= t('shopkeepers.statistics.name') %></a>
+        </li>
+      </ul>
+      <!-- END BREADCRUMB -->
+    </div>
+  </div>
+</div>
+<!-- END JUMBOTRON -->
+
+
+
+<div class="panel-body">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading separator">
+          <div class="panel-title"><%= t('shopkeepers.statistics.current_no_of_members') %></div>
+        </div>
+        <div class="panel-body" style="height:auto">
+          <h3><%= @stat_member -%></h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading separator">
+          <div class="panel-title"><%= t('shopkeepers.statistics.current_no_of_activated_members') %></div>
+        </div>
+        <div class="panel-body" style="height:auto">
+          <h3><%= @stat_member_activated -%></h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading separator">
+          <div class="panel-title"><%= t('shopkeepers.statistics.current_no_of_transactions') %></div>
+        </div>
+        <div class="panel-body" style="height:auto">
+          <h3><%= @stat_transaction_no -%></h3>
+          <p class="text-black hint-text"><%= t('shopkeepers.statistics.current_no_of_transactions_hint') %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading separator">
+          <div class="panel-title"><%= t('shopkeepers.statistics.current_total_transaction_amount') %></div>
+        </div>
+        <div class="panel-body" style="height:auto">
+          <h3><%= @stat_transaction_amount -%></h3>
+          <p class="text-black hint-text"><%= t('shopkeepers.statistics.current_total_transaction_amount_hint') %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading separator">
+          <div class="panel-title"><%= t('shopkeepers.statistics.current_total_quantity_of_2ndhand_tocoop_q') %></div>
+        </div>
+        <div class="panel-body" style="height:auto">
+          <h3><%= @stat_2ndhand_goodtocoop_quantity -%></h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading separator">
+          <div class="panel-title"><%= t('shopkeepers.statistics.current_total_quantity_of_2ndhand_tocoop_a') %></div>
+        </div>
+        <div class="panel-body" style="height:auto">
+          <h3><%= @stat_2ndhand_goodtocoop_amount -%></h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading separator">
+          <div class="panel-title"><%= t('shopkeepers.statistics.current_total_quantity_of_2ndhand_fromcoop_q') %></div>
+        </div>
+        <div class="panel-body" style="height:auto">
+          <h3><%= @stat_2ndhand_goodfromcoop_quantity -%></h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading separator">
+          <div class="panel-title"><%= t('shopkeepers.statistics.current_total_quantity_of_2ndhand_fromcoop_a') %></div>
+        </div>
+        <div class="panel-body" style="height:auto">
+          <h3><%= @stat_2ndhand_goodfromcoop_amount -%></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

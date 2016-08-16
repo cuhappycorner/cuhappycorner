@@ -1,0 +1,14 @@
+en:
+  shopkeepers:
+    statistics:
+      name: "Statistics"
+      current_no_of_members: "Current No. of Members"
+      current_no_of_activated_members: "Current No. of Activated Members"
+      current_no_of_transactions: "Current No. of Transactions"
+      current_no_of_transactions_hint: "inc. System Transaction, e.g 入會獎勵."
+      current_total_transaction_amount: "Current Total Transaction Amount"
+      current_total_transaction_amount_hint: "inc. System Transaction, e.g 入會獎勵."
+      current_total_quantity_of_2ndhand_tocoop_q: "Current Total Quantity of 2nd Hand Good sold to Coop"
+      current_total_quantity_of_2ndhand_tocoop_a: "Current Total Amount (Coins) of 2nd Hand Good sold to Coop"
+      current_total_quantity_of_2ndhand_fromcoop_q: "Current Total Quantity of 2nd Hand Good sold to Member"
+      current_total_quantity_of_2ndhand_fromcoop_a: "Current Total Amount (Coins) of 2nd Hand Good sold to Member"
