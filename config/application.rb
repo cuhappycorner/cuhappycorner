@@ -15,7 +15,7 @@ require "rails/test_unit/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module CoopWeb2
+module CUHappyCorner
   class Application < Rails::Application
 	config.assets.paths << File.join(Rails.root, "/vendor/pages/pages-plugins")
     config.assets.paths << File.join(Rails.root, "/vendor/pages/pages-core")
