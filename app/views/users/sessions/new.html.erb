@@ -1,120 +1,26 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-    <meta charset="utf-8" />
-    <title><%= t('users.sessions.new.title') %> - <%= t('shopname') %></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <link rel="apple-touch-icon" href="pages/ico/60.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="pages/ico/76.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="pages/ico/120.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="pages/ico/152.png">
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-touch-fullscreen" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta content="" name="description" />
-    <meta content="" name="author" />
-  
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+<h2>Log in</h2>
 
-  <!--[if lte IE 9]>
-  <link href="/pages/css/ie9.css?v=pages-v1.0.0" rel="stylesheet" type="text/css" />
-  <![endif]-->
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true %>
+  </div>
 
-  <script type="text/javascript">
-    window.onload = function() {
-      // fix for windows 8
-      if (navigator.appVersion.indexOf("Windows NT 6.2") != -1)
-        document.head.innerHTML += '<link rel="stylesheet" type="text/css" href="/pages/css/windows.chrome.fix.css?v=pages-v1.0.0" />'
-    }
-  </script>
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.password_field :password, autocomplete: "off" %>
+  </div>
 
-  <%= csrf_meta_tags %>
-  </head>
-  <body class="fixed-header   ">
-    <!-- START PAGE-CONTAINER -->
-    <div class="login-wrapper ">
-      <!-- START Login Background Pic Wrapper-->
-      <div class="bg-pic">
-        <!-- START Background Pic-->
-        <img src="https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xpl1/t31.0-8/1781817_551364461627830_376996091_o.jpg" data-src="https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xpl1/t31.0-8/1781817_551364461627830_376996091_o.jpg" data-src-retina="https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xpl1/t31.0-8/1781817_551364461627830_376996091_o.jpg" alt="" class="lazy">
-        <!-- END Background Pic-->
-        <!-- START Background Caption-->
-        <div class="bg-caption pull-bottom sm-pull-bottom text-white p-l-20 m-b-20">
-          <h2 class="semi-bold text-white">
-          <%= t('users.sessions.new.photo1.title') %></h2>
-          <p class="small">
-            <%= t('users.sessions.new.photo1.caption') %>
-          </p>
-        </div>
-        <!-- END Background Caption-->
-      </div>
-      <!-- END Login Background Pic Wrapper-->
-      <!-- START Login Right Container-->
-      <div class="login-container bg-white">
-        <div class="p-l-50 m-l-20 p-r-50 m-r-20 p-t-50 m-t-30 sm-p-l-15 sm-p-r-15 sm-p-t-40">
-          <img src="<%= image_path('logo.png') %>" alt="logo" data-src="<%= image_path('logo.png') %>" data-src-retina="<%= image_path('logo_2x.png') %>" width="200px">
-          <p class="p-t-35"><%= t('users.sessions.new.signintoac') %></p>
-          <!-- START Login Form -->
-          <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "p-t-15"}) do |f| %>
-            <!-- START Form Control-->
-            <div class="form-group form-group-default">
-              <%= f.label :email %>
-              <div class="controls">
-                <input type="text" name="user[email]" placeholder="<%= t('users.sessions.new.form.email') %>" class="form-control" id="user_email" required>
-              </div>
-            </div>
-            <!-- END Form Control-->
-            <!-- START Form Control-->
-            <div class="form-group form-group-default">
-              <%= f.label :password %>
-              <div class="controls">
-                <input type="password" class="form-control" name="user[password]" placeholder="<%= t('users.sessions.new.form.credentials') %>" id="user_password" required>
-              </div>
-            </div>
-            <!-- START Form Control-->
-            <div class="row">
-              <% if devise_mapping.rememberable? -%>
-                <div class="col-md-6 no-padding">
-                  <div class="checkbox">
-                    <input type="checkbox" value="1" name="user[remember_me]" id="user_remember_me">
-                    <label for="user_remember_me"><%= t('users.sessions.new.form.remember_me') %></label>
-                  </div>
-                </div>
-              <% end -%>
-              <div class="col-md-6 text-right">
-                <!--<a href="#" class="text-info small"><%= t('users.sessions.new.help') %>rt</a>-->
-              </div>
-            </div>
-            <!-- END Form Control-->
-            <button class="btn btn-primary btn-cons m-t-10" type="submit"><%= t('users.sessions.new.login') %></button>
-              
-          <% end %>
-          <div class="row" style="margin: 35px; border-style: dashed; border-color: #6DC0F9; text-align: center; padding: 25px;">
-            <h5 class="bold">Become a member in CU Happy Corner</h5>
-            <%= link_to "Sign up", new_registration_path(resource_name), class:"btn btn-complete btn-cons" %>
-          </div>
-          <!--END Login Form-->
-          <div class="pull-bottom sm-pull-bottom">
-            <div class="m-b-30 p-r-80 sm-m-t-20 sm-p-r-15 sm-p-b-20 clearfix">
-              <div class="col-sm-9 no-padding m-t-10">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- END Login Right Container-->
+  <% if devise_mapping.rememberable? -%>
+    <div class="field">
+      <%= f.check_box :remember_me %>
+      <%= f.label :remember_me %>
     </div>
-    <!-- END PAGE CONTAINER -->
-    <!-- BEGIN VENDOR JS -->
-    <!-- JS at bottom of page to improve load time, and only loaded once with 'data-turbolinks-eval' == false  -->
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true, 'data-turbolinks-eval' => false %>
-    <script>
-    $(function()
-    {
-      $('#form-login').validate()
-    })
-    </script>
-  </body>
-</html>
+  <% end -%>
+
+  <div class="actions">
+    <%= f.submit "Log in" %>
+  </div>
+<% end %>
+
+<%= render "users/shared/links" %>
