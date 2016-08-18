@@ -1,5 +1,9 @@
-class User
+class Entity
   include Mongoid::Document
+  field :name, type: String
+end
+
+class User < Entity
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -23,6 +27,8 @@ class User
   field :current_sign_in_ip, type: String
   field :last_sign_in_ip,    type: String
 
+  has_many :operation, class_name: "Operation", inverse_of: :operator
+
   ## Confirmable
   # field :confirmation_token,   type: String
   # field :confirmed_at,         type: Time
@@ -33,4 +39,12 @@ class User
   # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
+end
+
+class Organization < Entity
+
+end
+
+class Computer < Entity
+
 end
