@@ -1,6 +1,10 @@
 class Entity
   include Mongoid::Document
-  field :name, type: String
+  field :name, localize: true
+
+  ## Bank System
+  has_many :operated_bank_account_record, class_name: "Bank::AccountRecord", inverse_of: :operator
+
 end
 
 class User < Entity
@@ -27,8 +31,6 @@ class User < Entity
   field :current_sign_in_ip, type: String
   field :last_sign_in_ip,    type: String
 
-  has_many :operation, class_name: "Operation", inverse_of: :operator
-
   ## Confirmable
   # field :confirmation_token,   type: String
   # field :confirmed_at,         type: Time
@@ -39,10 +41,19 @@ class User < Entity
   # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
+
+  has_and_belongs_to_many :organization, class_name: "Organization", inverse_of: :committee
+
+  ## Bank System
+  has_one :account, class_name: "Bank::IndividualAccount", inverse_of: :owner
+  has_and_belongs_to_many :organizational_account, class_name: "Bank::OrganizationalAccount", inverse_of: :authorized_person
 end
 
 class Organization < Entity
+  has_and_belongs_to_many :committee, class_name: "User", inverse_of: :organization
 
+  ## Bank System
+  has_many :account, class_name: "Bank::OrganizationalAccount", inverse_of: :owner
 end
 
 class Computer < Entity
