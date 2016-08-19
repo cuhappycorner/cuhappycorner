@@ -3,6 +3,7 @@ class Bank::OrganizationalLoan
   belongs_to :borrower_account, class_name: "Bank::OrganizationalAccount", inverse_of: :loan
   field :amount, type: Integer, default: 0
   field :no_of_instalment, type: Integer # 1 instalment = 30 days
+  field :remark, type: String
 
   # Status
   field :status, type: Integer, default: 0 #0:Pending, 1:Rejected, 2:Approved, 3:Repaid, 4:Bad debt
@@ -22,5 +23,5 @@ class Bank::OrganizationalLoan
   has_many :record, class_name: "Bank::LoanRecord", inverse_of: :loan
 
   ## Transaction Module
-  has_many :transaction, class_name: "Bank::Transaction", inverse_of: :loan
+  has_many :transaction, class_name: "Bank::LoanTransaction", inverse_of: :loan
 end

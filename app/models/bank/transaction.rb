@@ -41,7 +41,8 @@ end
 
 ## Loan Module
 class Bank::LoanTransaction < Bank::Transaction
-  
+  belongs_to :loan, class_name: "Bank::OrganizationalLoan", inverse_of: :transaction
+  attr_readonly :loan
 end
 
 class Bank::DrawdownLoanTransaction < Bank::LoanTransaction
