@@ -9,6 +9,10 @@ class Bank::Account
   has_many :record, class_name: "Bank::AccountRecord", inverse_of: :account
 end
 
+## Loan Module
+class Bank::LoanAccount < Bank::Account
+  has_one :loan, class_name: "Bank::OrganizationalLoan", inverse_of: :loan_account
+end
 
 class Bank::TimeCreditAccount < Bank::Account
 
@@ -17,8 +21,15 @@ end
 class Bank::OrganizationalAccount < Bank::Account
   belongs_to :owner, class_name: "Organization", inverse_of: :account
   has_and_belongs_to_many :authorized_person, class_name: "User", inverse_of: :organizational_account
+  ## Loan Module
+  has_many :loan, class_name: "Bank::OrganizationalLoan", inverse_of: :borrower_account
 end
 
 class Bank::IndividualAccount < Bank::Account
   belongs_to :owner, class_name: "User", inverse_of: :account
+end
+
+## Loan Module
+class Bank::DistributionUseAccount < Bank::Account
+
 end
