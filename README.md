@@ -1,8 +1,8 @@
 # CU Happy Corner System 2.0
 
-This brunch is under active development, a complete rewrite in architecture of the current in use system. 
+This branch is under active development, a complete rewrite in architecture of the current in use system. 
 
-For the current in use system, please refer to Brunch 0.1alpha.
+For the current in use system, please refer to Branch 0.1alpha.
 
 ## System Requirement
 
