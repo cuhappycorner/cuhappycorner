@@ -1,24 +1,17 @@
-# README
+# CU Happy Corner System 2.0
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This brunch is under active development, a complete rewrite in architecture of the current in use system. 
 
-Things you may want to cover:
+For the current in use system, please refer to Brunch 0.1alpha.
 
-* Ruby version
+## System Requirement
 
-* System dependencies
+* Ruby 2.3.1
 
-* Configuration
+* Rails 5.0.0.1
 
-* Database creation
+* MongoDB
 
-* Database initialization
+## Coding Style
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* 2 spaces for TAB
