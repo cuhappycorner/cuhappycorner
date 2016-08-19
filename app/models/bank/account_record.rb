@@ -5,19 +5,23 @@ class Bank::AccountRecord
   belongs_to :account, class_name: "Bank::Account", inverse_of: :record
 end
 
-class Bank::FreezeRecord < Bank::AccountRecord
+class Bank::CreateAccountRecord < Bank::AccountRecord
+
+end
+
+class Bank::FreezeAccountRecord < Bank::AccountRecord
   field :reason, type: String
 end
 
-class Bank::UnfreezeRecord < Bank::AccountRecord
+class Bank::UnfreezeAccountRecord < Bank::AccountRecord
   field :reason, type: String
 end
 
-class Bank::CloseRecord < Bank::AccountRecord
+class Bank::CloseAccountRecord < Bank::AccountRecord
   field :reason, type: String
 end
 
-class Bank::ReopenRecord < Bank::AccountRecord
+class Bank::ReopenAccountRecord < Bank::AccountRecord
   field :reason, type: String
 end
 
@@ -28,13 +32,12 @@ end
 
 class Bank::RequestLoanRecord < Bank::LoanRecord
   field :amount, type: Integer
-
+  field :no_of_instalment, type: Integer # 1 instalment = 30 days
 end
 
 class Bank::ApproveLoanRecord < Bank::LoanRecord
   field :reason, type:String
   field :interest_rate, type: Array
-  field :no_of_instalment, type: Integer # 1 instalment = 30 days
 end
 
 class Bank::RejectLoanRecord < Bank::LoanRecord
@@ -76,6 +79,10 @@ class Bank::ReliefInterestRecord < Bank::LoanRecord
 end
 
 class Bank::ExtendNoOfInstallmentRecord < Bank::LoanRecord
+
+end
+
+class Bank::EnforceRepayLoanRecord < Bank::AccountRecord
 
 end
 
