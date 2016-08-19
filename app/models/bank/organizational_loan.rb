@@ -17,5 +17,8 @@ class Bank::OrganizationalLoan
   field :amount_repaid, type: Integer, default: 0
 
   belongs_to :loan_account, class_name: "Bank::LoanAccount", inverse_of: :loan
-  has_many :record, class_name: "Bank::LoanRecord"
+  has_many :record, class_name: "Bank::LoanRecord", inverse_of: :loan
+
+  ## Transaction Module
+  has_many :transaction, class_name: "Bank::Transaction", inverse_of: :loan
 end
