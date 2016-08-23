@@ -28,7 +28,8 @@ gem 'redis', '~> 3.0'
 gem 'mongoid', '6.0.0.rc0'
 gem 'devise'
 gem 'pundit'
-gem 'mongoid-autoinc', github: 'ckho/mongoid-autoinc'
+# gem 'mongoid-autoinc', github: 'ckho/mongoid-autoinc'
+gem 'enumerize'
 
 
 group :development, :test do
