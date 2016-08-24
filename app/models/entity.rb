@@ -58,10 +58,6 @@ class User < Entity
   field :date_of_birth,      type: Date
   enumerize :gender, in: [:male, :female, :x]
 
-  ## Activatable
-  field :activated_at,         type: Date
-  field :activated,            type: Boolean, default: false
-
 
   ## Confirmable
   # field :confirmation_token,   type: String
@@ -79,6 +75,34 @@ class User < Entity
   ## Bank System
   has_one :account, class_name: "Bank::IndividualAccount", inverse_of: :owner
   has_and_belongs_to_many :organizational_account, class_name: "Bank::OrganizationalAccount", inverse_of: :authorized_person
+
+  ## Member System - Activation Module
+
+  ## Activatable
+  field :activated_at,         type: Date
+  field :activated,            type: Boolean, default: false
+
+  def active_for_authentication? 
+    super && activated? 
+  end 
+
+  def inactive_message 
+    if !activated? 
+      :not_activated 
+    else 
+      super # Use whatever other message 
+    end 
+  end
+
+  def self.send_reset_password_instructions(attributes={})
+    recoverable = find_or_initialize_with_errors(reset_password_keys, attributes, :not_found)
+    if !recoverable.activated?
+      recoverable.errors[:base] << I18n.t("devise.failure.not_activated")
+    elsif recoverable.persisted?
+      recoverable.send_reset_password_instructions
+    end
+    recoverable
+  end
 end
 
 class Organization < Entity
