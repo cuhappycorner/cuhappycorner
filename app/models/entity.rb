@@ -79,7 +79,7 @@ class User < Entity
   ## Member System - Activation Module
 
   ## Activatable
-  field :activated_at,         type: Date
+  field :activated_at,         type: Time
   field :activated,            type: Boolean, default: false
 
   def active_for_authentication? 
