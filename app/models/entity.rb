@@ -37,7 +37,7 @@ class User < Entity
 
   ## Contact Information
   field :mobile,             type: String
-  validate :mobile, uniqueness: true, presense: true
+  validates :mobile, uniqueness: true, presence: true
 
   ## CU-ER Information
   enumerize :cu_identity, in: [:student, :staff, :alumni, :outside]
@@ -47,7 +47,7 @@ class User < Entity
   field :cu_link_id, type: String
   validates :cu_identity_no,  uniqueness: true
 
-  field :cu_resident,         type:boolean, default: false
+  field :cu_resident,         type: Boolean, default: false
   belongs_to :major, class_name: "User::Major", inverse_of: :student
   field :year_of_admission,   type: Integer
   field :year_of_graduation,  type: Integer
