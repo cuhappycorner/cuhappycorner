@@ -1,4 +1,4 @@
-module Bank
+module Member
   extend ActiveSupport::Concern
 
   def activate_member(operator, member, cucardid)
