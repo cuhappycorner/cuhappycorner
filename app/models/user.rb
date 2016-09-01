@@ -72,6 +72,13 @@ class User < Entity
   validates :cu_link_id,  uniqueness: true
 
 
+  def self.new_with_session(params, session)
+    params[:gender] = params[:gender].to_s.to_sym
+    params[:cuid_type] = params[:cuid_type].to_s.to_sym
+    params[:major] = User::Major.find_by code: params[:major].to_s
+    new(params)
+  end
+
   def active_for_authentication? 
     super && activated? 
   end 
