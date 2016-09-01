@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'bundler', '>= 1.8.4'
+
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
@@ -30,6 +32,29 @@ gem 'devise'
 gem 'pundit'
 # gem 'mongoid-autoinc', github: 'ckho/mongoid-autoinc'
 gem 'enumerize'
+gem 'kaminari'
+gem 'slim'
+gem 'slim-rails'
+gem "browser"
+gem 'simple_form'
+gem 'bootstrap-sass'
+gem "font-awesome-rails"
+gem "select2-rails"
+gem "seedbank", github: "ckho/seedbank"
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-modernizr', '2.8.3'
+  gem 'rails-assets-twitter-bootstrap-wizard'
+  gem 'rails-assets-jquery-validation'
+  gem 'rails-assets-jquery.easing'
+  gem 'rails-assets-unveil'
+  gem 'rails-assets-jquery-bez'
+  gem 'rails-assets-ioslist'
+  gem 'rails-assets-jquery.actual'
+  gem 'rails-assets-jquery.scrollbar'
+  gem 'rails-assets-pace'
+end
+
 
 
 group :development, :test do
