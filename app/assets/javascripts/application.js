@@ -10,7 +10,17 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require pace
+//= require modernizr
 //= require jquery
+//= require bootstrap-sprockets
 //= require jquery_ujs
+//= require jquery.easing
+//= require unveil
+//= require jquery-bez
+//= require ioslist/dist/js/jquery.ioslist.js
+//= require jquery.actual
+//= require jquery.scrollbar
 //= require turbolinks
-//= require_tree .
+//= require pages/pages
+//= require_tree
