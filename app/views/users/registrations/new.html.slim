@@ -1,0 +1,150 @@
+doctype html
+html
+  head
+    = render "shared/meta"
+    title #{t('users.registrations.new.title')} - #{t('cuhappycorner')}
+    meta name="description" content=""
+    = csrf_meta_tags
+    = stylesheet_link_tag "application", media: "all"
+  body.fixed-header
+    .container-fluid.container-fixed-lg.sm-p-t-30
+      = simple_form_for resource, as:resource, url:registration_path(resource_name), wrapper: :form_wizard do |f|
+        #rootwizard.m-t-50
+          ul.nav.nav-tabs.nav-tabs-linetriangle.nav-tabs-separator.nav-stack-sm
+            li.active
+              a data-toggle="tab" href="#tab1"
+                i.fa.fa-user.tab-icon
+                span =t('users.registrations.new.form.tab1_personal')
+            li
+              a data-toggle="tab" href="#tab2"
+                i.fa.fa-university.tab-icon
+                span =t('users.registrations.new.form.tab2_cuer')
+            li
+              a data-toggle="tab" href="#tab3"
+                i.fa.fa-key.tab-icon
+                span =t('users.registrations.new.form.tab3_login')
+            li
+              a data-toggle="tab" href="#tab4"
+                i.fa.fa-check-square-o.tab-icon
+                span =t('users.registrations.new.form.tab4_terms')
+          /Tab Panels
+          .tab-content
+            /Tab 1 - Personal Information
+            #tab1.tab-pane.padding-20.slide-left.active
+              .row.row-same-height
+                /Left Side
+                .col-md-5.b-r.b-dashed.b-grey.sm-b-b
+                  .padding-30.m-t-50
+                    i.fa.fa-user.fa-2x.hint-text
+                    h2 =t('users.registrations.new.form.tab1_personal')
+                    =simple_format t('users.registrations.new.form.tab1_msg')
+                    p.small.hint-text =t('users.registrations.new.form.tab1_hint')
+                /Right Side
+                .col-md-7
+                  .padding-30
+                    .form-group-attached
+                      .row.clearfix
+                        = f.fields_for :name_translations do |localized_field|
+                          .col-sm-6
+                            = localized_field.input :en, label: t('users.registrations.new.form.eng_name'), placeholder: t('users.registrations.new.form.eng_name_placeholder'), required: true, wrapper: :form_wizard
+                          .col-sm-6
+                            = localized_field.input :zh_HK, label: t('users.registrations.new.form.chi_name'), placeholder: t('users.registrations.new.form.chi_name_placeholder'), required: false, wrapper: :form_wizard
+                      = f.input :display_name, label: t('users.registrations.new.form.display_name'), placeholder: t('users.registrations.new.form.display_name_placeholder'), required: true
+                      .form-group.form-group-default.required
+                        label for="gender" =t('users.registrations.new.form.gender')
+                        .radio.radio-success style="margin-top: 0; margin-bottom: 0"
+                          input#gender_male type="radio" checked=true value="male" name="user[gender]" 
+                          label for="gender_male" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.gender_male')
+
+                          input#gender_female type="radio" value="female" name="user[gender]" 
+                          label for="gender_female" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.gender_female')
+
+                          input#gender_x type="radio" value="x" name="user[gender]" 
+                          label for="gender_x" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.gender_x')
+
+                      = f.input :birthday, label: t('users.registrations.new.form.birthday'), required: false, wrapper_html: {class: "date"}, placeholder: t('users.registrations.new.form.birthday_placeholder')
+                      = f.input :mobile, as: :tel, label: t('users.registrations.new.form.mobile'), required: true, placeholder: t('users.registrations.new.form.mobile_placeholder')
+            #tab2.tab-pane.padding-20.slide-left
+              .row.row-same-height
+                /Left Side
+                .col-md-5.b-r.b-dashed.b-grey.sm-b-b
+                  .padding-30.m-t-50
+                    i.fa.fa-university.fa-2x.hint-text
+                    h2 =t('users.registrations.new.form.tab2_cuer')
+                    =simple_format t('users.registrations.new.form.tab2_msg')
+                    p.small.hint-text =t('users.registrations.new.form.tab2_hint')
+                /Right Side
+                .col-md-7
+                  .padding-30
+                    .form-group-attached
+                      .form-group.form-group-default.required
+                        label for="cuid_type" =t('users.registrations.new.form.cuid_type')
+                        .radio.radio-success style="margin-top: 0; margin-bottom: 0"
+                          input#cuid_type_student type="radio" checked=true value="student" name="user[cuid_type]"
+                          label for="cuid_type_student" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.cuid_type_student')
+                          input#cuid_type_staff type="radio" value="staff" name="user[cuid_type]"
+                          label for="cuid_type_staff" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.cuid_type_staff')
+
+                      = f.input :cuid, label: t('users.registrations.new.form.cuid'), required: true
+
+                      .form-group.form-group-default.required
+                        label for="cu_resident" =t('users.registrations.new.form.cu_resident')
+                        .radio.radio-success style="margin-top: 0; margin-bottom: 0"
+                          input#cu_resident_false type="radio" checked=true value="false" name="user[cu_resident]"
+                          label for="cu_resident_false" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.cu_resident_false')
+                          input#cu_resident_true type="radio" value="true" name="user[cu_resident]"
+                          label for="cu_resident_true" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.cu_resident_true')
+                    br
+                    .form-group-attached
+                      .form-group.form-group-default
+                        label for="user_major" =t('users.registrations.new.form.major')
+                        select#user_major.full-width name="user[major]" data-init-plugin="select2"
+                          - User::Faculty.all.each do |faculty|
+                            optgroup label="#{faculty.name_translations[:en]} #{faculty.name_translations[:zh_HK]}"
+                              - faculty.major.all.each do |major|
+                                option value=major.code #{major.name_translations[:en]} #{major.name_translations[:zh_HK]}
+                      .row.clearfix
+                        .col-sm-6
+                          = f.input :year_of_admission, label: t('users.registrations.new.form.year_of_admission'), required: false, placeholder: t('users.registrations.new.form.year_of_admission_placeholder')
+                        .col-sm-6
+                          = f.input :year_of_graduation, label: t('users.registrations.new.form.year_of_graduation'), required: false, placeholder: t('users.registrations.new.form.year_of_graduation_placeholder')
+
+
+            #tab3.tab-pane.padding-20.slide-left
+              .row.row-same-height
+                /Left Side
+                .col-md-5.b-r.b-dashed.b-grey.sm-b-b
+                  .padding-30.m-t-50
+                    i.fa.fa-key.fa-2x.hint-text
+                    h2 =t('users.registrations.new.form.tab3_login')
+                    =simple_format t('users.registrations.new.form.tab3_msg')
+                    p.small.hint-text =t('users.registrations.new.form.tab3_hint')
+                /Right Side
+                .col-md-7
+                  .padding-30.m-t-40
+                    .form-group-attached
+                      = f.input :email, as: :email, label: t('users.registrations.new.form.email'), required: true, placeholder: t('users.registrations.new.form.email_placeholder')
+                      = f.input :password, as: :password, label: t('users.registrations.new.form.password'), placeholder: t('users.registrations.new.form.password_placeholder'), required: true
+                      = f.input :password_confirmation, as: :password, label: t('users.registrations.new.form.password_confirmation'), placeholder: t('users.registrations.new.form.password_confirmation_placeholder'), required: true
+
+            #tab4.tab-pane.padding-20.slide-left
+              .padding-30
+                i.fa.fa-check-square-o.fa-2x.hint-text
+                h2 = t('users.registrations.new.form.tab4_terms')
+                = t('users.registrations.new.form.tab4_content_html')
+          .padding-20.bg-white
+            ul.pager.wizard
+              li.next
+                button.btn.btn-primary.btn-cons.btn-animated.from-left.fa.fa-university.pull-right type="button"
+                  span Next
+              li.next.finish.hidden
+                button.btn.btn-primary.btn-cons.btn-animated.from-left.fa.fa-check-square-o.pull-right type="submit" data-disable-with="Please wait..."
+                  span Agree and Register
+              li.previous.first.hidden
+                button.btn.btn-primary.btn-cons.btn-animated.from-left.fa.fa-user.pull-right type="button"
+                  span First
+              li.previous
+                button.btn.btn-default.btn-cons.pull-right type="button"
+                  span Previous
+    = render "shared/footer"
+  = javascript_include_tag "application"
