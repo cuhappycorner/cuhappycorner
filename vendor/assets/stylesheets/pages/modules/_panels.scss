@@ -314,11 +314,11 @@
     }
 }
 .portlet-icon-refresh-lg-master{
-    background-image:url('#{$base-img-url}/progress/progress-circle-lg-master-static.svg');
+    background-image:image-url('#{$base-img-url}/progress/progress-circle-lg-master-static.svg');
 }
 
 .portlet-icon-refresh-lg-white{
-    background-image:url('#{$base-img-url}/progress/progress-circle-lg-white-static.svg');
+    background-image:image-url('#{$base-img-url}/progress/progress-circle-lg-white-static.svg');
 }
 
 .portlet-icon-refresh-lg-master-animated,
@@ -334,10 +334,10 @@
     }
 }
 .portlet-icon-refresh-lg-master-animated{
-    background-image:url('#{$base-img-url}/progress/progress-circle-lg-master.svg');
+    background-image:image-url('#{$base-img-url}/progress/progress-circle-lg-master.svg');
 }
 .portlet-icon-refresh-lg-white-animated{
-    background-image:url('#{$base-img-url}/progress/progress-circle-lg-white.svg');
+    background-image:image-url('#{$base-img-url}/progress/progress-circle-lg-white.svg');
 }
 
 

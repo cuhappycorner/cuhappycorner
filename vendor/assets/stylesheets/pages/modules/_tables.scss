@@ -281,19 +281,19 @@
 
 table.dataTable thead {
     .sorting_asc:after{
-        background-image: url("../img/icons/sort_asc.png");
+        background-image: image-url('#{$base-img-url}/icons/sort_asc.png');
     }
     .sorting_desc:after{
-        background-image: url("../img/icons/sort_desc.png");
+        background-image: image-url('#{$base-img-url}/icons/sort_desc.png');
     }
     .sorting:after{
-        background-image: url("../img/icons/sort_both.png");
+        background-image: image-url('#{$base-img-url}/icons/sort_both.png');
     }
     .sorting_asc_disabled:after{
-        background-image: url("../img/icons/sort_asc_disabled.png");
+        background-image: image-url('#{$base-img-url}/icons/sort_asc_disabled.png');
     }
     .sorting_desc_disabled:after{
-        background-image: url("../img/icons/sort_desc_disabled.png");
+        background-image: image-url('#{$base-img-url}/icons/sort_desc_disabled.png');
     }
     
 }

@@ -33,7 +33,7 @@
     opacity: .69;
   }
   &:before {
-    background-image: url('#{$base-img-url}/linear_gradient.png');
+    background-image: image-url('#{$base-img-url}/linear_gradient.png');
     background-repeat: repeat-x;
     content: " ";
     left: 0;
