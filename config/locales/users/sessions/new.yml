@@ -1,0 +1,17 @@
+en:
+  users:
+    sessions:
+      new:
+        title: "Login"
+        login: "Login"
+        photo1:
+          title: "這裡會有想象"
+          caption: "All work copyright of respective owner."
+
+        form:
+          email: "E-mail"
+          credentials: "Credentials"
+          remember_me: "Keep Me Signed in"
+
+        register_slogan: "Become a member in CU Happy Corner"
+        register: "Register"

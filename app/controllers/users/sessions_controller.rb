@@ -1,4 +1,5 @@
 class Users::SessionsController < Devise::SessionsController
+  layout false, only: [:new]
 # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
