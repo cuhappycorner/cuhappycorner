@@ -139,15 +139,15 @@ html
             ul.pager.wizard
               li.next
                 button.btn.btn-primary.btn-cons.btn-animated.from-left.fa.fa-university.pull-right type="button"
-                  span Next
+                  span = t('users.registrations.new.form.button.next')
               li.next.finish.hidden
-                button.btn.btn-primary.btn-cons.btn-animated.from-left.fa.fa-check-square-o.pull-right type="submit" data-disable-with="Please wait..."
-                  span Agree and Register
+                button.btn.btn-primary.btn-cons.btn-animated.from-left.fa.fa-check-square-o.pull-right type="submit" data-disable-with=t('form.pleasewait')
+                  span = t('users.registrations.new.form.button.submit')
               li.previous.first.hidden
                 button.btn.btn-primary.btn-cons.btn-animated.from-left.fa.fa-user.pull-right type="button"
-                  span First
+                  span = t('users.registrations.new.form.button.first')
               li.previous
                 button.btn.btn-default.btn-cons.pull-right type="button"
-                  span Previous
+                  span = t('users.registrations.new.form.button.previous')
     = render "shared/footer"
   = javascript_include_tag "application"
