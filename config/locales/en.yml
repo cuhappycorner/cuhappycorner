@@ -22,3 +22,5 @@
 en:
   cuhappycorner: "CU Happy Corner"
   hello: "Hello world"
+  form:
+    pleasewait: "Please wait..."
