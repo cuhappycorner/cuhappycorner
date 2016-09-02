@@ -5,6 +5,13 @@ GIT
     seedbank (0.5.0.pre)
       rake (>= 10.0)
 
+GIT
+  remote: git://github.com/williamatodd/mongoid_token.git
+  revision: 27241ed0d82631ac40b90a7d2a053ccb53b29e11
+  specs:
+    mongoid_token (4.0.0)
+      mongoid (>= 6.0.0.beta)
+
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -279,6 +286,7 @@ DEPENDENCIES
   kaminari
   listen (~> 3.0.5)
   mongoid (= 6.0.0.rc0)
+  mongoid_token!
   puma (~> 3.0)
   pundit
   rails (~> 5.0.0, >= 5.0.0.1)

@@ -41,6 +41,7 @@ gem 'bootstrap-sass'
 gem "font-awesome-rails"
 gem "select2-rails"
 gem "seedbank", github: "ckho/seedbank"
+gem "mongoid_token", github: "williamatodd/mongoid_token"
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-modernizr', '2.8.3'
