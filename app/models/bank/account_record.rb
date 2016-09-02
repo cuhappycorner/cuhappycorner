@@ -1,6 +1,10 @@
 class Bank::AccountRecord
   include Mongoid::Document
+  include Mongoid::Token
   include Mongoid::Timestamps::Created::Short
+
+  token :pattern => "AR-%C%C-%C%C%C-%C%C%C-%C%C%C", :field_name => :number
+
   belongs_to :operator, class_name: "Entity", inverse_of: :operated_bank_account_record
   belongs_to :account, class_name: "Bank::Account", inverse_of: :record
   attr_readonly :operator, :account

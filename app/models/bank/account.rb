@@ -1,5 +1,9 @@
 class Bank::Account
   include Mongoid::Document
+  include Mongoid::Token
+
+  token :pattern => "CU-%C%C-%d%d%d-%d%d%d", :field_name => :number
+
   field :balance, type: Integer, default: 0
 
   ## Transaction Module

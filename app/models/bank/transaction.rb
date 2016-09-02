@@ -1,6 +1,10 @@
 class Bank::Transaction
   include Mongoid::Document
+  include Mongoid::Token
   include Mongoid::Timestamps::Created::Short
+
+  token :pattern => "TS-%C%C-%C%C%C-%C%C%C-%C%C%C", :field_name => :number
+
   field :amount, type: Integer
   belongs_to :operator, class_name: "Entity", inverse_of: :operated_bank_transaction
   belongs_to :debitor, class_name: "Bank::Account", inverse_of: :debit

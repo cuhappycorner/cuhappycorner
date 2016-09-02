@@ -1,5 +1,9 @@
 class Entity
   include Mongoid::Document
+  include Mongoid::Token
+
+  token :pattern => "ID-%C%C-%d%d%d-%d%d%d", :field_name => :number
+
   field :name, localize: true
 
   ## Bank System

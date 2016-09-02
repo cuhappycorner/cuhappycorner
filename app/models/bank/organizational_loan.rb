@@ -1,5 +1,5 @@
-class Bank::OrganizationalLoan
-  include Mongoid::Document
+class Bank::OrganizationalLoan < Bank::Loan
+  
   belongs_to :borrower_account, class_name: "Bank::OrganizationalAccount", inverse_of: :loan
   field :amount, type: Integer, default: 0
   field :no_of_instalment, type: Integer # 1 instalment = 30 days
