@@ -10,3 +10,19 @@
       span.hint-text&amp; Made with Heart ®
     .clearfix
 /END FOOTER
+
+- flash.each do |key, value|
+  javascript:
+    document.addEventListener("turbolinks:load", function() {
+      type = 'danger';
+      if ('#{key}' == 'success') {
+        type = 'success';
+      }
+      $('body').pgNotification({
+        style: 'flip',
+        message: '#{value}',
+        position: 'top-right',
+        timeout: 8000,
+        type: type
+      }).show();
+    })
