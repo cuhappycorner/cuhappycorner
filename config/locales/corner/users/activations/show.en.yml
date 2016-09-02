@@ -1,0 +1,37 @@
+en:
+  corner:
+    users:
+      activations:
+        show:
+          title: "Activation"
+          form:
+            tab1_confirm: "Confirm Member Information"
+            tab1_msg: "Please make sure Name, Contact No., Email, Major are correct."
+            tab1_hint: "Smile:) Have a good day."
+            eng_name: "English Full Name"
+            chi_name: "Chinese Full Name"
+            display_name: "Nickname"
+            cuid_type: "Type"
+            cuid_type_student: "Student"
+            cuid_type_staff: "Staff"
+            cuid_type_alumni: "Alumni"
+            major: "Major Programme (Student Only)"
+            year_of_admission: "Year of Admission (Student Only)"
+            year_of_graduation: "Expected Year of Graduation (Student Only)"
+            email: "E-mail"
+            mobile: "Mobile No."
+            tab2_registercard: "Register CU Link"
+            tab2_msg: "Please put the CU Link onto the card reader."
+            tab2_hint: "If card reader is not ready, you can type in the first 8 characters printed on the bottom-left corner of the CU Link manually."
+            cu_link_id: "CU Link Card ID"
+            cu_link_id_placeholder: "First 8 characters on bottom-left corner on CU Link card"
+            button:
+              first: "First"
+              next: "Next"
+              previous: "Previous"
+              submit: "Submit"
+
+          error:
+            notfound: "CUID Not Found! Please make sure the CUID is correct and the customer has already registered."
+          success:
+            activated: "Account activated. Bank account opened."

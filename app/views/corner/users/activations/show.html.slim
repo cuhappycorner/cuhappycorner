@@ -1,0 +1,134 @@
+- content_for :title do
+  = t('corner.users.activations.show.title')
+
+- content_for :breadcrumb do
+  li
+    p =t('corner.common.shopkeeper')
+  li
+    = link_to t('corner.users.activations.show.title'), {action: "index"}, class: "active"
+  li
+    p = @user.name
+.panel-body
+  = form_tag({action: "update"}, method: "put") do
+    #rootwizard.m-t-50
+      ul.nav.nav-tabs.nav-tabs-linetriangle.nav-tabs-separator.nav-stack-sm
+        li.active
+          a data-toggle="tab" href="#tab1"
+            i.fa.fa-user.tab-icon
+            span =t('corner.users.activations.show.form.tab1_confirm')
+        li
+          a data-toggle="tab" href="#tab2"
+            i.fa.fa-credit-card-alt.tab-icon
+            span =t('corner.users.activations.show.form.tab2_registercard')
+      /Tab Panels
+      .tab-content
+        = hidden_field_tag(:cuid, @user.cuid)
+        /Tab 1 - Confirm Member Information
+        #tab1.tab-pane.padding-20.slide-left.active
+          .row.row-same-height
+            /Left Side
+            .col-md-5.b-r.b-dashed.b-grey.sm-b-b
+              .padding-30.m-t-50
+                i.fa.fa-user.fa-2x.hint-text
+                h2 = t('corner.users.activations.show.form.tab1_confirm')
+                = simple_format t('corner.users.activations.show.form.tab1_msg')
+                p.small.hint-text = t('corner.users.activations.show.form.tab1_hint')
+            /Right Side
+            .col-md-7
+              .padding-30
+                .form-group-attached
+                  .row.clearfix
+                    .col-sm-6
+                      .form-group.form-group-default.required
+                        = label_tag :eng_name, t('corner.users.activations.show.form.eng_name')
+                        = text_field_tag :eng_name, @user.name_translations[:en], required: true, class: "form-control", required: true
+                    .col-sm-6
+                      .form-group.form-group-default
+                        = label_tag :chi_name, t('corner.users.activations.show.form.chi_name')
+                        = text_field_tag :chi_name, @user.name_translations[:zh_HK], class: "form-control"
+                  .row.clearfix
+                    .col-sm-6
+                      .form-group.form-group-default
+                        = label_tag :display_name, t('corner.users.activations.show.form.display_name')
+                        = text_field_tag :display_name, @user.display_name, class: "form-control"
+                    .col-sm-6
+                      .form-group.form-group-default.required
+                        = label_tag :cuid_type, t('corner.users.activations.show.form.cuid_type')
+                        .radio.radio-success style="margin-top: 0; margin-bottom: 0"
+                          - if @user.cuid_type.student?
+                            input#cuid_type_student type="radio" checked=true value="student" name="user[cuid_type]"
+                          - else
+                            input#cuid_type_student type="radio" value="student" name="user[cuid_type]"
+                          label for="cuid_type_student" style="display:inline;margin-right: 15px;" = t('corner.users.activations.show.form.cuid_type_student')
+                          - if @user.cuid_type.staff?
+                            input#cuid_type_staff type="radio" checked=true value="staff" name="user[cuid_type]"
+                          - else
+                            input#cuid_type_staff type="radio" value="staff" name="user[cuid_type]"
+                          label for="cuid_type_staff" style="display:inline;margin-right: 15px;" = t('corner.users.activations.show.form.cuid_type_staff')
+                          - if @user.cuid_type.alumni?
+                            input#cuid_type_alumni type="radio" checked=true value="alumni" name="user[cuid_type]"
+                          - else
+                            input#cuid_type_alumni type="radio" value="alumni" name="user[cuid_type]"
+                          label for="cuid_type_alumni" style="display:inline;margin-right: 15px;" = t('corner.users.activations.show.form.cuid_type_alumni')
+                  .row.clearfix
+                    .col-sm-6
+                      .form-group.form-group-default.required
+                        = label_tag :email, t('corner.users.activations.show.form.email')
+                        = email_field_tag :email, @user.email, class: "form-control", required: true
+                    .col-sm-6
+                      .form-group.form-group-default.required
+                        = label_tag :mobile, t('corner.users.activations.show.form.mobile')
+                        = telephone_field_tag :mobile, @user.mobile, class: "form-control", required: true
+                        
+                  .form-group.form-group-default
+                    = label_tag :major, t('corner.users.activations.show.form.major')
+                    select#major.full-width name="major" data-init-plugin="select2"
+                      - User::Faculty.all.each do |faculty|
+                        optgroup label="#{faculty.name_translations[:en]} #{faculty.name_translations[:zh_HK]}"
+                          - faculty.major.all.each do |major|
+                            - if @user.major.code.eql? major.code
+                              option value=major.code selected=true #{major.name_translations[:en]} #{major.name_translations[:zh_HK]}
+                            - else
+                              option value=major.code #{major.name_translations[:en]} #{major.name_translations[:zh_HK]}
+                  .row.clearfix
+                    .col-sm-6
+                      .form-group.form-group-default
+                        = label_tag :year_of_admission, t('corner.users.activations.show.form.year_of_admission')
+                        = text_field_tag :year_of_admission, @user.year_of_admission, class: "form-control"
+                    .col-sm-6
+                      .form-group.form-group-default
+                        = label_tag :year_of_graduation, t('corner.users.activations.show.form.year_of_graduation')
+                        = text_field_tag :year_of_graduation, @user.year_of_graduation, class: "form-control"
+
+                  
+        /Tab 2 - Register CU Link
+        #tab2.tab-pane.padding-20.slide-left
+          .row.row-same-height
+            /Left Side
+            .col-md-5.b-r.b-dashed.b-grey.sm-b-b
+              .padding-30.m-t-50
+                i.fa.fa-user.fa-2x.hint-text
+                h2 = t('corner.users.activations.show.form.tab2_registercard')
+                = simple_format t('corner.users.activations.show.form.tab2_msg')
+                p.small.hint-text = t('corner.users.activations.show.form.tab2_hint')
+            /Right Side
+            .col-md-7
+              .padding-30.m-t-50
+                .form-group-attached
+                  .form-group.form-group-default.required
+                    = label_tag :cu_link_id, t('corner.users.activations.show.form.cu_link_id')
+                    = text_field_tag :cu_link_id, nil, class: "form-control", placeholder: t('corner.users.activations.show.form.cu_link_id_placeholder')
+      .padding-20.bg-white
+        ul.pager.wizard
+          li.next
+            button.btn.btn-primary.btn-cons.btn-animated.from-left.fa.fa-university.pull-right type="button"
+              span = t('corner.users.activations.show.form.button.next')
+          li.next.finish.hidden
+            button.btn.btn-primary.btn-cons.btn-animated.from-left.fa.fa-check-square-o.pull-right type="submit" data-disable-with=t('form.pleasewait')
+              span = t('corner.users.activations.show.form.button.submit')
+          li.previous.first.hidden
+            button.btn.btn-primary.btn-cons.btn-animated.from-left.fa.fa-user.pull-right type="button"
+              span = t('corner.users.activations.show.form.button.first')
+          li.previous
+            button.btn.btn-default.btn-cons.pull-right type="button"
+              span = t('corner.users.activations.show.form.button.previous')

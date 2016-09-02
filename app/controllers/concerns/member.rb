@@ -1,10 +1,10 @@
 module Member
   extend ActiveSupport::Concern
 
-  def activate_member(operator, member, cucardid)
-    member.cu_identity_no = cucardid
+  def activate_member(operator, member, cu_link_id)
+    member.cu_link_id = cu_link_id
     member.activated = true
-    member.activated_at = Time.now
+    member.activated_at = Time.zone.now
     member.save
   end
 

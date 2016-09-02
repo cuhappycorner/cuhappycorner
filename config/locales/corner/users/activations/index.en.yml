@@ -1,0 +1,11 @@
+en:
+  corner:
+    users:
+      activations:
+        index:
+          title: "Activation"
+          guideline: "Please enter the SID / Staff ID of the member."
+          form:
+            cuid: "CUID (Student ID/ Staff ID)"
+            cuid_placeholder: ""
+            submit: "Submit"

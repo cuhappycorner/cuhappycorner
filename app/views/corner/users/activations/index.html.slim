@@ -1,0 +1,21 @@
+- content_for :title do
+  = t('corner.users.activations.index.title')
+
+- content_for :breadcrumb do
+  li
+    p =t('corner.common.shopkeeper')
+  li
+    = link_to t('corner.users.activations.index.title'), {action: "index"}, class: "active"
+.panel-body
+  .row
+    .col-sm-10
+      h3 = t('corner.users.activations.index.guideline')
+      = form_tag({action: "show"}, method: "post", class: "form-horizontal")
+        .form-group
+          = label_tag "cuid", t('corner.users.activations.index.form.cuid'), class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "cuid", nil, required: true, placeholder: t('corner.users.activations.index.form.cuid_placeholder'), class: "form-control"
+        br
+        .row
+          .col-sm-9.col-sm-offset-3
+            = button_tag t('corner.users.activations.index.form.submit'), data: { disable_with: t('form.pleasewait') }, class: "btn btn-success"
