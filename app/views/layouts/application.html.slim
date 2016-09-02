@@ -12,13 +12,14 @@ html
       .page-content-wrapper
         .content
           .jumbotron data-pages="parallax"
-            .inner
-              ul.breadcrumb
-                li
-                  p = t('cuhappycorner')
-                = yield(:breadcrumb)
-                li
-                  a.active href="#" Blank template
+            .container-fluid.container-fixed-lg.sm-p-l-20.sm-p-r-20
+              .inner
+                ul.breadcrumb
+                  li
+                    p = t('cuhappycorner')
+                  = yield(:breadcrumb)
+                  /li
+                    a.active href="#" Blank template
           .container-fluid.container-fixed-lg
             = yield
         = render "shared/footer"
