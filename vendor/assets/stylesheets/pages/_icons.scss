@@ -3,11 +3,11 @@ Pages Icons
 ------------------------------------------------------------------ */
 @font-face {
 	font-family: 'pages-icon';
-	src:url('../fonts/pages-icon/Pages-icon.eot?-u69vo5');
-	src:url('../fonts/pages-icon/Pages-icon.eot?#iefix-u69vo5') format('embedded-opentype'),
-		url('../fonts/pages-icon/Pages-icon.woff?-u69vo5') format('woff'),
-		url('../fonts/pages-icon/Pages-icon.ttf?-u69vo5') format('truetype'),
-		url('../fonts/pages-icon/Pages-icon.svg?-u69vo5#Pages-icon') format('svg');
+	src:font-url('pages-icon/Pages-icon.eot');
+	src:font-url('pages-icon/Pages-icon.eot') format('embedded-opentype'),
+		font-url('pages-icon/Pages-icon.woff') format('woff'),
+		font-url('pages-icon/Pages-icon.ttf') format('truetype'),
+		font-url('pages-icon/Pages-icon.svg') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }

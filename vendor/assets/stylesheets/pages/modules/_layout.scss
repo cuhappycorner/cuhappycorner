@@ -1164,6 +1164,14 @@ $secondary-sidebar-width : 250px;
         font-weight: 300;
         text-shadow: none;
 }
+.breadcrumb li p{
+    font-family: 'Montserrat';
+    font-size: 11px !important;
+    font-weight: 400;
+    color: #7b7d82;
+    margin: 0;
+    display: inline;
+}
 /* Overlay Search 
 ------------------------------------
 */
