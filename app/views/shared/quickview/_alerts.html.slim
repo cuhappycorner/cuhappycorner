@@ -1,0 +1,116 @@
+/! BEGIN Alerts !
+#quickview-alerts.tab-pane.fade.no-padding
+  #alerts.view-port.clearfix
+    /! BEGIN Alerts View !
+    .view.bg-white
+      /! BEGIN View Header !
+      .navbar.navbar-default.navbar-sm
+        .navbar-inner
+          /! BEGIN Header Controler !
+          a.inline.action.p-l-10.link.text-master data-navigate="view" data-view-animation="push-parrallax" data-view-port="#chat" href="javascript:;" 
+            i.pg-more
+          /! END Header Controler !
+          .view-heading
+            | Notications
+          /! BEGIN Header Controler !
+          a.inline.action.p-r-10.pull-right.link.text-master href="#" 
+            i.pg-search
+          /! END Header Controler !
+      /! END View Header !
+      /! BEGIN Alert List !
+      .list-view.boreded.no-top-border data-init-list-view="ioslist" 
+        /! BEGIN List Group !
+        .list-view-group-container
+          /! BEGIN List Group Header!
+          .list-view-group-header.text-uppercase
+            | Calendar
+          /! END List Group Header!
+          ul
+            /! BEGIN List Group Item!
+            li.alert-list
+              /! BEGIN Alert Item Set Animation using data-view-animation !
+              a data-navigate="view" data-view-animation="push-parrallax" data-view-port="#chat" href="javascript:;" 
+              p.col-xs-height.col-middle
+                span.text-warning.fs-10
+                  i.fa.fa-circle
+              p.p-l-10.col-xs-height.col-middle.col-xs-9.overflow-ellipsis.fs-12
+                span.text-master David Nester Birthday
+              p.p-r-10.col-xs-height.col-middle.fs-12.text-right
+                span.text-warning
+                  | Today
+                  br/
+                span.text-master All Day
+              /! END Alert Item!
+              /! BEGIN List Group Item!
+            /! END List Group Item!
+            /! BEGIN List Group Item!
+            li.alert-list
+              /! BEGIN Alert Item Set Animation using data-view-animation !
+              a data-navigate="view" data-view-animation="push-parrallax" data-view-port="#chat" href="#" 
+              p.col-xs-height.col-middle
+                span.text-warning.fs-10
+                  i.fa.fa-circle
+              p.p-l-10.col-xs-height.col-middle.col-xs-9.overflow-ellipsis.fs-12
+                span.text-master Meeting at 2:30
+              p.p-r-10.col-xs-height.col-middle.fs-12.text-right
+                span.text-warning Today
+              /! END Alert Item!
+            /! END List Group Item!
+        /! END List Group !
+        .list-view-group-container
+          /! BEGIN List Group Header!
+          .list-view-group-header.text-uppercase
+            | Social
+          /! END List Group Header!
+          ul
+            /! BEGIN List Group Item!
+            li.alert-list
+              /! BEGIN Alert Item Set Animation using data-view-animation !
+              a.p-t-10.p-b-10 data-navigate="view" data-view-animation="push-parrallax" data-view-port="#chat" href="javascript:;" 
+              p.col-xs-height.col-middle
+                span.text-complete.fs-10
+                  i.fa.fa-circle
+              p.p-l-10.col-xs-height.col-middle.col-xs-12.overflow-ellipsis.fs-12
+                span.text-master.link
+                  | Jame Smith commented on your status
+                  br/
+                span.text-master “Perfection Simplified - Company Revox"
+              /! END Alert Item!
+            /! END List Group Item!
+            /! BEGIN List Group Item!
+            li.alert-list
+              /! BEGIN Alert Item Set Animation using data-view-animation !
+              a.p-t-10.p-b-10 data-navigate="view" data-view-animation="push-parrallax" data-view-port="#chat" href="javascript:;" 
+              p.col-xs-height.col-middle
+                span.text-complete.fs-10
+                  i.fa.fa-circle
+              p.p-l-10.col-xs-height.col-middle.col-xs-12.overflow-ellipsis.fs-12
+                span.text-master.link
+                  | Jame Smith commented on your status
+                  br/
+                span.text-master “Perfection Simplified - Company Revox"
+              /! END Alert Item!
+            /! END List Group Item!
+        .list-view-group-container
+          /! BEGIN List Group Header!
+          .list-view-group-header.text-uppercase
+            | Sever Status
+          /! END List Group Header!
+          ul
+            /! BEGIN List Group Item!
+            li.alert-list
+              /! BEGIN Alert Item Set Animation using data-view-animation !
+              a.p-t-10.p-b-10 data-navigate="view" data-view-animation="push-parrallax" data-view-port="#chat" href="#" 
+              p.col-xs-height.col-middle
+                span.text-danger.fs-10
+                  i.fa.fa-circle
+              p.p-l-10.col-xs-height.col-middle.col-xs-12.overflow-ellipsis.fs-12
+                span.text-master.link
+                  | 12:13AM GTM, 10230, ID:WR174s
+                  br/
+                span.text-master Server Load Exceeted. Take action
+              /! END Alert Item!
+            /! END List Group Item!
+      /! END Alert List !
+    /! EEND Alerts View !
+/! END Alerts !

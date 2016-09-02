@@ -1,0 +1,15 @@
+#quickview.quickview-wrapper data-pages="quickview"
+  ul.nav.nav-tabs
+    li
+      a href="#quickview-notes" data-toggle="tab" Notes
+    li
+      a href="#quickview-alerts" data-toggle="tab" Alerts
+    li.active
+      a href="#quickview-chat" data-toggle="tab" Chat
+  a.btn-link.quickview-toggle data-toggle-element="#quickview" data-toggle="quickview"
+    i.pg-close
+
+  .tab-content
+        = render "shared/quickview/notes"
+        = render "shared/quickview/alerts"
+        = render "shared/quickview/chat"

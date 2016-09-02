@@ -1,0 +1,140 @@
+/! BEGIN Notes !
+#quickview-notes.tab-pane.fade.in.no-padding
+  #note-views.view-port.clearfix.quickview-notes
+    /! BEGIN Note List !
+    #quick-note-list.view.list
+      .toolbar.clearfix
+        ul.pull-right
+          li
+            a.delete-note-link href="#" 
+              i.fa.fa-trash-o
+          li
+            a.new-note-link data-navigate="view" data-view-animation="push" data-view-port="#note-views" href="#" 
+              i.fa.fa-plus
+        button.btn-remove-notes.btn.btn-xs.btn-block.hide
+          i.fa.fa-times
+          | Delete
+      ul
+        /! BEGIN Note Item !
+        li data-noteid="1" 
+          .left
+            /! BEGIN Note Action !
+            .checkbox.check-warning.no-margin
+              input#qncheckbox1 type="checkbox" value="1"
+              label for="qncheckbox1" 
+            /! END Note Action !
+            /! BEGIN Note Preview Text !
+            p.note-preview Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+            /! BEGIN Note Preview Text !
+          /! BEGIN Note Details !
+          .right.pull-right
+            /! BEGIN Note Date !
+            span.date 12/12/14
+            a data-navigate="view" data-view-animation="push" data-view-port="#note-views" href="#" 
+              i.fa.fa-chevron-right
+            /! END Note Date !
+          /! END Note Details !
+        /! END Note List !
+        /! BEGIN Note Item !
+        li data-noteid="2" 
+          .left
+            /! BEGIN Note Action !
+            .checkbox.check-warning.no-margin
+              input#qncheckbox2 type="checkbox" value="1" /
+              label for="qncheckbox2" 
+            /! END Note Action !
+            /! BEGIN Note Preview Text !
+            p.note-preview Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+            /! BEGIN Note Preview Text !
+          /! BEGIN Note Details !
+          .right.pull-right
+            /! BEGIN Note Date !
+            span.date 12/12/14
+            a href="#" 
+              i.fa.fa-chevron-right
+            /! END Note Date !
+          /! END Note Details !
+        /! END Note List !
+        /! BEGIN Note Item !
+        li data-noteid="2" 
+          .left
+            /! BEGIN Note Action !
+            .checkbox.check-warning.no-margin
+              input#qncheckbox3 type="checkbox" value="1" /
+              label for="qncheckbox3" 
+            /! END Note Action !
+            /! BEGIN Note Preview Text !
+            p.note-preview Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+            /! BEGIN Note Preview Text !
+          /! BEGIN Note Details !
+          .right.pull-right
+            /! BEGIN Note Date !
+            span.date 12/12/14
+            a href="#" 
+              i.fa.fa-chevron-right
+            /! END Note Date !
+          /! END Note Details !
+        /! END Note List !
+        /! BEGIN Note Item !
+        li data-noteid="3" 
+          .left
+            /! BEGIN Note Action !
+            .checkbox.check-warning.no-margin
+              input#qncheckbox4 type="checkbox" value="1" /
+              label for="qncheckbox4" 
+            /! END Note Action !
+            /! BEGIN Note Preview Text !
+            p.note-preview Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+            /! BEGIN Note Preview Text !
+          /! BEGIN Note Details !
+          .right.pull-right
+            /! BEGIN Note Date !
+            span.date 12/12/14
+            a href="#" 
+              i.fa.fa-chevron-right
+            /! END Note Date !
+          /! END Note Details !
+        /! END Note List !
+        /! BEGIN Note Item !
+        li data-noteid="4" 
+          .left
+            /! BEGIN Note Action !
+            .checkbox.check-warning.no-margin
+              input#qncheckbox5 type="checkbox" value="1" /
+              label for="qncheckbox5" 
+            /! END Note Action !
+            /! BEGIN Note Preview Text !
+            p.note-preview Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+            /! BEGIN Note Preview Text !
+          /! BEGIN Note Details !
+          .right.pull-right
+            /! BEGIN Note Date !
+            span.date 12/12/14
+            a href="#" 
+              i.fa.fa-chevron-right
+            /! END Note Date !
+          /! END Note Details !
+        /! END Note List !
+    /! END Note List !
+    #quick-note.view.note
+      div
+        ul.toolbar
+          li
+            a.close-note-link href="#" 
+              i.pg-arrow_left
+          li
+            a data-action="Bold" href="#" 
+              i.fa.fa-bold
+          li
+            a data-action="Italic" href="#" 
+              i.fa.fa-italic
+          li
+            a href="#" 
+              i.fa.fa-link
+        .body
+          div
+            .top
+              span 21st april 2014 2:13am
+            .content
+              .quick-note-editor.full-width.full-height.js-input contenteditable="true" 
+/! END Notes !

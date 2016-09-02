@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+    = render "shared/meta"
+    title #{yield(:title)} - #{t('cuhappycorner')}
+    meta name="description" content=""
+    = stylesheet_link_tag "application", media: "all"
+  body.fixed-header
+    = render "shared/sidepanel"
+    .page-container
+      = render "shared/header"
+      .page-content-wrapper
+        .content
+          .jumbotron data-pages="parallax"
+            .inner
+              ul.breadcrumb
+                li
+                  p = t('cuhappycorner')
+                = yield(:breadcrumb)
+                li
+                  a.active href="#" Blank template
+          .container-fluid.container-fixed-lg
+            = yield
+        = render "shared/footer"
+    / = render "shared/quickview"
+    / = render "shared/overlay"
+  = javascript_include_tag "application"
