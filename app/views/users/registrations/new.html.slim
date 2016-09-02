@@ -4,12 +4,15 @@ html
     = render "shared/meta"
     title #{t('users.registrations.new.title')} - #{t('cuhappycorner')}
     meta name="description" content=""
-    = csrf_meta_tags
     = stylesheet_link_tag "application", media: "all"
   body.fixed-header
+    .jumbotron.no-margin data-pages="parallax"
+      .container-fluid.container-fixed-lg.sm-p-l-20.sm-p-r-20
+        .inner style="transform: translateY(0px); opacity: 1;"
+          h3 =t('users.registrations.new.title')
     .container-fluid.container-fixed-lg.sm-p-t-30
       = simple_form_for resource, as:resource, url:registration_path(resource_name), wrapper: :form_wizard do |f|
-        #rootwizard.m-t-50
+        #rootwizard.m-t-20
           ul.nav.nav-tabs.nav-tabs-linetriangle.nav-tabs-separator.nav-stack-sm
             li.active
               a data-toggle="tab" href="#tab1"
