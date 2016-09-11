@@ -22,5 +22,8 @@
 en:
   cuhappycorner: "CU Happy Corner"
   hello: "Hello world"
+  error:
+    notauthorized: "You are not authorized to perform this action."
+
   form:
     pleasewait: "Please wait..."
