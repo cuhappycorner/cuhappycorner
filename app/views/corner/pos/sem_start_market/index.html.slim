@@ -1,0 +1,235 @@
+- content_for :title do
+  = "Market for the Start of Semester"
+
+- content_for :breadcrumb do
+  li
+    p =t('corner.common.shopkeeper')
+  li
+    = link_to "Market for the Start of Semester", {action: "index"}, class: "active"
+
+.panel.panel-transparent
+  .panel-body
+    .row
+      .col-md-4
+        .panel.panel-default.bg-success
+          .panel-heading.separator
+            .panel-title Member Information
+            .panel-body
+              p.text-black.hint-text Either CU Link Card/CUID is OK
+              .input-group
+                input#cu_link_id_check.form-control type="text" placeholder="Press CU Link onto the Card Reader"
+                span.input-group-btn
+                  button#cu_link_button.btn.btn-default type="button" Enter
+              .input-group
+                input#cuid_check.form-control type="text" placeholder="Student/Staff ID"
+                span.input-group-btn
+                  button#cuid_button.btn.btn-default type="button" Enter
+
+    .panel.panel-default
+      .panel-heading.separator
+        .panel-title Transaction
+        .panel-body
+          = form_tag({action: "create"}, method: "post") do
+            .form-group
+              = label_tag "cuid2", "CUID", class: "col-sm-3 control-label"
+              .col-sm-9
+                = text_field_tag "cuid2", nil, disabled: true, class: "form-control", id: "cuid2"
+            input#cuid type="hidden" name="cuid" value=""
+            .form-group
+              = label_tag "credit_remained", "User Account Balance", class: "col-sm-3 control-label"
+              .col-sm-9
+                = text_field_tag "credit_remained", nil, disabled: true, class: "form-control", id: "credit_remained"
+            .form-group
+              = label_tag "total_credit_needed", "Total Credit Needed", class: "col-sm-3 control-label"
+              .col-sm-9
+                = text_field_tag "total_credit_needed", nil, disabled: true, class: "form-control", id: "total_credit_needed"
+            .form-group
+              = label_tag "grp1_no", "No. of Group 1 item (3 credit)", class: "col-sm-3 control-label"
+              .col-sm-9
+                = text_field_tag "grp1_no", "0", class: "form-control", disabled: true
+            .form-group
+              = label_tag "grp2_no", "No. of Group 2 item (5 credit)", class: "col-sm-3 control-label"
+              .col-sm-9
+                = text_field_tag "grp2_no", "0", class: "form-control", disabled: true
+            .form-group
+              = label_tag "grp3_no", "No. of Group 3 item (10 credit)", class: "col-sm-3 control-label"
+              .col-sm-9
+                = text_field_tag "grp3_no", "0", class: "form-control", disabled: true
+            .form-group
+              = label_tag "grp4_no", "No. of Group 4 item (20 credit)", class: "col-sm-3 control-label"
+              .col-sm-9
+                = text_field_tag "grp4_no", "0", class: "form-control", disabled: true
+            .form-group
+              = label_tag "grp5_no", "No. of Group 5 item (50 credit)", class: "col-sm-3 control-label"
+              .col-sm-9
+                = text_field_tag "grp5_no", "0", class: "form-control", disabled: true
+
+            br
+            .row
+              .col-sm-9.col-sm-offset-3
+                = button_tag "Submit", data: { disable_with: t('form.pleasewait') }, class: "btn btn-success", disabled: true, id: "submit"
+
+
+
+javascript:
+  document.addEventListener("turbolinks:load", function() {
+    $("#cu_link_button").click(function(){
+      $.getJSON('/corner/pos/sem_start_market/get_user_status',{cu_link_id: $('#cu_link_id_check').val()},  function(data) {
+        if (data.exist == false) {
+          $('body').pgNotification({
+            style: 'flip',
+            message: 'Account Not Existed!',
+            position: 'top-right',
+            timeout: 8000,
+            type: 'danger'
+          }).show();
+        } else if (data.activated == false) {
+          $('body').pgNotification({
+            style: 'flip',
+            message: 'Account Not Activated! Please activate first!',
+            position: 'top-right',
+            timeout: 8000,
+            type: 'danger'
+          }).show();
+        } else {
+          $('body').pgNotification({
+            style: 'flip',
+            message: 'Account OK!',
+            position: 'top-right',
+            timeout: 8000,
+            type: 'success'
+          }).show();
+          $('#cuid').val(data.cuid);
+          $('#cuid2').val(data.cuid);
+          $('#credit_remained').val(data.balance);
+          $("#grp1_no").removeAttr("disabled");
+          $("#grp2_no").removeAttr("disabled");
+          $("#grp3_no").removeAttr("disabled");
+          $("#grp4_no").removeAttr("disabled");
+          $("#grp5_no").removeAttr("disabled");
+        }
+      });
+    });
+    $("#cuid_button").click(function(){
+      $.getJSON('/corner/pos/sem_start_market/get_user_status',{cuid: $('#cuid_check').val()},  function(data) {
+        if (data.exist == false) {
+          $('body').pgNotification({
+            style: 'flip',
+            message: 'Account Not Existed!',
+            position: 'top-right',
+            timeout: 8000,
+            type: 'danger'
+          }).show();
+        } else if (data.activated == false) {
+          $('body').pgNotification({
+            style: 'flip',
+            message: 'Account Not Activated! Please activate first!',
+            position: 'top-right',
+            timeout: 8000,
+            type: 'danger'
+          }).show();
+        } else {
+          $('body').pgNotification({
+            style: 'flip',
+            message: 'Account OK!',
+            position: 'top-right',
+            timeout: 8000,
+            type: 'success'
+          }).show();
+          $('#cuid2').val(data.cuid);
+          $('#cuid').val(data.cuid);
+          $('#credit_remained').val(data.balance);
+          $("#grp1_no").removeAttr("disabled");
+          $("#grp2_no").removeAttr("disabled");
+          $("#grp3_no").removeAttr("disabled");
+          $("#grp4_no").removeAttr("disabled");
+          $("#grp5_no").removeAttr("disabled");
+        }
+      });
+    });
+    $("#grp1_no").change(function() {
+      temp = parseInt($("#grp1_no").val())*3+parseInt($("#grp2_no").val())*5+parseInt($("#grp3_no").val())*10+parseInt($("#grp4_no").val())*20+parseInt($("#grp5_no").val())*50;
+      $("#total_credit_needed").val(temp.toString());
+      if ((temp > parseInt($('#credit_remained').val()))||(temp == 0)) {
+        $('body').pgNotification({
+          style: 'flip',
+          message: 'Not enough balance!',
+          position: 'top-right',
+          timeout: 8000,
+          type: 'danger'
+        }).show();
+        $("#submit").attr("disabled", true);
+      } else if (!isNaN(temp)){
+        $("#submit").removeAttr("disabled");
+      }
+    });
+
+    $("#grp2_no").change(function() {
+      temp = parseInt($("#grp1_no").val())*3+parseInt($("#grp2_no").val())*5+parseInt($("#grp3_no").val())*10+parseInt($("#grp4_no").val())*20+parseInt($("#grp5_no").val())*50;
+      $("#total_credit_needed").val(temp.toString());
+      if ((temp > parseInt($('#credit_remained').val()))||(temp == 0)) {
+        $('body').pgNotification({
+          style: 'flip',
+          message: 'Not enough balance!',
+          position: 'top-right',
+          timeout: 8000,
+          type: 'danger'
+        }).show();
+        $("#submit").attr("disabled", true);
+      } else if (!isNaN(temp)){
+        $("#submit").removeAttr("disabled");
+      }
+    });
+
+    $("#grp3_no").change(function() {
+      temp = parseInt($("#grp1_no").val())*3+parseInt($("#grp2_no").val())*5+parseInt($("#grp3_no").val())*10+parseInt($("#grp4_no").val())*20+parseInt($("#grp5_no").val())*50;
+      $("#total_credit_needed").val(temp.toString());
+      if ((temp > parseInt($('#credit_remained').val()))||(temp == 0)) {
+        $('body').pgNotification({
+          style: 'flip',
+          message: 'Not enough balance!',
+          position: 'top-right',
+          timeout: 8000,
+          type: 'danger'
+        }).show();
+        $("#submit").attr("disabled", true);
+      } else if (!isNaN(temp)){
+        $("#submit").removeAttr("disabled");
+      }
+    });
+
+    $("#grp4_no").change(function() {
+      temp = parseInt($("#grp1_no").val())*3+parseInt($("#grp2_no").val())*5+parseInt($("#grp3_no").val())*10+parseInt($("#grp4_no").val())*20+parseInt($("#grp5_no").val())*50;
+      $("#total_credit_needed").val(temp.toString());
+      if ((temp > parseInt($('#credit_remained').val()))||(temp == 0)) {
+        $('body').pgNotification({
+          style: 'flip',
+          message: 'Not enough balance!',
+          position: 'top-right',
+          timeout: 8000,
+          type: 'danger'
+        }).show();
+        $("#submit").attr("disabled", true);
+      } else if (!isNaN(temp)){
+        $("#submit").removeAttr("disabled");
+      }
+    });
+
+    $("#grp5_no").change(function() {
+      temp = parseInt($("#grp1_no").val())*3+parseInt($("#grp2_no").val())*5+parseInt($("#grp3_no").val())*10+parseInt($("#grp4_no").val())*20+parseInt($("#grp5_no").val())*50;
+      $("#total_credit_needed").val(temp.toString());
+      if ((temp > parseInt($('#credit_remained').val()))||(temp == 0)) {
+        $('body').pgNotification({
+          style: 'flip',
+          message: 'Not enough balance!',
+          position: 'top-right',
+          timeout: 8000,
+          type: 'danger'
+        }).show();
+        $("#submit").attr("disabled", true);
+      } else if (!isNaN(temp)){
+        $("#submit").removeAttr("disabled");
+      }
+    });
+  });
+
