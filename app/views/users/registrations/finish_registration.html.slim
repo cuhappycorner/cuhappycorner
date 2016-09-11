@@ -1,0 +1,29 @@
+doctype html
+html
+  head
+    = render "shared/meta"
+    title #{t('users.registrations.new.title')} - #{t('cuhappycorner')}
+    meta name="description" content=""
+    = stylesheet_link_tag "application", media: "all"
+  body.fixed-header
+    .container-xs-height.full-height
+      .jumbotron.no-margin data-pages="parallax"
+        .container-fluid.container-fixed-lg.sm-p-l-20.sm-p-r-20
+          .inner style="transform: translateY(0px); opacity: 1;"
+            h3 =t('users.registrations.new.title')
+      
+      .row-xs-height
+        .col-xs-height.col-middle
+          .error-container.text-center
+            h1.error-number 
+              = ":)"
+            h2.semi-bold Welcome!
+            p Thank you for your registration. 
+            p 
+              | You have signed up successfully but your account has not been activated yet. 
+              br 
+              | Don't forget to come to Our Physical Shop at LG/F Fulton for activation.
+            p See you there!
+
+      = render "shared/footer"
+  = javascript_include_tag "application"
