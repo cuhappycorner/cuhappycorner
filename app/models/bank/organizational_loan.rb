@@ -6,8 +6,8 @@ class Bank::OrganizationalLoan < Bank::Loan
   field :remark, type: String
 
   # Status
-  field :status, type: Integer, default: 0 #0:Pending, 1:Rejected, 2:Approved, 3:Repaid, 4:Bad debt
-  field :flag, type: Integer, default: 0 #0:Normal, 1: Can't Repay Interest, 2: Overdue Loan, 3:Can't Repay Interest+Overdue Loan
+  field :status, type: Integer, default: 0 #0:Pending, 1:Rejected, 2:Approved, 3:Fully Repaid, 4:Bad debt
+  field :flag, type: Integer, default: 0 #0:Normal, 1: Can't Repay Interest, 2: Loan Overdued , 3:Can't Repay Interest+Overdue Loan
 
   # Decided by Banker
   field :loan_drawdown_date, type: Date
@@ -19,7 +19,7 @@ class Bank::OrganizationalLoan < Bank::Loan
   field :amount_relieved, type: Integer, default: 0
   field :amount_repaid, type: Integer, default: 0
 
-  belongs_to :loan_account, class_name: "Bank::LoanAccount", inverse_of: :loan
+  has_one :loan_account, class_name: "Bank::LoanAccount", inverse_of: :loan
   has_many :record, class_name: "Bank::LoanRecord", inverse_of: :loan
 
   ## Transaction Module

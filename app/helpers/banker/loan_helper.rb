@@ -1,0 +1,2 @@
+module Banker::LoanHelper
+end

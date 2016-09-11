@@ -1,0 +1,86 @@
+- content_for :title do
+  = t('banker.organizational_loan.show.title')
+
+- content_for :breadcrumb do
+  li
+    p =t('banker.common.banker')
+  li
+    = link_to t('banker.organizational_loan.show.title'), {action: "index"}, class: "active"
+
+.container-fluid.full-height.no-padding
+  .row.full-height.no-margin
+    .col-md-6.no-padding.b-r.b-grey.full-height
+      .panel.panel-default.bg-white.full-height
+        .panel-body
+          h2 Loan
+          p Loan No.: #{@loan.number}
+          p Organization:  #{@loan.borrower_account.owner.name}
+          p Amount: #{@loan.amount}
+          p No. of Instalment: #{@loan.no_of_instalment}
+          p Drawdown Date: #{@loan.loan_drawdown_date if @loan.loan_drawdown_date != nil}
+          p 
+            | Status: 
+            - case @loan.status
+              - when 0
+                | Pending
+              - when 1
+                | Rejected
+              - when 2
+                | Approved
+              - when 3
+                | Fully Repaid
+              - when 4
+                | Bad debt
+          p 
+            | Flag: 
+            - case @loan.flag
+              - when 0
+                | Normal
+              - when 1
+                | Can't Repay Interest
+              - when 2
+                | Loan Overdued
+              - when 3
+                | Can't Repay Interest + Loan Overdued
+          p Apply Reason: #{@loan.remark}
+    .col-md-6.no-padding.full-height
+      .bg-white.full-height
+        - if @loan.status == 0
+          .panel.panel-default.bg-success
+            .panel-heading.separator
+              .panel-title
+                | Approve
+            .panel-body
+              = form_tag({action: "update"}, method: "put", class: "form-horizontal")
+                = hidden_field_tag 'loan_no', @loan.number
+                = hidden_field_tag 'approve', 'true'
+                .form-group
+                  = label_tag "interest_rate", "Interest Rate", class: "col-sm-3 control-label"
+                  .col-sm-9
+                    = text_field_tag "interest_rate", nil, required: true, placeholder: "e.g 5.01 (=5.01%)", class: "form-control"
+                .form-group
+                  = label_tag "reason", "Reason", class: "col-sm-3 control-label"
+                  .col-sm-9
+                    = text_field_tag "reason", nil, required: true, placeholder: "can be empty", class: "form-control"
+                br
+                .row
+                  .col-sm-9.col-sm-offset-3
+                    = button_tag "Approve & Drawdown", data: { disable_with: t('form.pleasewait') }, class: "btn btn-danger"
+          .panel.panel-default.bg-warning
+            .panel-heading.separator
+              .panel-title
+                | Reject
+            .panel-body
+              = form_tag({action: "update"}, method: "put", class: "form-horizontal")
+                = hidden_field_tag 'loan_no', @loan.number
+                = hidden_field_tag 'approve', 'false'
+                .form-group
+                  = label_tag "reason", "Reason", class: "col-sm-3 control-label"
+                  .col-sm-9
+                    = text_field_tag "reason", nil, required: true, placeholder: "can be empty", class: "form-control"
+                br
+                .row
+                  .col-sm-9.col-sm-offset-3
+                    = button_tag "Reject", data: { disable_with: t('form.pleasewait') }, class: "btn btn-danger"
+
+

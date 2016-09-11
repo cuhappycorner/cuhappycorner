@@ -1,0 +1,73 @@
+- content_for :title do
+  = t('banker.organizational_loan.index.title')
+
+- content_for :breadcrumb do
+  li
+    p =t('banker.common.banker')
+  li
+    = link_to t('banker.organizational_loan.index.title'), {action: "index"}, class: "active"
+
+/! START CONTAINER FLUID
+.container-fluid.container-fixed-lg.bg-white
+  /! START PANEL
+  .panel.panel-transparent
+    .panel-heading
+      .panel-title
+        | Organizational Loans
+      .clearfix
+    .panel-body
+      .table-responsive
+        table#basicTable.table.table-hover
+          thead
+            tr
+              th style="width:15%" Loan No.
+              th style="width:15%" Organization
+              th style="width:15%" Amount
+              th style="width:10%" No. of Instalment 
+              th style="width:15%" Drawdown Date
+              th style="width:10%" Status
+              th style="width:10%" Flag
+              th style="width:10%" Detail
+          tbody
+            - @loans.each do |loan|
+              tr
+                td.v-align-middle
+                  p = loan.number
+                td.v-align-middle
+                  p = loan.borrower_account.owner.name
+                td.v-align-middle
+                  p = loan.amount
+                td.v-align-middle
+                  p = loan.no_of_instalment
+                td.v-align-middle
+                  p = loan.loan_drawdown_date if loan.loan_drawdown_date != nil
+                td.v-align-middle
+                  p 
+                    - case loan.status
+                      - when 0
+                        | Pending
+                      - when 1
+                        | Rejected
+                      - when 2
+                        | Approved
+                      - when 3
+                        | Fully Repaid
+                      - when 4
+                        | Bad debt
+                td.v-align-middle
+                  p 
+                    - case loan.flag
+                      - when 0
+                        | Normal
+                      - when 1
+                        | Can't Repay Interest
+                      - when 2
+                        | Loan Overdued
+                      - when 3
+                        | Can't Repay Interest + Loan Overdued
+                td.v-align-middle
+                  p
+                    = link_to "Show", action:'show', loan_no: loan.number
+
+  /! END PANEL
+/! END CONTAINER FLUID

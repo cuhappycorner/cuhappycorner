@@ -1,0 +1,31 @@
+- content_for :title do
+  = "Apply Loan - Organizational Loan - "+ @account.owner.name + " - Bank"
+
+- content_for :breadcrumb do
+  li
+    p ="Bank"
+  li
+    = link_to "Organizational Loan", {action: "index"}, class: "active"
+
+.panel-body
+  .row
+    .col-sm-10
+      h3 = "Please fill in the Loan Application Form"
+      = form_tag({action: "create"}, method: "post", class: "form-horizontal")
+        = hidden_field_tag(:account_no, @account.number)
+        .form-group
+          = label_tag "amount", "Amount", class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "amount", nil, required: true, class: "form-control"
+        .form-group
+          = label_tag "no_of_instalment", "No of Instalment", class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "no_of_instalment", nil, required: true, class: "form-control"
+        .form-group
+          = label_tag "reason", "Reason", class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "reason", nil, required: true, class: "form-control"
+        br
+        .row
+          .col-sm-9.col-sm-offset-3
+            = button_tag "Submit", data: { disable_with: t('form.pleasewait') }, class: "btn btn-success"
