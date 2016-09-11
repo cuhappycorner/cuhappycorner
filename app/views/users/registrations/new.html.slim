@@ -11,8 +11,8 @@ html
         .inner style="transform: translateY(0px); opacity: 1;"
           h3 =t('users.registrations.new.title')
     .container-fluid.container-fixed-lg.sm-p-t-30
-      = simple_form_for resource, as:resource, url:registration_path(resource_name), wrapper: :form_wizard do |f|
-        #rootwizard.m-t-20
+      = simple_form_for resource, as:resource, url:registration_path(resource_name), wrapper: :form_wizard, html: { id: "new_user" } do |f|
+        #rootwizard_new_member.m-t-20
           ul.nav.nav-tabs.nav-tabs-linetriangle.nav-tabs-separator.nav-stack-sm
             li.active
               a data-toggle="tab" href="#tab1"
@@ -127,8 +127,8 @@ html
                   .padding-30.m-t-40
                     .form-group-attached
                       = f.input :email, as: :email, label: t('users.registrations.new.form.email'), required: true, placeholder: t('users.registrations.new.form.email_placeholder')
-                      = f.input :password, as: :password, label: t('users.registrations.new.form.password'), placeholder: t('users.registrations.new.form.password_placeholder'), required: true
-                      = f.input :password_confirmation, as: :password, label: t('users.registrations.new.form.password_confirmation'), placeholder: t('users.registrations.new.form.password_confirmation_placeholder'), required: true
+                      = f.input :password, as: :password, label: t('users.registrations.new.form.password'), placeholder: t('users.registrations.new.form.password_placeholder'), required: true, input_html: { :minlength => 8 }
+                      = f.input :password_confirmation, as: :password, label: t('users.registrations.new.form.password_confirmation'), placeholder: t('users.registrations.new.form.password_confirmation_placeholder'), required: true, input_html: { :minlength => 8 }
 
             #tab4.tab-pane.padding-20.slide-left
               .padding-30
@@ -149,5 +149,9 @@ html
               li.previous
                 button.btn.btn-default.btn-cons.pull-right type="button"
                   span = t('users.registrations.new.form.button.previous')
+
     = render "shared/footer"
   = javascript_include_tag "application"
+
+  / javascript:
+    
