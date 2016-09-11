@@ -4,3 +4,7 @@ class Organization < Entity
   ## Bank System
   has_many :account, class_name: "Bank::OrganizationalAccount", inverse_of: :owner
 end
+
+class HappyCorner < Organization
+
+end
