@@ -1,0 +1,3 @@
+class Guest < Entity
+
+end
