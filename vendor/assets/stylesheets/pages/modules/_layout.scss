@@ -384,10 +384,11 @@ body {
                         width: 65%;
                     }
                     & > .details{
+                        float: left;
                         font-size: 12px;
                         opacity: 0.4;
-                        display: block;
-                        clear: both;
+                        //display: block;
+                        //clear: both;
                     }
                     &.detailed{
                         & > .title{
