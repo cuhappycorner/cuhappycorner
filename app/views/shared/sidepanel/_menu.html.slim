@@ -1,27 +1,101 @@
 ul.menu-items
   li.m-t-30
-    a.detailed href="index.html"
-      span.title Dashboard
-      span.details 12 New Updates
+    a href=root_url
+      span.title Home
+      /span.details 12 New Updates
     span.bg-success.icon-thumbnail
       i.pg-home
-  li
+  /li
+    a href="javascript:;"
+      span.title Bank
+    span.icon-thumbnail
+      i.pg-mail
+    ul.sub-menu
+      li
+        a href="javascript:;" Account
+        span.icon-thumbnail c
+      li
+        a href="javascript:;" Transaction
+        span.icon-thumbnail c
+      li
+        a href="javascript:;" Loan
+        span.icon-thumbnail c
+  /li
+    a href="index.html"
+      span.title Jobs
+      /span.details 12 New Updates
+    span.bg-success.icon-thumbnail
+      i.pg-home
+  /li
     a.detailed href="http://pages.revox.io/dashboard/latest/html/widget.html"
       span.title Widgets
       span.details 22 items
     span.icon-thumbnail W
-  li
-    a.detailed href="email.html"
-      span.title Email
-      span.details 234 New Emails
+
+  /Shopkeeper
+  - if current_user.role.include? Role.find_by(name:"shopkeeper")
+    li
+      a.detailed href="javascript:;"
+        span.title Shopkeeper
+        span.arrow
+        span.details Authorized Only
+      span.icon-thumbnail
+        i.pg-mail
+      ul.sub-menu
+        li
+          a href="javascript:;" Member
+          span.icon-thumbnail c
+          ul.sub-menu
+            li
+              = link_to t("corner.users.activations.index.title"), {:controller => "/corner/users/activations", :action => :index}
+              span.icon-thumbnail Sm
+            li
+              = link_to "Loan", {:controller => "/corner/loan/loan", :action => :index}
+              span.icon-thumbnail Sm
+            /li
+              a href="ujavascript:;"  NOT OPENED
+              span.icon-thumbnail Sm
+        li
+          a href="javascript:;" POS System
+          span.icon-thumbnail c
+          ul.sub-menu
+            li
+              = link_to "SemStartMarket", {:controller => "/corner/pos/sem_start_market"}
+              span.icon-thumbnail Sm
+
+
+  /li
+    a.detailed href="javascript:;"
+      span.title Management Committee
+      span.details Authorized Only
     span.icon-thumbnail
       i.pg-mail
-  li
+  - if current_user.role.include? Role.find_by(name:"banker")
+    li
+      a.detailed href="javascript:;"
+        span.title Banker
+        span.arrow
+        span.details Authorized Only
+      span.icon-thumbnail
+        i.pg-mail
+      ul.sub-menu
+        li
+          / a href="javascript:;" Loan
+          = link_to "Loan", {:controller => "/banker/organizational_loan", :action => :index}
+          span.icon-thumbnail $
+  /li
+    a.detailed href="javascript:;"
+      span.title Admin
+      span.details Authorized Only
+    span.icon-thumbnail
+      i.pg-mail
+
+/  li
     a href="social.html"
       span.title Social
     span.icon-thumbnail
       i.pg-social
-  li.open.active
+/\  li.open.active
     a href="javascript:;"
       span.title Calendar
       span.arrow
