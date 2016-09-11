@@ -1,0 +1,2 @@
+module Bank::AccountHelper
+end
