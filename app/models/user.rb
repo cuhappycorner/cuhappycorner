@@ -61,15 +61,19 @@ class User < Entity
   has_one :account, class_name: "Bank::IndividualAccount", inverse_of: :owner
   has_and_belongs_to_many :organizational_account, class_name: "Bank::OrganizationalAccount", inverse_of: :authorized_person
 
+  ## Corner System - Loan Module
+  has_many :individual_loan, class_name: "Corner::Loan::Loan", inverse_of: :member
+  field :individual_loan_amount,  type: Integer, default: 0
+
   ## Member System - Activation Module
 
   ## Activatable
   field :activated_at,         type: Time
   field :activated,            type: Boolean, default: false
 
-  validates :mobile, uniqueness: true, presence: true
+  # validates :mobile, uniqueness: true, presence: true
   validates :cuid,  uniqueness: true, presence: true
-  validates :cu_link_id,  uniqueness: true
+  # validates :cu_link_id,  uniqueness: true
 
 
   def self.new_with_session(params, session)

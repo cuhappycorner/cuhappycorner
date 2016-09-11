@@ -1,0 +1,25 @@
+- content_for :title do
+  = "Individual Loan"
+
+- content_for :breadcrumb do
+  li
+    p =t('corner.common.shopkeeper')
+  li
+    = link_to "Individual Loan", {action: "index"}, class: "active"
+.panel-body
+  .row
+    .col-sm-10
+      h3 = "Please either press his/her CU Link Card or enter his/her CUID (Student/Staff ID)"
+      = form_tag({action: "show"}, method: "post", class: "form-horizontal")
+        .form-group
+          = label_tag "cu_link_id", "CU Link ID", class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "cu_link_id", nil, placeholder: "Press the CU Link here.", class: "form-control"
+        .form-group
+          = label_tag "cuid", "CUID", class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "cuid", nil, placeholder: "Student / Staff ID", class: "form-control"
+        br
+        .row
+          .col-sm-9.col-sm-offset-3
+            = button_tag "Submit", data: { disable_with: t('form.pleasewait') }, class: "btn btn-success"

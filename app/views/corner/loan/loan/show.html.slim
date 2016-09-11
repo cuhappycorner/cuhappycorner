@@ -1,0 +1,79 @@
+- content_for :title do
+  = "Individual Loan"
+
+- content_for :breadcrumb do
+  li
+    p =t('corner.common.shopkeeper')
+  li
+    = link_to "Individual Loan", {action: "index"}, class: "active"
+
+.container-fluid.full-height.no-padding
+  .row.full-height.no-margin
+    .col-md-9.no-padding.b-r.b-grey.full-height
+      .bg-white.full-height
+        .table-responsive
+          table#basicTable.table.table-hover
+            thead
+              tr
+                th style="width:10%" Loan No.
+                th style="width:10%" Member
+                th style="width:5%" Amount
+                th style="width:5%" Repayed Amount
+                th style="width:10%" Date of Borrowing
+                th style="width:10%" Deadline
+                th style="width:10%" Status
+                th style="width:30%" Repay
+            tbody
+              - @loans.each do |loan|
+                tr
+                  td.v-align-middle
+                    p = loan.number
+                  td.v-align-middle
+                    p = loan.member.name
+                  td.v-align-middle
+                    p = loan.amount
+                  td.v-align-middle
+                    p = loan.repayed_amount
+                  td.v-align-middle
+                    p = loan.created_at
+                  td.v-align-middle
+                    p = loan.deadline
+                  td.v-align-middle
+                    p 
+                      - case loan.status
+                        - when 1
+                          | Approved
+                        - when 2
+                          | Fully Repaid
+                        - when 3
+                          | Bad debt
+                  td.v-align-middle
+                    p
+                      - if loan.status == 1
+                        = form_tag({action: "update"}, method: "put", class: "input-group")
+                          input.form-control name="amount" type="text" placeholder="Repay amount"
+                          = hidden_field_tag 'loan_no', loan.number
+                          = hidden_field_tag 'cuid', loan.member.cuid
+                          span.input-group-btn
+                            = button_tag "Rapay", data: { disable_with: t('form.pleasewait') }, class: "btn btn-default"
+
+    .col-md-3.no-padding.full-height
+      .bg-white.full-height
+        .panel.panel-default.bg-success
+          .panel-heading.separator
+            .panel-title
+              | Borrow
+          .panel-body
+            h3
+              |Quota remained: 
+              = 300 - @loan_amount
+            = form_tag({action: "create"}, method: "put", class: "form-horizontal")
+              = hidden_field_tag 'cuid', @cuid
+              .form-group
+                = label_tag "amount", "Amount", class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "amount", nil, required: true, placeholder: "", class: "form-control"
+              br
+              .row
+                .col-sm-9.col-sm-offset-3
+                  = button_tag "Borrow", data: { disable_with: t('form.pleasewait') }, class: "btn btn-danger"
