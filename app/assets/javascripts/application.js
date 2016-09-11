@@ -21,6 +21,7 @@
 //= require ioslist/dist/js/jquery.ioslist.js
 //= require jquery.actual
 //= require jquery.scrollbar
+//= require jquery-validation
 //= require turbolinks
 //= require pages/pages
 //= require_tree
