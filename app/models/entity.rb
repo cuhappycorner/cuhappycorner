@@ -1,7 +1,7 @@
 class Entity
   include Mongoid::Document
   include Mongoid::Token
-
+  
   token :pattern => "ID-%C%C-%d%d%d-%d%d%d", :field_name => :number
 
   field :name, localize: true
@@ -11,6 +11,9 @@ class Entity
 
   ## Bank System - Transaction Module
   has_many :operated_bank_transaction, class_name: "Bank::Transaction", inverse_of: :operator
+
+  ## Corner System - Transaction Module
+  has_many :operated_corner_transaction, class_name: "Corner::Account::Transaction", inverse_of: :operator
 
 end
 
