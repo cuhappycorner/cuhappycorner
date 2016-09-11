@@ -1,0 +1,76 @@
+- content_for :title do
+  = "Account Overview"
+
+- content_for :breadcrumb do
+  li
+    = link_to "Account Overview", {action: "index"}, class: "active"
+
+.panel.panel-transparent
+  .panel-heading
+    .panel-title
+      | Bank
+  .panel-body
+    .col-md-4.no-padding
+      .p-r-30
+        h3 Account Overview
+        br/
+        p You can find out the balance of your account here.
+        br/
+        /.inline
+          p.small.hint-text
+            | abc
+            br/
+            a href="linke" 
+              | ABC
+    .col-md-8
+      .panel.panel-transparent
+        .panel-body
+          /! Nav tabs
+          ul.nav.nav-tabs.nav-tabs-linetriangle data-init-reponsive-tabs="dropdownfx"
+            li.active
+              a data-toggle="tab" href="#tab-personal" 
+                span Personal Account
+            li
+              a data-toggle="tab" href="#tab-organizational" 
+                span Organizational Account
+          /! Tab panes
+          .tab-content
+            #tab-personal.tab-pane.active
+              table#basicTable.table.table-hover
+                thead
+                  tr
+                    th style="width:25%" Account No.
+                    th style="width:25%" Balance
+                    th style="width:25%" Detail
+                tbody
+                  tr
+                    td.v-align-middle
+                      p = @account.number
+                    td.v-align-middle
+                      p = @account.balance
+                    td.v-align-middle
+                      p = "View (Function not yet opened)"
+            #tab-organizational.tab-pane
+              - if @organizational_accounts.count == 0
+                h2 Not Opened Yet
+              - else
+                table#basicTable.table.table-hover
+                  thead
+                    tr
+                      th style="width:25%" Account No.
+                      th style="width:25%" Organization
+                      th style="width:25%" Balance
+                      th style="width:25%" Operation
+                  tbody
+                    - @organizational_accounts.each do |acc|
+                      tr
+                        td.v-align-middle
+                          p = acc.number
+                        td.v-align-middle
+                          p = acc.owner.name
+                        td.v-align-middle
+                          p = acc.balance
+                        td.v-align-middle
+                          p = link_to "Loan", controller: "bank/organizational_loan" , action: "index", account_no: acc.number
+
+/! END PANEL

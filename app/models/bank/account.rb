@@ -19,23 +19,23 @@ end
 
 ## Loan Module
 class Bank::LoanAccount < Bank::Account
-  has_one :loan, class_name: "Bank::OrganizationalLoan", inverse_of: :loan_account
+  belongs_to :loan, class_name: "Bank::OrganizationalLoan", inverse_of: :loan_account
 
-  def self.allow_positive
+  def allow_positive
     false
   end
 
-  def self.allow_negative
+  def allow_negative
     true
   end
 end
 
 class Bank::TimeCreditAccount < Bank::Account
-  def self.allow_positive
+  def allow_positive
     false
   end
 
-  def self.allow_negative
+  def allow_negative
     true
   end
 end
@@ -47,11 +47,11 @@ class Bank::OrganizationalAccount < Bank::Account
   ## Loan Module
   has_many :loan, class_name: "Bank::OrganizationalLoan", inverse_of: :borrower_account
 
-  def self.allow_positive
+  def allow_positive
     true
   end
 
-  def self.allow_negative
+  def allow_negative
     false
   end
 end
@@ -59,22 +59,22 @@ end
 class Bank::IndividualAccount < Bank::Account
   belongs_to :owner, class_name: "User", inverse_of: :account
 
-  def self.allow_positive
+  def allow_positive
     true
   end
 
-  def self.allow_negative
+  def allow_negative
     false
   end
 end
 
 ## Loan Module
 class Bank::DistributionUseAccount < Bank::Account
-  def self.allow_positive
+  def allow_positive
     true
   end
 
-  def self.allow_negative
+  def allow_negative
     false
   end
 end
