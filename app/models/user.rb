@@ -1,5 +1,8 @@
 class User < Entity
   extend Enumerize
+  
+  has_and_belongs_to_many :role, class_name: "Role", inverse_of: :user
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
