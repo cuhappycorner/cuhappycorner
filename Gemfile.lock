@@ -216,7 +216,6 @@ GEM
     ref (2.0.0)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
-    rolify (5.1.0)
     sass (3.4.22)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -314,7 +313,6 @@ DEPENDENCIES
   rails-assets-twitter-bootstrap-wizard!
   rails-assets-unveil!
   redis (~> 3.0)
-  rolify
   sass-rails (~> 5.0)
   seedbank!
   select2-rails

@@ -29,7 +29,7 @@ gem 'redis', '~> 3.0'
 
 gem 'mongoid', '6.0.0.rc0'
 gem 'devise'
-gem 'pundit'
+# gem 'pundit'
 # gem 'mongoid-autoinc', github: 'ckho/mongoid-autoinc'
 gem 'enumerize'
 gem 'kaminari'
@@ -42,7 +42,7 @@ gem "font-awesome-rails"
 gem "select2-rails"
 gem "seedbank", github: "ckho/seedbank"
 gem "mongoid_token", github: "williamatodd/mongoid_token"
-gem "rolify"
+# gem "rolify"
 gem 'money-rails'
 
 
