@@ -1,26 +1,26 @@
 .visible-lg.visible-md.m-t-10
   .pull-left.p-r-10.p-t-10.fs-16.font-heading
-    span.semi-bold David 
-    span.text-master Nest
+    span.semi-bold =current_user.name
   .dropdown.pull-right
     button.profile-dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button" 
       span.thumbnail-wrapper.d32.circular.inline.m-t-5
-        img alt="" data-src="assets/img/profiles/avatar.jpg" data-src-retina="assets/img/profiles/avatar_small2x.jpg" height="32" src="assets/img/profiles/avatar.jpg" width="32"
+        /img alt="" data-src="assets/img/profiles/avatar.jpg" data-src-retina="assets/img/profiles/avatar_small2x.jpg" height="32" src="assets/img/profiles/avatar.jpg" width="32"
+        = image_tag "profiles/avatar.png", width: "32"
     ul.dropdown-menu.profile-dropdown role="menu" 
-      li
+      /li
         a href="#" 
           i.pg-settings_small
           | Settings
-      li
+      /li
         a href="#" 
           i.pg-outdent
           | Feedback
-      li
+      /li
         a href="#" 
           i.pg-signals
           | Help
       li.bg-master-lighter
-        a.clearfix href="#" 
+        a data-method="delete" href="/users/sign_out" class="clearfix"
           span.pull-left Logout
           span.pull-right
             i.pg-power
