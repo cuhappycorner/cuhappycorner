@@ -30,8 +30,8 @@ class Corner::Account::GeneralCashTransaction < Corner::Account::CashTransaction
 
   private
     def execute_project_accounting
-      self.project.money_income - 0 if self.project.money_income == nil
-      self.project.money_spent - 0 if self.project.money_spent == nil
+      self.project.money_income = 0 if self.project.money_income == nil
+      self.project.money_spent = 0 if self.project.money_spent == nil
       
       if self.flow_type.credit?
 

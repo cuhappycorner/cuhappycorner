@@ -13,16 +13,16 @@ class Corner::Account::GeneralCreditTransaction < Corner::Account::CreditTransac
 
   private
     def check_enough_project_budget
-      errors.add(:amount, "") if (self.debitor.is_a? (HappyCorner)) && ((self.project.budget_remained - self.amount) < 0)
+      errors.add(:amount, "") if (self.debitor.owner.is_a? (HappyCorner)) && ((self.project.budget_remained - self.amount) < 0)
     end
 
     def execute_project_accounting
-      if (self.debitor.is_a? (HappyCorner))
+      if (self.debitor.owner.is_a? (HappyCorner))
         self.project.credit_budget_remained = 0 if self.project.credit_budget_remained == nil
         self.project.credit_budget_spent = 0 if self.project.credit_budget_spent == nil
         self.project.credit_budget_remained -= self.amount
         self.project.credit_budget_spent += self.amount
-      elsif (self.creditor.is_a? (HappyCorner))
+      elsif (self.creditor.owner.is_a? (HappyCorner))
         self.project.credit_income_created = 0 if self.project.credit_income_created == nil
         self.project.credit_income_created += self.amount
       end
