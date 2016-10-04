@@ -22,6 +22,7 @@
 //= require jquery.actual
 //= require jquery.scrollbar
 //= require jquery-validation
+//= require select2-full
 //= require turbolinks
 //= require pages/pages
 //= require_tree
