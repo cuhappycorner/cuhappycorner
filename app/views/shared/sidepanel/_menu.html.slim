@@ -40,7 +40,7 @@ ul.menu-items
         span.arrow
         span.details Authorized Only
       span.icon-thumbnail
-        i.pg-mail
+        i.fa.fa-shopping-cart
       ul.sub-menu
         li
           a href="javascript:;" Member
@@ -59,8 +59,11 @@ ul.menu-items
           a href="javascript:;" POS System
           span.icon-thumbnail c
           ul.sub-menu
-            li
+            /li
               = link_to "SemStartMarket", {:controller => "/corner/pos/sem_start_market"}
+              span.icon-thumbnail Sm
+            li
+              = link_to "2nd Hand Goods Transaction", {:controller => "/corner/pos/second_hand_good_transaction"}
               span.icon-thumbnail Sm
 
 

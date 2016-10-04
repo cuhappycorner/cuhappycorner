@@ -13,7 +13,7 @@ class Bank::Transaction
   field :creditor_new_balance, type: Integer
   field :detail, type: String
 
-  attr_readonly :amount, :operator, :debitor, :creditor, :debitor_new_balance, :creditor_new_balance, :detail
+  # attr_readonly :amount, :operator, :debitor, :creditor, :debitor_new_balance, :creditor_new_balance, :detail
 
   validates :amount, numericality: { :greater_than => 0}
 
@@ -46,7 +46,7 @@ end
 ## Loan Module
 class Bank::LoanTransaction < Bank::Transaction
   belongs_to :loan, class_name: "Bank::OrganizationalLoan", inverse_of: :transaction
-  attr_readonly :loan
+  # attr_readonly :loan
 end
 
 class Bank::DrawdownLoanTransaction < Bank::LoanTransaction

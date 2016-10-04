@@ -13,7 +13,7 @@ class Corner::Account::GeneralCreditTransaction < Corner::Account::CreditTransac
 
   private
     def check_enough_project_budget
-      errors.add(:amount, "") if (self.debitor.owner.is_a? (HappyCorner)) && ((self.project.budget_remained - self.amount) < 0)
+      errors.add(:amount, "") if (self.debitor.owner.is_a? (HappyCorner)) && ((self.project.credit_budget_remained - self.amount) < 0)
     end
 
     def execute_project_accounting

@@ -27,7 +27,7 @@ gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-gem 'mongoid', '6.0.0.rc0'
+gem 'mongoid'
 gem 'devise'
 # gem 'pundit'
 # gem 'mongoid-autoinc', github: 'ckho/mongoid-autoinc'

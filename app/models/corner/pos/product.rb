@@ -15,4 +15,6 @@ class Corner::Pos::Product
   field :sale_cash_price, type: Money, default: 0
   field :purchase_cash_price, type: Money, default: 0
   # TODO: Adjustment & Discount Feature
+  field :barcode, type: String
+  field :disabled, type: Boolean, default: false
 end

@@ -8,11 +8,15 @@ module Corner::PosConcern
     cash_amount_sum = 0
     item_array.each do |item|
       if item['flow_type'] == "debit"
-        credit_amount_sum -= item['quantity'] * item['product'].purchase_credit_price
-        cash_amount_sum -= item['quantity'] * item['product'].purchase_cash_price
+        # credit_amount_sum -= item['quantity'] * item['product'].purchase_credit_price
+        # cash_amount_sum -= item['quantity'] * item['product'].purchase_cash_price
+        credit_amount_sum -= item['quantity'] * item['purchase_credit_price']
+        cash_amount_sum -= item['quantity'] * item['purchase_cash_price']
       else
-        credit_amount_sum += item['quantity'] * item['product'].sale_credit_price
-        cash_amount_sum += item['quantity'] * item['product'].sale_cash_price
+        # credit_amount_sum += item['quantity'] * item['product'].sale_credit_price
+        # cash_amount_sum += item['quantity'] * item['product'].sale_cash_price
+        credit_amount_sum += item['quantity'] * item['sale_credit_price']
+        cash_amount_sum += item['quantity'] * item['sale_cash_price']
       end
     end
 
