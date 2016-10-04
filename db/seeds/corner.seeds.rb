@@ -21,4 +21,4 @@ good2 = Corner::Pos::SemStartMarketGood.create(project: proj3, name: "Group 2 It
 good3 = Corner::Pos::SemStartMarketGood.create(project: proj3, name: "Group 3 Item - SemStart Market", sale_credit_price: 10)
 good4 = Corner::Pos::SemStartMarketGood.create(project: proj3, name: "Group 4 Item - SemStart Market", sale_credit_price: 20)
 
-record1 = Corner::Account::CreditBudgetRecord.create(project: b, amount: 10000)
+record1 = Corner::Account::CreditBudgetRecord.create(project: proj3, amount: 10000)
