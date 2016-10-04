@@ -56,3 +56,7 @@ end
 class Corner::Account::PosCashTransaction < Corner::Account::CashTransaction
 
 end
+
+class Corner::Account::MigrationCashTransaction < Corner::Account::GeneralCashTransaction
+
+end
