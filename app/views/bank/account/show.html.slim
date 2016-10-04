@@ -5,21 +5,31 @@
   li
     = link_to "Transaction Record", {action: "index"}, class: "active"
 
-p Debit
+h2 Transaction Record
 table
-  - @account.debit.each do |record|
+  - transactions = @account.credit + @account.debit
+  - transactions.each do |record|
     tr
-      td.v-align-middle
-        p debitor
-        p = record.debitor
-      td.v-align-middle
-        p creditor
-        p = record.creditor
-      td.v-align-middle
-        p amount
+      td.col-md-2
+        h5 Debitor
+        - if record.debitor.is_a? Bank::IndividualAccount
+          p = record.debitor.owner.display_name
+        - else
+          p = record.debitor.owner.name
+      td.col-md-2
+        h5 Creditor
+        - if record.creditor.is_a? Bank::IndividualAccount
+          p = record.creditor.owner.display_name
+        - else
+          p = record.creditor.owner.name
+      td.col-md-2
+        h5 Amount
         p = record.amount
-      td.v-align-middle 
-        p detail
-        p detail = record.detail
+      td.col-md-4
+        h5 Details
+        p = record.detail
+      td.col-md-2
+        h5 Time
+        p = record.created_at
 
     
