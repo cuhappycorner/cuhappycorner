@@ -32,7 +32,7 @@ class Corner::Account::ProductSubTransaction
 
   private
     def check_enough_project_budget
-      errors.add(:credit_amount) if (not self.flow_type.credit?) && ((self.project.budget_remained - self.credit_amount) < 0)
+      errors.add(:credit_amount) if (not self.flow_type.credit?) && ((self.project.credit_budget_remained - self.credit_amount) < 0)
     end
 
     def execute_project_accounting
