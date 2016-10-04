@@ -1,0 +1,25 @@
+- content_for :title do
+  = "Transaction Record"
+
+- content_for :breadcrumb do
+  li
+    = link_to "Transaction Record", {action: "index"}, class: "active"
+
+p Debit
+table
+  - @account.debit.each do |record|
+    tr
+      td.v-align-middle
+        p debitor
+        p = record.debitor
+      td.v-align-middle
+        p creditor
+        p = record.creditor
+      td.v-align-middle
+        p amount
+        p = record.amount
+      td.v-align-middle 
+        p detail
+        p detail = record.detail
+
+    
