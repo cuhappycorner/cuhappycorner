@@ -11,7 +11,7 @@ class Bank::AccountController < ApplicationController
 
   # GET
   def show
-    @account = Bank::Account.find_by_number(params[account_no])
+    @account = Bank::Account.find_by_number(params[:account_no])
     if @account.is_a? Bank::IndividualAccount
       if not @account.owner.eql? (current_user)
         flash[:alert] = t('error.notauthorized')
