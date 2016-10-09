@@ -6,30 +6,35 @@
     = link_to "Transaction Record", {action: "index"}, class: "active"
 
 h2 Transaction Record
-table
+table.col-md-12
+  tr
+    th.col-md-2
+      h5 Debitor
+    th.col-md-2
+      h5 Creditor
+    th.col-md-2
+      h5 Amount
+    th.col-md-4
+      h5 Details
+    th.col-md-2
+      h5 Time 
   - transactions = @account.credit + @account.debit
+  - transactions = transactions.sort_by{ |rec| rec.created_at }.reverse
   - transactions.each do |record|
     tr
       td.col-md-2
-        h5 Debitor
         - if record.debitor.is_a? Bank::IndividualAccount
           p = record.debitor.owner.display_name
         - else
           p = record.debitor.owner.name
       td.col-md-2
-        h5 Creditor
         - if record.creditor.is_a? Bank::IndividualAccount
           p = record.creditor.owner.display_name
         - else
           p = record.creditor.owner.name
       td.col-md-2
-        h5 Amount
         p = record.amount
       td.col-md-4
-        h5 Details
         p = record.detail
       td.col-md-2
-        h5 Time
-        p = record.created_at
-
-    
+        p = record.created_at.to_s.chomp('+0800')
