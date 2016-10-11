@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'bank/account#index'
 
+  get 'bank/account' => 'bank/account#show'
+
   # get 'register_success' => 'custom_registration#finish_registration'
 
   get 'corner/users/activations' => 'corner/users/activations#index'

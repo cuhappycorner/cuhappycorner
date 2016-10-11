@@ -49,7 +49,7 @@
                     td.v-align-middle
                       p = @account.balance
                     td.v-align-middle
-                      p = "View (Function not yet opened)"
+                      p = link_to "Transaction Record", action: "show", account_no: @account.number
             #tab-organizational.tab-pane
               - if @organizational_accounts.count == 0
                 h2 Not Opened Yet
