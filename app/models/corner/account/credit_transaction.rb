@@ -36,6 +36,9 @@ class Corner::Account::MigrationCreditTransaction < Corner::Account::GeneralCred
 
 end
 
+class Corner::Account::SalaryCreditTransaction < Corner::Account::GeneralCreditTransaction
+
+end
 
 class Corner::Account::DrawdownLoanCreditTransaction < Corner::Account::GeneralCreditTransaction
 

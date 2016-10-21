@@ -20,6 +20,10 @@ class Corner::Account::MigrationTransaction < Corner::Account::GeneralTransactio
 
 end
 
+class Corner::Account::SalaryTransaction < Corner::Account::GeneralTransaction
+
+end
+
 class Corner::Account::LoanTransaction < Corner::Account::GeneralTransaction
   belongs_to :loan, class_name: "Corner::Loan::Loan", inverse_of: :transaction
 end
