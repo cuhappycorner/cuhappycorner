@@ -43,6 +43,7 @@ gem "select2-rails"
 gem "seedbank", github: "ckho/seedbank"
 gem "mongoid_token", github: "williamatodd/mongoid_token"
 gem 'money-rails'
+gem "sentry-raven"
 gem 'sendgrid'
 gem 'sidekiq'
 
