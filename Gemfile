@@ -44,6 +44,7 @@ gem "seedbank", github: "ckho/seedbank"
 gem "mongoid_token", github: "williamatodd/mongoid_token"
 gem 'money-rails'
 gem 'sendgrid'
+gem 'sidekiq'
 
 
 source 'http://insecure.rails-assets.org' do
