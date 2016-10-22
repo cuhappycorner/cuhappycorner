@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -46,7 +46,7 @@ gem "mongoid_token", github: "williamatodd/mongoid_token"
 gem 'money-rails'
 
 
-source 'https://rails-assets.org' do
+source 'http://insecure.rails-assets.org' do
   gem 'rails-assets-modernizr', '2.8.3'
   gem 'rails-assets-twitter-bootstrap-wizard'
   gem 'rails-assets-jquery-validation'
@@ -78,6 +78,7 @@ group :development do
   gem 'capistrano-rails',   require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano3-puma',   require: false
+  gem 'brakeman',           require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
