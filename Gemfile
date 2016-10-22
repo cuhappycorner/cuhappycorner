@@ -42,8 +42,8 @@ gem "font-awesome-rails"
 gem "select2-rails"
 gem "seedbank", github: "ckho/seedbank"
 gem "mongoid_token", github: "williamatodd/mongoid_token"
-# gem "rolify"
 gem 'money-rails'
+gem 'sendgrid'
 
 
 source 'http://insecure.rails-assets.org' do
