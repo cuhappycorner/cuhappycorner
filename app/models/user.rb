@@ -30,7 +30,7 @@ class User < Entity
   field :mobile,             type: String
 
   ## CU-ER Information
-  enumerize :cuid_type, in: [:student, :staff, :alumni, :outside]
+  enumerize :cuid_type, in: [:student, :staff, :alumni, :outside], default: :student
   field :cuid,     type: String
 
   field :cu_link_id, type: String
@@ -44,7 +44,7 @@ class User < Entity
   field :display_name,       type: String
   field :name,               localize: true
   field :birthday,      type: String
-  enumerize :gender, in: [:male, :female, :x]
+  enumerize :gender, in: [:male, :female, :x], default: :x
 
 
   ## Confirmable

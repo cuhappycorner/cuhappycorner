@@ -55,17 +55,17 @@
                       .form-group.form-group-default.required
                         = label_tag :cuid_type, t('corner.users.activations.show.form.cuid_type')
                         .radio.radio-success style="margin-top: 0; margin-bottom: 0"
-                          - if @user.cuid_type.student?
+                          - if @user.cuid_type == :student
                             input#cuid_type_student type="radio" checked=true value="student" name="user[cuid_type]"
                           - else
                             input#cuid_type_student type="radio" value="student" name="user[cuid_type]"
                           label for="cuid_type_student" style="display:inline;margin-right: 15px;" = t('corner.users.activations.show.form.cuid_type_student')
-                          - if @user.cuid_type.staff?
+                          - if @user.cuid_type == :staff
                             input#cuid_type_staff type="radio" checked=true value="staff" name="user[cuid_type]"
                           - else
                             input#cuid_type_staff type="radio" value="staff" name="user[cuid_type]"
                           label for="cuid_type_staff" style="display:inline;margin-right: 15px;" = t('corner.users.activations.show.form.cuid_type_staff')
-                          - if @user.cuid_type.alumni?
+                          - if @user.cuid_type == :alumni
                             input#cuid_type_alumni type="radio" checked=true value="alumni" name="user[cuid_type]"
                           - else
                             input#cuid_type_alumni type="radio" value="alumni" name="user[cuid_type]"
