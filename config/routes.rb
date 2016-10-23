@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  require 'sidekiq/web'
+  require 'sidekiq/cron/web'
 
   devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions' }
   
@@ -32,4 +34,8 @@ Rails.application.routes.draw do
   match 'corner/loan/show' => 'corner/loan/loan#show', via: [:get, :put, :post]
   match 'corner/loan/create' => 'corner/loan/loan#create', via: [:get, :put, :post]
   match 'corner/loan/update' => 'corner/loan/loan#update', via: [:get, :put, :post]
+
+  authenticate :user, lambda { |u| u.role.include? Role.find_by(name:"admin")} do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 end

@@ -46,6 +46,7 @@ gem 'money-rails'
 gem "sentry-raven"
 gem 'sendgrid'
 gem 'sidekiq'
+gem "sidekiq-cron"
 
 
 source 'http://insecure.rails-assets.org' do
