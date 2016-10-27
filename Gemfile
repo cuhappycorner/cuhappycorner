@@ -47,6 +47,7 @@ gem "sentry-raven"
 gem 'sendgrid'
 gem 'sidekiq'
 gem "sidekiq-cron"
+gem "procodile", require: false
 
 
 source 'http://insecure.rails-assets.org' do
