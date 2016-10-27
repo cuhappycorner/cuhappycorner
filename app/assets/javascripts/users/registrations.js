@@ -12,6 +12,26 @@
                 rules: {
                     "user[password_confirmation]": {
                         equalTo: "#user_password"
+                    },
+                    "cuid_confirmation": {
+                        equalTo: "#user_cuid"
+                    },
+                    "user[email]": {
+                        required: true, 
+                        email: true, 
+                        remote:"/users/check_email"
+                    },
+                    "user[cuid]": {
+                        required: true,
+                        remote:"/users/check_cuid"
+                    }
+                },
+                messages: {
+                    "user[email]": {
+                        remote: "User already exists.",
+                    },
+                    "user[cuid]": {
+                        remote: "User already exists.",
                     }
                 }
             }

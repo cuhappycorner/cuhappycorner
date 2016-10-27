@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   require 'sidekiq/cron/web'
 
   devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions' }
-  
+
+  get 'users/check_email' => 'user#check_email'
+  get 'users/check_cuid' => 'user#check_cuid'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'bank/account#index'
 

@@ -30,6 +30,8 @@ en:
           cuid_type_other: "Other"
           cuid: "CUID (Student ID/ Staff ID)"
           cuid_placeholder: "e.g. 1155000000/ staff id"
+          cuid_confirmation: "CUID Confirmation (Please retype your CUID)"
+          cuid_confirmation_placeholder: "e.g. 1155000000/ staff id"
           major: "Major Programme (Student Only)"
           year_of_admission: "Year of Admission (Student Only)"
           year_of_admission_placeholder: "XXXX (e.g. 2015)"

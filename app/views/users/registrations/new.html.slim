@@ -83,12 +83,15 @@ html
                       .form-group.form-group-default.required
                         label for="cuid_type" =t('users.registrations.new.form.cuid_type')
                         .radio.radio-success style="margin-top: 0; margin-bottom: 0"
-                          input#cuid_type_student type="radio" checked=true value="student" name="user[cuid_type]"
+                          input#cuid_type_student type="radio" checked=true value="student" name="user[cuid_type]" required="required"
                           label for="cuid_type_student" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.cuid_type_student')
-                          input#cuid_type_staff type="radio" value="staff" name="user[cuid_type]"
+                          input#cuid_type_staff type="radio" value="staff" name="user[cuid_type]" required="required"
                           label for="cuid_type_staff" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.cuid_type_staff')
 
                       = f.input :cuid, label: t('users.registrations.new.form.cuid'), required: true
+                      .form-group.form-group-default.required
+                        label for="cuid_confirmation" =t('users.registrations.new.form.cuid_confirmation')
+                        = text_field_tag :cuid_confirmation, nil, required: true, class: "form-control", required: true
 
                       .form-group.form-group-default.required
                         label for="cu_resident" =t('users.registrations.new.form.cu_resident')
