@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get 'users/check_email' => 'user#check_email'
   get 'users/check_cuid' => 'user#check_cuid'
+  get 'users/check_cu_link_id' => 'user#check_cu_link_id'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'bank/account#index'

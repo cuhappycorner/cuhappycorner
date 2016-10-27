@@ -14,4 +14,12 @@ class UserController < ApplicationController
      format.json { render :json => !@user }
     end
   end
+
+  def check_cu_link_id
+    @user = User.find_by(cu_link_id: params[:cu_link_id])
+
+    respond_to do |format|
+     format.json { render :json => !@user }
+    end
+  end
 end

@@ -23,8 +23,17 @@
       $("#activation").validate(
         { 
           rules: {
+            "cu_link_id": {
+              required: true,
+              remote:"/users/check_cu_link_id"
+            },
             "cu_link_id_confirmation": {
               equalTo: "#cu_link_id"
+            }
+          },
+          messages: {
+            "cu_link_id": {
+              remote: "CU Link ID already used by other user.",
             }
           }
         }
