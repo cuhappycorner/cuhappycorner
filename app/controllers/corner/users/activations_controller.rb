@@ -52,7 +52,7 @@ class Corner::Users::ActivationsController < ApplicationController
       redirect_to(request.referrer || root_path) and return
     end
 
-    member = activate_member(current_user, @user, params[:cu_link_id])
+    member = activate_member(current_user, @user, params[:cu_link_id].upcase)
     if not member
       redirect_to(request.referrer || root_path) and return
     end

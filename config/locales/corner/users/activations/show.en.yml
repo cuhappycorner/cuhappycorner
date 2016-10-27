@@ -23,8 +23,10 @@ en:
             tab2_registercard: "Register CU Link"
             tab2_msg: "Please put the CU Link onto the card reader."
             tab2_hint: "If card reader is not ready, you can type in the first 8 characters printed on the bottom-left corner of the CU Link manually."
-            cu_link_id: "CU Link Card ID"
+            cu_link_id: "CU Link Card ID (NOT SID!!!)"
             cu_link_id_placeholder: "First 8 characters on bottom-left corner on CU Link card"
+            cu_link_id_confirmation: "CU Link Card ID Confirmation"
+            cu_link_id_confirmation_placeholder: "First 8 characters on bottom-left corner on CU Link card"
             button:
               first: "First"
               next: "Next"

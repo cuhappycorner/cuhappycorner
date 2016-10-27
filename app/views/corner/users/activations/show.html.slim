@@ -8,8 +8,30 @@
     = link_to t('corner.users.activations.show.title'), {action: "index"}, class: "active"
   li
     p = @user.name
+- content_for :jscode do
+  javascript:
+    $("input#cu_link_id").on({
+      keydown: function(e) {
+        if (e.which === 32)
+          return false;
+      },
+      change: function() {
+        this.value = this.value.replace(/\s/g, "");
+      }
+    });
+    $(document).ready(function() {
+      $("#activation").validate(
+        { 
+          rules: {
+            "cu_link_id_confirmation": {
+              equalTo: "#cu_link_id"
+            }
+          }
+        }
+      );
+    });
 .panel-body
-  = form_tag({action: "update"}, method: "put") do
+  = form_tag({action: "update"}, method: "put", id: "activation") do
     #rootwizard.m-t-50
       ul.nav.nav-tabs.nav-tabs-linetriangle.nav-tabs-separator.nav-stack-sm
         li.active
@@ -117,7 +139,10 @@
                 .form-group-attached
                   .form-group.form-group-default.required
                     = label_tag :cu_link_id, t('corner.users.activations.show.form.cu_link_id')
-                    = text_field_tag :cu_link_id, nil, class: "form-control", placeholder: t('corner.users.activations.show.form.cu_link_id_placeholder')
+                    = text_field_tag :cu_link_id, nil, class: "form-control", placeholder: t('corner.users.activations.show.form.cu_link_id_placeholder'), maxlength: 8, style: "text-transform:uppercase"
+                  .form-group.form-group-default.required
+                    = label_tag :cu_link_id_confirmation, t('corner.users.activations.show.form.cu_link_id_confirmation')
+                    = text_field_tag :cu_link_id_confirmation, nil, class: "form-control", placeholder: t('corner.users.activations.show.form.cu_link_id_confirmation_placeholder'), maxlength: 8, style: "text-transform:uppercase"
       .padding-20.bg-white
         ul.pager.wizard
           li.next
