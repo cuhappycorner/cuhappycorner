@@ -5,10 +5,13 @@ html
     title #{t('users.sessions.new.title')} - #{t('cuhappycorner')}
     meta name="description" content=""
     = stylesheet_link_tag "application", media: "all"
-  body.fixed-header
+    script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"
+  body.fixed-header ng-app="app"
     .login-wrapper
       .bg-pic
-        img src="https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xpl1/t31.0-8/1781817_551364461627830_376996091_o.jpg" data-src="https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xpl1/t31.0-8/1781817_551364461627830_376996091_o.jpg" data-src-retina="https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xpl1/t31.0-8/1781817_551364461627830_376996091_o.jpg" alt="" class="lazy"
+        / .bg-pic-inner
+        img ng-controller="controller" ng-src="{{image}}" class="bg"
+        / img src="https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xpl1/t31.0-8/1781817_551364461627830_376996091_o.jpg" data-src="https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xpl1/t31.0-8/1781817_551364461627830_376996091_o.jpg" data-src-retina="https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xpl1/t31.0-8/1781817_551364461627830_376996091_o.jpg" alt="" class="lazy"
         .bg-caption.pull-bottom.sm-pull-bottom.text-white.p-l-20.m-b-20
           h2.semi-bold.text-white = t('users.sessions.new.photo1.title')
           p.small = t('users.sessions.new.photo1.caption')
@@ -34,6 +37,9 @@ html
           .row style="margin: 35px; border-style: dashed; border-color: #6DC0F9; text-align: center; padding: 25px;"
             h5.bold = t('users.sessions.new.register_slogan')
             = link_to t('users.sessions.new.register'), new_registration_path(resource_name), class:"btn btn-complete btn-cons"
+    / script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"
+    / script src="/jquery.backstretch.min.js"
+
   - flash.each do |key, value|
     - if value != ""
       javascript:
@@ -51,3 +57,26 @@ html
           }).show();
         })
   = javascript_include_tag "application"
+  javascript:
+    var app = angular.module('app',[]);
+    app.controller('controller', function ($scope, $interval){
+      $scope.array = ["https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xpl1/t31.0-8/1781817_551364461627830_376996091_o.jpg", 
+      "http://cdn6.jinxidao.com/uploads/201408/53f5b6847bdf4.jpg", 
+      "http://4.bp.blogspot.com/-XF4aEt0eClU/VLSrRbx8PBI/AAAAAAAAZ5Y/WmjYFnTaeHw/s1600/P1170083a.jpg"];
+      $scope.current = 0;
+      $scope.image = $scope.array[$scope.current];
+
+      $interval(function() {
+        $('.bg').hide();
+        if ($scope.current + 1 == $scope.array.length) {
+          $scope.current = 0;
+        } else {
+          $scope.current++;
+        }
+        $scope.image = $scope.array[$scope.current];
+        $('.bg').fadeIn(3000);
+        console.log('current', $scope.current);
+      }, 4500);
+    });
+
+  
