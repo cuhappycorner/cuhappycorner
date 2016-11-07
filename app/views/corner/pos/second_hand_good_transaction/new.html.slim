@@ -7,58 +7,45 @@
   li
     = link_to "Second Hand Good Transaction", {action: "index"}, class: "active"
 
-.panel-body
-  .row
-    .col-sm-10
-      h3 = t('shopkeeper_panel.transaction.page2.msg')
-      p = t('shopkeeper_panel.transaction.page2.msg2')
-      br
-      = form_tag(action: "create", method: "post", class: "form-horizontal")
-        = hidden_field_tag(:cuid, @user.cuid)
-        = hidden_field_tag(:type, params[:type])
-        .form-group
-          = label_tag "name", "Name", class: "col-sm-3 control-label"
-          .col-sm-9
-            = text_field_tag "name", @user.name, class: "form-control", disabled: true
-        .form-group
-          = label_tag "cuid", "CUID", class: "col-sm-3 control-label"
-          .col-sm-9
-            = text_field_tag "cuid", @user.cuid, class: "form-control", disabled: true
-        .form-group
-          = label_tag "current_amount", "Current Amount", class: "col-sm-3 control-label"
-          .col-sm-9
-            = text_field_tag "current_amount", @user.account.balance, class: "form-control", disabled: true
-        .form-group
-          table.table
-            thead
-              tr
-                th.col-md-1 #
-                th.col-md-7 Type
-                th.col-md-2 Price
-                th.col-md-2 Quantity
-            tbody
-              - (1..10).each do |i|
-                tr
-                  td = i
-                  td
-                    select.full-width id="good_#{i}" name="good_#{i}" data-init-plugin="select2"
-                      optgroup label="-"
-                        option value="empty" -
-                      - Corner::Pos::SecondHandGoodCategory.all.order_by(:order => 'asc').each do |category|
-                        optgroup label="#{(category.order + 64).chr.to_s + " " + category.name}"
-                          - category.item.all.order_by(:order => 'asc').each do |item|
-                            option value="#{item.number}" = (category.order + 64).chr.to_s + item.order.to_s + " " + item.name
-                  td
-                    = text_field_tag ("price_"+i.to_s), nil, class: "form-control"
-                  td
-                    = text_field_tag ("quantity_"+i.to_s), nil, class: "form-control"
-        br
-        .row
-          .col-sm-9.col-sm-offset-3
-            = button_tag "Submit", data: { disable_with: t('form.pleasewait') }, class: "btn btn-success"
 - content_for :jscode do
   javascript:
     $(document).ready(function() {
+      $('#cuid-submit').on('click', function() {
+        total = 0;
+        if ($('#good_1').val() != "empty") total += parseInt($('#price_1').val())*parseInt($('#quantity_1').val());
+        if ($('#good_2').val() != "empty") total += parseInt($('#price_2').val())*parseInt($('#quantity_2').val());
+        if ($('#good_3').val() != "empty") total += parseInt($('#price_3').val())*parseInt($('#quantity_3').val());
+        if ($('#good_4').val() != "empty") total += parseInt($('#price_4').val())*parseInt($('#quantity_4').val());
+        if ($('#good_5').val() != "empty") total += parseInt($('#price_5').val())*parseInt($('#quantity_5').val());
+        if ($('#good_6').val() != "empty") total += parseInt($('#price_6').val())*parseInt($('#quantity_6').val());
+        if ($('#good_7').val() != "empty") total += parseInt($('#price_7').val())*parseInt($('#quantity_7').val());
+        if ($('#good_8').val() != "empty") total += parseInt($('#price_8').val())*parseInt($('#quantity_8').val());
+        if ($('#good_9').val() != "empty") total += parseInt($('#price_9').val())*parseInt($('#quantity_9').val());
+        if ($('#good_10').val() != "empty") total += parseInt($('#price_10').val())*parseInt($('#quantity_10').val());
+        if ('#{params[:type]}' != 'purchase') {
+          total *= -1;
+        }
+        if (total + #{@user.account.balance} < 0){
+          $('body').pgNotification({
+            style: 'flip',
+            message: 'Happy Coins Not Enough!',
+            position: 'top-right',
+            timeout: 8000,
+            type: 'danger'
+          }).show();
+        } else {
+          if (total > 0) {
+            $('#cuid-payment-amount').html("+" + String(total));
+          } else {
+            $('#cuid-payment-amount').html(String(total));
+          }
+          $('#cuid-debtor-balance').html(String(total + #{@user.account.balance}));
+          $('#confirmation-cuid-modal').modal('toggle');
+        }
+      });
+      $('#cuid-confirm').on('click', function() {
+        $("#cuid_form").submit();
+      });
       $('#good_1').on('change', function() {
         if (this.value != "empty") {
           $.getJSON('/corner/pos/second_hand_good_transaction/get_price', {good: this.value}, function(data) {
@@ -210,3 +197,90 @@
         }
       });
     });
+
+.panel-body
+  .row
+    .col-sm-10
+      h3 = t('shopkeeper_panel.transaction.page2.msg')
+      p = t('shopkeeper_panel.transaction.page2.msg2')
+      br
+      = form_tag(action: "create", method: "post", class: "form-horizontal", id:"cuid_form")
+        = hidden_field_tag(:cuid, @user.cuid)
+        = hidden_field_tag(:type, params[:type])
+        .form-group
+          = label_tag "name", "Name", class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "name", @user.name, class: "form-control", disabled: true
+        .form-group
+          = label_tag "cuid", "CUID", class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "cuid", @user.cuid, class: "form-control", disabled: true
+        .form-group
+          = label_tag "current_amount", "Current Amount", class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "current_amount", @user.account.balance, class: "form-control", disabled: true
+        .form-group
+          table.table
+            thead
+              tr
+                th.col-md-1 #
+                th.col-md-7 Type
+                th.col-md-2 Price
+                th.col-md-2 Quantity
+            tbody
+              - (1..10).each do |i|
+                tr
+                  td = i
+                  td
+                    select.full-width id="good_#{i}" name="good_#{i}" data-init-plugin="select2"
+                      optgroup label="-"
+                        option value="empty" -
+                      - Corner::Pos::SecondHandGoodCategory.all.order_by(:order => 'asc').each do |category|
+                        optgroup label="#{(category.order + 64).chr.to_s + " " + category.name}"
+                          - category.item.all.order_by(:order => 'asc').each do |item|
+                            option value="#{item.number}" = (category.order + 64).chr.to_s + item.order.to_s + " " + item.name
+                  td
+                    = text_field_tag ("price_"+i.to_s), nil, class: "form-control"
+                  td
+                    = text_field_tag ("quantity_"+i.to_s), nil, class: "form-control"
+        br
+        .row
+          .col-sm-9.col-sm-offset-3
+            / = button_tag "Submit", data: { disable_with: t('form.pleasewait') }, class: "btn btn-success"
+            button.btn.btn-success#cuid-submit type="button" Submit
+
+.modal.fade.slide-up.disable-scroll#confirmation-cuid-modal tabindex="-1" role="dialog" aria-hidden="true"
+  .modal-dialog
+    .modal-content-wrapper
+      .modal-content
+        .modal-header.clearfix.text-left
+          h5
+            | Transaction 
+            span.semi-bold Confirmation
+        .modal-body
+          p You are about to make this transaction, this procedure is irreversible.
+          p Do you want to proceed?
+          p
+            | Operator: 
+            span.bold =current_user.name
+          p
+            | Customer Account: 
+            span.bold =@user.name
+          p
+            | Type: 
+            - if params[:type] == "purchase"
+              span.bold 換入
+            - else
+              span.bold 換出
+          p
+            | Amount Change: 
+            span.bold#cuid-payment-amount
+          p
+            | Balance after Transaction: 
+            span.bold#cuid-debtor-balance
+
+        .modal-footer
+          button.btn.btn-default data-dismiss="modal" Cancel
+          button.btn.btn-danger.btn-ok#cuid-confirm type="button" Confirm
+
+
