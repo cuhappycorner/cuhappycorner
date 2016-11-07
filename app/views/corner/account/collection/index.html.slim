@@ -1,0 +1,216 @@
+- content_for :title do
+  = "Collection (收款)"
+
+- content_for :breadcrumb do
+  li
+    p =t('corner.common.shopkeeper')
+  li
+    = link_to "Collection (收款)", {action: "index"}, class: "active"
+
+- content_for :jscode do
+  javascript:
+    $(document).ready(function() {
+      $("#cuid_form").validate(
+        { 
+          rules: {
+            "amount": {
+              required: true,
+              min: 1,
+              digits: true
+            }
+          }
+        }
+      );
+      $("#culink_form").validate(
+        { 
+          rules: {
+            "amount": {
+              required: true,
+              min: 1,
+              digits: true
+            }
+          }
+        }
+      );
+      $('#cuid-submit').on('click', function() {
+        if ($("#cuid_form").valid()) {
+          $.getJSON('/corner/account/collection/get_info',{id_type: "cuid", cuid: $('#cuid').val()},  function(data) {
+            if (data.exist == false) {
+              $('body').pgNotification({
+                style: 'flip',
+                message: 'Account Not Existed!',
+                position: 'top-right',
+                timeout: 8000,
+                type: 'danger'
+              }).show();
+            } else if (data.activated == false) {
+              $('body').pgNotification({
+                style: 'flip',
+                message: 'Account Not Activated! Please activate first!',
+                position: 'top-right',
+                timeout: 8000,
+                type: 'danger'
+              }).show();
+            } else if (parseInt(data.balance) - parseInt($('#culink_amount').val()) < 0) {
+              $('body').pgNotification({
+                style: 'flip',
+                message: 'Happy Coins Not Enough!',
+                position: 'top-right',
+                timeout: 8000,
+                type: 'danger'
+              }).show();
+            } else {
+              $('#cuid-debtor-name').html(data.name);
+              $('#cuid-collecting-amount').html($('#cuid_amount').val());
+              $('#cuid-debtor-balance').html(parseInt(data.balance) - parseInt($('#cuid_amount').val()));
+              $('#confirmation-cuid-modal').modal('toggle');
+            }
+          });
+        }
+      });
+      $('#cuid-confirm').on('click', function() {
+        $("#cuid_form").submit();
+      });
+
+      $('#culink-submit').on('click', function() {
+        if ($("#culink_form").valid()) {
+          $.getJSON('/corner/account/collection/get_info',{id_type: "cu_link_id", cu_link_id: $('#cu_link_id').val()},  function(data) {
+            if (data.exist == false) {
+              $('body').pgNotification({
+                style: 'flip',
+                message: 'Account Not Existed!',
+                position: 'top-right',
+                timeout: 8000,
+                type: 'danger'
+              }).show();
+            } else if (data.activated == false) {
+              $('body').pgNotification({
+                style: 'flip',
+                message: 'Account Not Activated! Please activate first!',
+                position: 'top-right',
+                timeout: 8000,
+                type: 'danger'
+              }).show();
+            } else if (parseInt(data.balance) - parseInt($('#culink_amount').val()) < 0) {
+              $('body').pgNotification({
+                style: 'flip',
+                message: 'Happy Coins Not Enough!',
+                position: 'top-right',
+                timeout: 8000,
+                type: 'danger'
+              }).show();
+            } else {
+              $('#culink-debtor-name').html(data.name);
+              $('#culink-collecting-amount').html($('#culink_amount').val());
+              $('#culink-debtor-balance').html(parseInt(data.balance) - parseInt($('#culink_amount').val()));
+              $('#confirmation-culink-modal').modal('toggle');
+            }
+          });
+        }
+      });
+      $('#culink-confirm').on('click', function() {
+          $("#culink_form").submit();
+      });
+    });
+
+
+.panel-body
+  .row
+    .col-sm-10
+      h3 = "For CU Link Card"
+      = form_tag({action: "collect"}, method: "post", class: "form-horizontal", id: "culink_form")
+        = hidden_field_tag(:id_type, "cu_link_id")
+        .form-group
+          = label_tag "cu_link_id", "CU Link ID", class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "cu_link_id", nil, placeholder: "Press the CU Link here.", class: "form-control", required: true
+        .form-group
+          = label_tag "amount", "Amount", class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "amount", nil, placeholder: "", class: "form-control", required: true, id: "culink_amount"
+        .form-group
+          = label_tag "detail", "Reason", class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "detail", nil, placeholder: "參加XX活動、購買XXX等等（必填）", class: "form-control", required: true
+        br
+        .row
+          .col-sm-9.col-sm-offset-3
+            button.btn.btn-success#culink-submit type="button" Submit
+
+  .row
+    .col-sm-10
+      h3 = "For CUID (Student ID/ Staff ID)"
+      = form_tag({action: "collect"}, method: "post", class: "form-horizontal", id:"cuid_form")
+        = hidden_field_tag(:id_type, "cuid")
+        .form-group
+          = label_tag "cuid", "CUID", class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "cuid", nil, placeholder: "Student / Staff ID", class: "form-control", required: true
+        .form-group
+          = label_tag "amount", "Amount", class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "amount", nil, placeholder: "", class: "form-control", required: true, id: "cuid_amount"
+        .form-group
+          = label_tag "detail", "Reason", class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "detail", nil, placeholder: "參加XX活動、購買XXX等等（必填）", class: "form-control", required: true
+        br
+        .row
+          .col-sm-9.col-sm-offset-3
+            button.btn.btn-success#cuid-submit type="button" Submit
+
+.modal.fade.slide-up.disable-scroll#confirmation-culink-modal tabindex="-1" role="dialog" aria-hidden="true"
+  .modal-dialog
+    .modal-content-wrapper
+      .modal-content
+        .modal-header.clearfix.text-left
+          h5
+            | Collection 
+            span.semi-bold Confirmation
+        .modal-body
+          p You are about to collect CU Happy Coins from the account, this procedure is irreversible.
+          p Do you want to proceed?
+          p
+            | Operator: 
+            span.bold =current_user.name
+          p
+            | Debtor Account: 
+            span.bold#culink-debtor-name
+          p
+            | Collecting Amount: 
+            span.bold#culink-collecting-amount
+          p
+            | Remaining Balance: 
+            span.bold#culink-debtor-balance
+
+        .modal-footer
+          button.btn.btn-default data-dismiss="modal" Cancel
+          button.btn.btn-danger.btn-ok#culink-confirm type="button" Confirm
+
+.modal.fade.slide-up.disable-scroll#confirmation-cuid-modal tabindex="-1" role="dialog" aria-hidden="true"
+  .modal-dialog
+    .modal-content-wrapper
+      .modal-content
+        .modal-header.clearfix.text-left
+          h5
+            | Collection 
+            span.semi-bold Confirmation
+        .modal-body
+          p You are about to collect CU Happy Coins from the account, this procedure is irreversible.
+          p Do you want to proceed?
+          p
+            | Operator: 
+            span.bold =current_user.name
+          p
+            | Debtor Account: 
+            span.bold#cuid-debtor-name
+          p
+            | Collecting Amount: 
+            span.bold#cuid-collecting-amount
+          p
+            | Remaining Balance: 
+            span.bold#cuid-debtor-balance
+
+        .modal-footer
+          button.btn.btn-default data-dismiss="modal" Cancel
+          button.btn.btn-danger.btn-ok#cuid-confirm type="button" Confirm
