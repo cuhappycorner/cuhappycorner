@@ -68,6 +68,9 @@ class User < Entity
   has_many :individual_loan, class_name: "Corner::Loan::Loan", inverse_of: :member
   field :individual_loan_amount,  type: Integer, default: 0
 
+  ## Corner System - Project Account Module
+  has_and_belongs_to_many :corner_project, class_name: "Corner::Account::Project", inverse_of: :authorized_person
+
   ## Member System - Activation Module
 
   ## Activatable

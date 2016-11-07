@@ -24,5 +24,6 @@ class Corner::Account::Project
 
   has_many :related_product, class_name: "Corner::Pos::Product", inverse_of: :project
 
+  has_and_belongs_to_many :authorized_person, class_name: "User", inverse_of: :corner_project
 
 end

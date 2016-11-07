@@ -32,6 +32,28 @@ ul.menu-items
       span.details 22 items
     span.icon-thumbnail W
 
+
+  /Board
+  - if (current_user.role.include? Role.find_by(name:"shopkeeper")) || (current_user.role.include? Role.find_by(name:"board"))
+    li
+      a.detailed href="javascript:;"
+        span.title Internal Corner
+        span.arrow
+        span.details Authorized Only
+      span.icon-thumbnail
+        i.fa.fa-space-shuttle
+      ul.sub-menu
+        li
+          a href="javascript:;" Account
+          span.icon-thumbnail
+            i.fa.fa-money
+          ul.sub-menu
+            - if current_user.role.include? Role.find_by(name:"board")
+            li
+              = link_to "Project", {:controller => "/corner/account/project", :action => :index}
+              span.icon-thumbnail
+                i.fa.fa-briefcase
+
   /Shopkeeper
   - if current_user.role.include? Role.find_by(name:"shopkeeper")
     li
@@ -44,7 +66,8 @@ ul.menu-items
       ul.sub-menu
         li
           a href="javascript:;" Members
-          span.icon-thumbnail c
+          span.icon-thumbnail
+            i.fa.fa-user
           ul.sub-menu
             li
               = link_to t("corner.users.activations.index.title"), {:controller => "/corner/users/activations", :action => :index}

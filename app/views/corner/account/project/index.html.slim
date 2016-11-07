@@ -1,0 +1,52 @@
+- content_for :title do
+  = "Project Account"
+
+- content_for :breadcrumb do
+  li
+    p Internal Corner
+  li
+    = link_to "Project Account", {action: "index"}, class: "active"
+
+/! START CONTAINER FLUID
+.container-fluid.container-fixed-lg.bg-white
+  /! START PANEL
+  .panel.panel-transparent
+    .panel-heading
+      .panel-title
+        | Project Account
+      .clearfix
+    .panel-body
+      .table-responsive
+        table#basicTable.table.table-hover
+          thead
+            tr
+              th style="width:15%" Project No.
+              th style="width:15%" Identifier
+              th style="width:10%" Credit Budget Remained
+              th style="width:10%" Credit Budget Spent
+              th style="width:10%" Money Income
+              th style="width:10%" Money Spent
+              th style="width:10%" Authorized Person
+          tbody
+            - @projects.each do |project|
+              tr
+                td.v-align-middle
+                  p = project.number
+                td.v-align-middle
+                  p = project.name
+                td.v-align-middle
+                  p = project.credit_budget_remained
+                td.v-align-middle
+                  p = project.credit_budget_spent
+                td.v-align-middle
+                  p = number_to_currency(project.money_income)
+                td.v-align-middle
+                  p = number_to_currency(project.money_spent)
+                td.v-align-middle
+                  p 
+                    - if project.respond_to? :authorized_person
+                      - project.authorized_person.each do |person|
+                        = person.name
+                        br
+                    - else
+                      | /
