@@ -49,10 +49,14 @@ ul.menu-items
             i.fa.fa-money
           ul.sub-menu
             - if current_user.role.include? Role.find_by(name:"board")
+              li
+                = link_to "Project", {:controller => "/corner/account/project", :action => :index}
+                span.icon-thumbnail
+                  i.fa.fa-briefcase
             li
-              = link_to "Project", {:controller => "/corner/account/project", :action => :index}
+              = link_to "Manual Payment", {:controller => "/corner/account/payment", :action => :index}
               span.icon-thumbnail
-                i.fa.fa-briefcase
+                i.fa.fa-money
 
   /Shopkeeper
   - if current_user.role.include? Role.find_by(name:"shopkeeper")

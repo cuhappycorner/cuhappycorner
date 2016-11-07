@@ -1,0 +1,144 @@
+- content_for :title do
+  = "Manual Payment"
+
+- content_for :breadcrumb do
+  li
+    p Internal Corner
+  li
+    = link_to "Manual Payment", {action: "index"}, class: "active"
+
+- content_for :jscode do
+  javascript:
+    $(document).ready(function() {
+      $("#cuid_form").validate(
+        { 
+          rules: {
+            "amount": {
+              required: true,
+              min: 1,
+              digits: true
+            }
+          }
+        }
+      );
+      $('#cuid-submit').on('click', function() {
+        if ($("#cuid_form").valid()) {
+          $.getJSON('/corner/account/payment/get_user_info',{cuid: $('#cuid').val()},  function(data) {
+            if (data.exist == false) {
+              $('body').pgNotification({
+                style: 'flip',
+                message: 'Account Not Existed!',
+                position: 'top-right',
+                timeout: 8000,
+                type: 'danger'
+              }).show();
+            } else if (data.activated == false) {
+              $('body').pgNotification({
+                style: 'flip',
+                message: 'Account Not Activated! Please activate first!',
+                position: 'top-right',
+                timeout: 8000,
+                type: 'danger'
+              }).show();
+            } else {
+              $('#cuid-acceptor-name').html(data.name);
+              $('#cuid-payment-amount').html($('#cuid_amount').val());
+              $('#project-id').html($('#project').val());
+              $('#cuid-reason').html($('#reason').val());
+              $.getJSON('/corner/account/payment/get_project_info',{project: $('#project').val()},  function(data2) {
+                if (parseInt(data2.credit_budget_remained) - parseInt($('#cuid_amount').val()) < 0) {
+                  $('body').pgNotification({
+                    style: 'flip',
+                    message: 'Happy Coins Not Enough!',
+                    position: 'top-right',
+                    timeout: 8000,
+                    type: 'danger'
+                  }).show();
+                } else {
+                  $('#project-name').html(data2.name);
+                  $('#project-balance').html(parseInt(data2.credit_budget_remained) - parseInt($('#cuid_amount').val()));
+                  $('#confirmation-cuid-modal').modal('toggle');
+                }
+                
+              });
+              
+            }
+          });
+        }
+      });
+      $('#cuid-confirm').on('click', function() {
+        $("#cuid_form").submit();
+      });
+    });
+
+
+.panel-body
+  .row
+    .col-sm-10
+      h2 = "Manual Payment"
+      p = "For Authorized Person of Project Account Use Only"
+      - if @projects.present?
+        = form_tag({action: "pay"}, method: "post", class: "form-horizontal", id:"cuid_form")
+          .form-group
+            = label_tag "", "Project", class: "col-sm-3 control-label"
+            .col-sm-9
+              select.required.full-width#project name="project" data-init-plugin="select2"
+                option value="" Choose a project
+                - @projects.each do |project|
+                  option value="#{project.number}" = project.name + " (Budget remained: " + project.credit_budget_remained.to_s + ")"
+          .form-group
+            = label_tag "cuid", "Acceptor CUID", class: "col-sm-3 control-label"
+            .col-sm-9
+              = text_field_tag "cuid", nil, placeholder: "Student / Staff ID", class: "form-control", required: true
+          .form-group
+            = label_tag "amount", "Amount", class: "col-sm-3 control-label"
+            .col-sm-9
+              = text_field_tag "amount", nil, placeholder: "", class: "form-control", required: true, id: "cuid_amount"
+          .form-group
+            = label_tag "detail", "Reason", class: "col-sm-3 control-label"
+            .col-sm-9
+              = text_field_tag "detail", nil, placeholder: "協助XX活動、購買XXX等等（必填）", class: "form-control", required: true
+          br
+          .row
+            .col-sm-9.col-sm-offset-3
+              button.btn.btn-success#cuid-submit type="button" Submit
+      - else
+        br
+        h2 You are not the authorized person of any existing project.
+
+.modal.fade.slide-up.disable-scroll#confirmation-cuid-modal tabindex="-1" role="dialog" aria-hidden="true"
+  .modal-dialog
+    .modal-content-wrapper
+      .modal-content
+        .modal-header.clearfix.text-left
+          h5
+            | Payment 
+            span.semi-bold Confirmation
+        .modal-body
+          p You are about to transfer CU Happy Coins to that account from your project, this procedure is irreversible.
+          p Do you want to proceed?
+          p
+            | Operator: 
+            span.bold =current_user.name
+          p
+            | Project ID: 
+            span.bold#project-id
+          p
+            | Project: 
+            span.bold#project-name
+          p
+            | Acceptor Account: 
+            span.bold#cuid-acceptor-name
+          p
+            | Payment Amount: 
+            span.bold#cuid-payment-amount
+          p
+            | Project Remaining Balance: 
+            span.bold#project-balance
+          p
+            | Reason: 
+            span.bold#cuid-reason
+
+        .modal-footer
+          button.btn.btn-default data-dismiss="modal" Cancel
+          button.btn.btn-danger.btn-ok#cuid-confirm type="button" Confirm

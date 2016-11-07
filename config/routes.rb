@@ -14,6 +14,11 @@ Rails.application.routes.draw do
 
   get 'corner/account/project' => 'corner/account/project#index'
 
+  get 'corner/account/payment' => 'corner/account/payment#index'
+  post 'corner/account/payment/pay' => 'corner/account/payment#pay'
+  match 'corner/account/payment/get_user_info' => 'corner/account/payment#get_user_info', via: [:get, :put, :post]
+  match 'corner/account/payment/get_project_info' => 'corner/account/payment#get_project_info', via: [:get, :put, :post]
+
   get 'corner/account/collection' => 'corner/account/collection#index'
   post 'corner/account/collection/collect' => 'corner/account/collection#collect'
   match 'corner/account/collection/get_info' => 'corner/account/collection#get_info', via: [:get, :put, :post]
