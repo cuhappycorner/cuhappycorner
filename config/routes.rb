@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'bank/account#index'
 
+  get 'corner/account/project' => 'corner/account/project#index'
+
   get 'corner/account/collection' => 'corner/account/collection#index'
   post 'corner/account/collection/collect' => 'corner/account/collection#collect'
   match 'corner/account/collection/get_info' => 'corner/account/collection#get_info', via: [:get, :put, :post]
