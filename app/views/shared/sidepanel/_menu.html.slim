@@ -57,6 +57,11 @@ ul.menu-items
               = link_to "Manual Payment", {:controller => "/corner/account/payment", :action => :index}
               span.icon-thumbnail
                 i.fa.fa-money
+        - if (current_user.role.include? Role.find_by(name:"shopkeeper_manager")) || (current_user.role.include? Role.find_by(name:"board"))
+        li
+          = link_to "Shopkeeper Management", {:controller => "/corner/users/shopkeeper", :action => :index}
+          span.icon-thumbnail
+            i.fa.fa-user
 
   /Shopkeeper
   - if current_user.role.include? Role.find_by(name:"shopkeeper")
