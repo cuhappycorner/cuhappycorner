@@ -25,7 +25,7 @@ module Corner::LoanConcern
       return false
     end
 
-    cash_transaction = Corner::Account::DrawdownLoanCashTransaction.create(flow_type: "credit", amount: Money.new(amount, 'HKD'), transaction: transaction, project: project)
+    cash_transaction = Corner::Account::DrawdownLoanCashTransaction.create(flow_type: "credit", amount: Money.new(amount*100, 'HKD'), transaction: transaction, project: project)
     if not cash_transaction.valid?
       flash[:error] = cash_transaction.errors.full_messages
       return false
@@ -60,7 +60,7 @@ module Corner::LoanConcern
 
     
 
-    cash_transaction = Corner::Account::RepayLoanCashTransaction.create(flow_type: "debit", amount: amount, transaction: transaction, project: project)
+    cash_transaction = Corner::Account::RepayLoanCashTransaction.create(flow_type: "debit", amount: Money.new(amount*100, 'HKD'), transaction: transaction, project: project)
     if not cash_transaction.valid?
       flash[:error] = cash_transaction.errors.full_messages
       return false
