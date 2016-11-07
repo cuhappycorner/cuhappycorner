@@ -43,28 +43,40 @@ ul.menu-items
         i.fa.fa-shopping-cart
       ul.sub-menu
         li
-          a href="javascript:;" Member
+          a href="javascript:;" Members
           span.icon-thumbnail c
           ul.sub-menu
             li
               = link_to t("corner.users.activations.index.title"), {:controller => "/corner/users/activations", :action => :index}
-              span.icon-thumbnail Sm
+              span.icon-thumbnail
+                i.fa.fa-user-plus
+            li
+              = link_to "Change CU Link", {:controller => "/corner/users/change_card", :action => :index}
+              span.icon-thumbnail
+                i.fa.fa-id-card
             li
               = link_to "Loan", {:controller => "/corner/loan/loan", :action => :index}
-              span.icon-thumbnail Sm
+              span.icon-thumbnail
+                i.fa.fa-money
             /li
               a href="ujavascript:;"  NOT OPENED
               span.icon-thumbnail Sm
         li
           a href="javascript:;" POS System
-          span.icon-thumbnail c
+          span.icon-thumbnail
+            i.fa.fa-shopping-cart
           ul.sub-menu
             /li
               = link_to "SemStartMarket", {:controller => "/corner/pos/sem_start_market"}
               span.icon-thumbnail Sm
             li
+              = link_to "收款", {:controller => "/corner/account/collection"}
+              span.icon-thumbnail
+                i.fa.fa-smile-o
+            li
               = link_to "2nd Hand Goods Transaction", {:controller => "/corner/pos/second_hand_good_transaction"}
-              span.icon-thumbnail Sm
+              span.icon-thumbnail
+                i.pg-shopping_cart
 
 
   /li
@@ -80,12 +92,13 @@ ul.menu-items
         span.arrow
         span.details Authorized Only
       span.icon-thumbnail
-        i.pg-mail
+        i.fa.fa-usd
       ul.sub-menu
         li
           / a href="javascript:;" Loan
           = link_to "Loan", {:controller => "/banker/organizational_loan", :action => :index}
-          span.icon-thumbnail $
+          span.icon-thumbnail
+            i.fa.fa-money
   /li
     a.detailed href="javascript:;"
       span.title Admin

@@ -1,0 +1,113 @@
+- content_for :title do
+  = "CU Link Change"
+
+- content_for :breadcrumb do
+  li
+    p =t('corner.common.shopkeeper')
+  li
+    = link_to "CU Link Change", {action: "index"}, class: "active"
+
+- content_for :jscode do
+  javascript:
+    $(document).ready(function() {
+      $("input#cu_link_id").on({
+        keydown: function(e) {
+          if (e.which === 32)
+            return false;
+        },
+        change: function() {
+          this.value = this.value.replace(/\s/g, "");
+        }
+      });
+      $("#cuid_form").validate(
+        { 
+          rules: {
+            "cuid": {
+              required: true,
+              remote: "/users/check_activated"
+            },
+            "cu_link_id": {
+              required: true,
+              remote: "/users/check_cu_link_id"
+            },
+            "cu_link_id_confirmation": {
+              required: true,
+              equalTo: "#cu_link_id"
+            }
+          },
+          messages: {
+            "cuid": {
+              remote: "The user has not been activated.",
+            },
+            "cu_link_id": {
+              remote: "CU Link ID already used by other user.",
+            }
+          }
+        }
+      );
+
+      $('#cuid-submit').on('click', function() {
+        if ($("#cuid_form").valid()) {
+          $.getJSON('/corner/users/change_card/get_info',{cuid: $('#cuid').val()},  function(data) {
+            $('#cuid-user-name').html(data.name);
+            $('#cuid-user-cu_link_id').html($('#cu_link_id').val().toUpperCase());
+            $('#confirmation-cuid-modal').modal('toggle')
+          });
+        }
+      });
+      $('#cuid-confirm').on('click', function() {
+        $("#cuid_form").submit();
+      });
+    });
+
+
+.panel-body
+  .row
+    .col-sm-10
+      h2 CU Link Card Change
+      = simple_format t('corner.users.activations.show.form.tab2_msg')
+      p.small.hint-text = t('corner.users.activations.show.form.tab2_hint')
+      = form_tag({action: "update"}, method: "put", class: "form-horizontal", id:"cuid_form")
+        = hidden_field_tag(:id_type, "cuid")
+        .form-group
+          = label_tag "cuid", "CUID", class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "cuid", nil, placeholder: "Student / Staff ID", class: "form-control", required: true
+        .form-group
+          = label_tag :cu_link_id, t('corner.users.activations.show.form.cu_link_id'), class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag :cu_link_id, nil, class: "form-control", placeholder: t('corner.users.activations.show.form.cu_link_id_placeholder'), maxlength: 8, style: "text-transform:uppercase"
+        .form-group
+          = label_tag :cu_link_id_confirmation, t('corner.users.activations.show.form.cu_link_id_confirmation'), class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag :cu_link_id_confirmation, nil, class: "form-control", placeholder: t('corner.users.activations.show.form.cu_link_id_confirmation_placeholder'), maxlength: 8, style: "text-transform:uppercase"
+
+        br
+        .row
+          .col-sm-9.col-sm-offset-3
+            button.btn.btn-success#cuid-submit type="button" Submit
+
+.modal.fade.slide-up.disable-scroll#confirmation-cuid-modal tabindex="-1" role="dialog" aria-hidden="true"
+  .modal-dialog
+    .modal-content-wrapper
+      .modal-content
+        .modal-header.clearfix.text-left
+          h5
+            | CU Link Change 
+            span.semi-bold Confirmation
+        .modal-body
+          p You are about to change the CU Link ID of an account, this procedure is irreversible.
+          p Do you want to proceed?
+          p
+            | Operator: 
+            span.bold =current_user.name
+          p
+            | User: 
+            span.bold#cuid-user-name
+          p
+            | New CU Link ID: 
+            span.bold#cuid-user-cu_link_id
+
+        .modal-footer
+          button.btn.btn-default data-dismiss="modal" Cancel
+          button.btn.btn-danger.btn-ok#cuid-confirm type="button" Confirm

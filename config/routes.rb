@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'users/check_email' => 'user#check_email'
   get 'users/check_cuid' => 'user#check_cuid'
   get 'users/check_cu_link_id' => 'user#check_cu_link_id'
+  get 'users/check_activated' => 'user#check_activated'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'bank/account#index'
@@ -14,6 +15,10 @@ Rails.application.routes.draw do
   get 'corner/account/collection' => 'corner/account/collection#index'
   post 'corner/account/collection/collect' => 'corner/account/collection#collect'
   match 'corner/account/collection/get_info' => 'corner/account/collection#get_info', via: [:get, :put, :post]
+
+  get 'corner/users/change_card' => 'corner/users/change_card#index'
+  put 'corner/users/change_card/update' => 'corner/users/change_card#update'
+  match 'corner/users/change_card/get_info' => 'corner/users/change_card#get_info', via: [:get, :put, :post]
 
   get 'corner/users/activations' => 'corner/users/activations#index'
   post 'corner/users/activations' => 'corner/users/activations#show'
