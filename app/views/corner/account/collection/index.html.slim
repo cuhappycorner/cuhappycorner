@@ -51,7 +51,7 @@
                 timeout: 8000,
                 type: 'danger'
               }).show();
-            } else if (parseInt(data.balance) - parseInt($('#culink_amount').val()) < 0) {
+            } else if (parseInt(data.balance) - parseInt($('#cuid_amount').val()) < 0) {
               $('body').pgNotification({
                 style: 'flip',
                 message: 'Happy Coins Not Enough!',
@@ -62,6 +62,7 @@
             } else {
               $('#cuid-debtor-name').html(data.name);
               $('#cuid-collecting-amount').html($('#cuid_amount').val());
+              $('#cuid-reason').html($('#cuid_detail').val());
               $('#cuid-debtor-balance').html(parseInt(data.balance) - parseInt($('#cuid_amount').val()));
               $('#confirmation-cuid-modal').modal('toggle');
             }
@@ -102,6 +103,7 @@
             } else {
               $('#culink-debtor-name').html(data.name);
               $('#culink-collecting-amount').html($('#culink_amount').val());
+              $('#culink-reason').html($('#culink_detail').val());
               $('#culink-debtor-balance').html(parseInt(data.balance) - parseInt($('#culink_amount').val()));
               $('#confirmation-culink-modal').modal('toggle');
             }
@@ -131,7 +133,7 @@
         .form-group
           = label_tag "detail", "Reason", class: "col-sm-3 control-label"
           .col-sm-9
-            = text_field_tag "detail", nil, placeholder: "參加XX活動、購買XXX等等（必填）", class: "form-control", required: true
+            = text_field_tag "detail", nil, placeholder: "參加XX活動、購買XXX等等（必填）", class: "form-control", required: true, id: "culink_detail"
         br
         .row
           .col-sm-9.col-sm-offset-3
@@ -153,7 +155,7 @@
         .form-group
           = label_tag "detail", "Reason", class: "col-sm-3 control-label"
           .col-sm-9
-            = text_field_tag "detail", nil, placeholder: "參加XX活動、購買XXX等等（必填）", class: "form-control", required: true
+            = text_field_tag "detail", nil, placeholder: "參加XX活動、購買XXX等等（必填）", class: "form-control", required: true, id: "cuid_detail"
         br
         .row
           .col-sm-9.col-sm-offset-3
@@ -182,6 +184,9 @@
           p
             | Remaining Balance: 
             span.bold#culink-debtor-balance
+          p
+            | Reason: 
+            span.bold#culink-reason
 
         .modal-footer
           button.btn.btn-default data-dismiss="modal" Cancel
@@ -210,6 +215,9 @@
           p
             | Remaining Balance: 
             span.bold#cuid-debtor-balance
+          p
+            | Reason: 
+            span.bold#cuid-reason
 
         .modal-footer
           button.btn.btn-default data-dismiss="modal" Cancel
