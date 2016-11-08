@@ -204,7 +204,7 @@
       h3 = t('shopkeeper_panel.transaction.page2.msg')
       p = t('shopkeeper_panel.transaction.page2.msg2')
       br
-      = form_tag(action: "create", method: "post", class: "form-horizontal", id:"cuid_form")
+      = form_tag({action: "create"}, method: "post", class: "form-horizontal", id:"cuid_form")
         = hidden_field_tag(:cuid, @user.cuid)
         = hidden_field_tag(:type, params[:type])
         .form-group
