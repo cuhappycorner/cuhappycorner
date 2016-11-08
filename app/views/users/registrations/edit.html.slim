@@ -1,0 +1,167 @@
+- content_for :title do
+  = "Edit My Profile"
+
+- content_for :breadcrumb do
+  li
+    = link_to "Edit My Profile", {action: "edit"}, class: "active"
+
+- content_for :jscode do
+  javascript:
+    $(document).ready(function() {
+      $("#user_major").select2({ width: '100%' });
+      $("#general-tab-form").validate();
+      $("#cuer-tab-form").validate();
+      $("#login-tab-form").validate(
+        { 
+          rules: {
+            "user[password_confirmation]": {
+              equalTo: "#user_password"
+            },
+            "user[email]": {
+              required: true, 
+              email: true, 
+              remote:"/users/check_email"
+            }
+          },
+          messages: {
+            "user[email]": {
+              remote: "Email already used by other user.",
+            }
+          }
+        }
+      );
+    });
+
+.panel.panel-transparent
+  ul.nav.nav-tabs.nav-tabs-simple.nav-tabs-left.bg-white#tab-3
+    li.active
+      a data-toggle="tab" href="#general-tab" General
+    li
+      a data-toggle="tab" href="#cuer-tab" CU-ER
+    li
+      a data-toggle="tab" href="#login-tab" Login
+  .tab-content.bg-white
+    .tab-pane.active#general-tab
+      = simple_form_for resource, as:resource, url:registration_path(resource_name), html: { method: :put, id: "general-tab-form", class: "form-horizontal" } do |f|
+        .form-group
+          = label_tag "user_name_translations_en", t('users.registrations.new.form.eng_name'), class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "user[name_translations][en]", current_user.name_translations[:en], placeholder: t('users.registrations.new.form.eng_name_placeholder'), class: "form-control", required: true, id: "user_name_translations_en"
+        .form-group
+          = label_tag "user_name_translations_zh_HK", t('users.registrations.new.form.chi_name'), class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "user[name_translations][zh_HK]", current_user.name_translations[:zh_HK], placeholder: t('users.registrations.new.form.chi_name_placeholder'), class: "form-control", required: true, id: "user_name_translations_zh_HK"
+        .form-group
+          = label_tag "user_display_name", t('users.registrations.new.form.display_name'), class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "user[display_name]", current_user.display_name, placeholder: t('users.registrations.new.form.display_name_placeholder'), class: "form-control", required: true, id: "user_display_name"
+        /Gender
+        .form-group
+          = label_tag "user_gender", t('users.registrations.new.form.gender'), class: "col-sm-3 control-label"
+          .col-sm-9
+            .radio.radio-success style="margin-top: 0; margin-bottom: 0"
+              - if current_user.gender == :male
+                input#gender_male type="radio" checked=true value="male" name="user[gender]"
+              - else
+                input#gender_male type="radio" value="male" name="user[gender]"
+              label for="gender_male" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.gender_male')
+              - if current_user.gender == :female
+                input#gender_female type="radio" checked=true value="female" name="user[gender]"
+              - else
+                input#gender_female type="radio" value="female" name="user[gender]"
+              label for="gender_female" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.gender_female')
+              - if current_user.gender == :x
+                input#gender_x type="radio" checked=true value="x" name="user[gender]" 
+              - else
+                input#gender_x type="radio" value="x" name="user[gender]" 
+              label for="gender_x" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.gender_x')
+        /Birthday
+        .form-group
+          = label_tag "user_birthday", t('users.registrations.new.form.birthday'), class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "user[birthday]", current_user.birthday, placeholder: t('users.registrations.new.form.birthday_placeholder'), class: "form-control", id: "user_birthday"
+        /Mobile No.
+        .form-group
+          = label_tag "user_mobile", t('users.registrations.new.form.mobile'), class: "col-sm-3 control-label"
+          .col-sm-9
+            = telephone_field_tag "user[mobile]", current_user.mobile, placeholder: t('users.registrations.new.form.mobile_placeholder'), class: "form-control", required: true, id: "user_mobile"
+      
+        p.pull-right
+          br
+          = button_tag "Update", data: { disable_with: t('form.pleasewait') }, class: "btn btn-success btn-cons"
+    .tab-pane#cuer-tab
+      = simple_form_for resource, as:resource, url:registration_path(resource_name), html: { method: :put, id: "cuer-tab-form", class: "form-horizontal" } do |f|
+        .form-group
+          = label_tag "user_cuid", t('users.registrations.new.form.cuid'), class: "col-sm-3 control-label"
+          .col-sm-9
+            p.bold = current_user.cuid
+            p.hint-text.small If you have to change it, please contact us!
+        .form-group
+          = label_tag "user_cuid_type", "Type", class: "col-sm-3 control-label"
+          .col-sm-9
+            p.bold = current_user.cuid_type
+            p.hint-text.small If you have to change it, please contact us!
+        .form-group
+          = label_tag "user_cu_link_id", "CU Link Card ID", class: "col-sm-3 control-label"
+          .col-sm-9
+            p.bold = current_user.cu_link_id
+            p.hint-text.small If you have replaced your CU Link from ITSC, please come to our shop!
+        .form-group
+          = label_tag "user_cu_resident", t('users.registrations.new.form.cu_resident'), class: "col-sm-3 control-label"
+          .col-sm-9
+            .radio.radio-success style="margin-top: 0; margin-bottom: 0"
+              - if !current_user.cu_resident
+                input#cu_resident_false type="radio" checked=true value="false" name="user[cu_resident]"
+              - else
+                input#cu_resident_false type="radio" value="false" name="user[cu_resident]"
+              label for="cu_resident_false" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.cu_resident_false')
+              - if current_user.cu_resident
+                input#cu_resident_true type="radio" checked=true value="true" name="user[cu_resident]"
+              - else
+                input#cu_resident_true type="radio" value="true" name="user[cu_resident]"
+              label for="cu_resident_true" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.cu_resident_true')
+        - if current_user.cuid_type == :student
+          .form-group
+            = label_tag "user_major", t('users.registrations.new.form.major'), class: "col-sm-3 control-label"
+            .col-sm-9
+              select#user_major.full-width name="user[major]" data-init-plugin="select2"
+                - User::Faculty.all.each do |faculty|
+                  optgroup label="#{faculty.name_translations[:en]} #{faculty.name_translations[:zh_HK]}"
+                    - faculty.major.all.each do |major|
+                      - if current_user.major.code.eql? major.code
+                        option value=major.code selected=true #{major.name_translations[:en]} #{major.name_translations[:zh_HK]}
+                      - else
+                        option value=major.code #{major.name_translations[:en]} #{major.name_translations[:zh_HK]}
+          .form-group
+            = label_tag "user_year_of_admission", t('users.registrations.new.form.year_of_admission'), class: "col-sm-3 control-label"
+            .col-sm-9
+              = text_field_tag "user[year_of_admission]", current_user.year_of_admission, placeholder: t('users.registrations.new.form.year_of_admission_placeholder'), class: "form-control", required: true, id: "user_year_of_admission"
+          .form-group
+            = label_tag "user_year_of_graduation", t('users.registrations.new.form.year_of_graduation'), class: "col-sm-3 control-label"
+            .col-sm-9
+              = text_field_tag "user[year_of_graduation]", current_user.year_of_graduation, placeholder: t('users.registrations.new.form.year_of_graduation_placeholder'), class: "form-control", required: true, id: "user_year_of_graduation"
+        p.pull-right
+          br
+          = button_tag "Update", data: { disable_with: t('form.pleasewait') }, class: "btn btn-success btn-cons"
+
+    .tab-pane#login-tab
+      = simple_form_for resource, as:resource, url:registration_path(resource_name), html: { method: :put, id: "login-tab-form", class: "form-horizontal" } do |f|
+        .form-group
+          = label_tag "user_current_password", "Current Password", class: "col-sm-3 control-label"
+          .col-sm-9
+            = password_field_tag "user[current_password]", nil, placeholder: "You have to enter your currrent password to change the email and password.", class: "form-control", required: true, id: "user_current_password", minlength: 8
+        .form-group
+          = label_tag "user_email", t('users.registrations.new.form.email'), class: "col-sm-3 control-label"
+          .col-sm-9
+            = email_field_tag "user[email]", current_user.email, placeholder: t('users.registrations.new.form.email_placeholder'), class: "form-control", required: true, id: "user_email"
+        .form-group
+          = label_tag "user_password", "New Password", class: "col-sm-3 control-label"
+          .col-sm-9
+            = password_field_tag "user[password]", nil, placeholder: t('users.registrations.new.form.password_placeholder'), class: "form-control", id: "user_password", minlength: 8
+        .form-group
+          = label_tag "user_password_confirmation", t('users.registrations.new.form.password_confirmation'), class: "col-sm-3 control-label"
+          .col-sm-9
+            = password_field_tag "user[password_confirmation]", nil, placeholder: t('users.registrations.new.form.password_confirmation_placeholder'), class: "form-control", id: "user_password_confirmation", minlength: 8
+        p.pull-right
+          br
+          = button_tag "Update", data: { disable_with: t('form.pleasewait') }, class: "btn btn-success btn-cons"

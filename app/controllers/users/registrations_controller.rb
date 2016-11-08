@@ -46,9 +46,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # DELETE /resource
-  # def destroy
-  #   super
-  # end
+  def destroy
+    flash[:alert] = "Account Destroy is not possible."
+    redirect_to(request.referrer || root_path) and return
+  end
 
   # GET /resource/cancel
   # Forces the session data which is usually expired after sign
@@ -68,7 +69,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [])
+    devise_parameter_sanitizer.permit(:account_update, keys: [{:name_translations => [:en, :zh_HK]}, :display_name, :gender, :birthday, :mobile, :major, :year_of_admission, :year_of_graduation])
+  end
+
+  def update_resource(resource, params)
+    if params[:current_password].blank?
+      resource.update_without_password(params)
+    else
+      resource.update_with_password(params)
+    end
   end
 
   # The path used after sign up.
