@@ -1,0 +1,30 @@
+- content_for :title do
+  = "Change your password"
+
+- content_for :jscode do
+  javascript:
+    $(document).ready(function() {
+      $("#password_reset_form").validate(
+          { 
+            rules: {
+              "user[password_confirmation]": {
+                equalTo: "#user_password"
+              }
+            }
+          }
+        );
+    });
+
+h2 Change your password
+p.hint-text.small Set your new password
+= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :put, class: "p-t-15", id: "password_reset_form"}) do |f|
+  = f.hidden_field :reset_password_token
+  .form-group.form-group-default.required
+    = f.label :password, "New password"
+    .controls
+      input#user_password.form-control type="password" name="user[password]" placeholder="#{t('users.registrations.new.form.password_placeholder')}" required=true autofocus=true
+  .form-group.form-group-default.required
+    = f.label :password_confirmation, "New password"
+    .controls
+      input#user_password_confirmation.form-control type="password" name="user[password_confirmation]" placeholder="#{t('users.registrations.new.form.password_confirmation_placeholder')}" required=true
+  button.btn.btn-primary.btn-cons.m-t-10 type="submit" = "Change"

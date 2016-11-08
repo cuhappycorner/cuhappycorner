@@ -17,6 +17,9 @@ img src="#{image_path('logo/logo.png')}" alt="logo" data-src="#{image_path('logo
         .checkbox
           input#user_remember_me type="checkbox" value="1" name="user[remember_me]"
           label for="user_remember_me" = t('users.sessions.new.form.remember_me')
+    .col-md-6.text-right
+      = link_to "Forget your password?", new_password_path(resource_name), class: "text-info small"
+
   button.btn.btn-primary.btn-cons.m-t-10 type="submit" = t('users.sessions.new.login')
 .row style="margin: 35px; border-style: dashed; border-color: #6DC0F9; text-align: center; padding: 25px;"
   h5.bold = t('users.sessions.new.register_slogan')

@@ -1,6 +1,8 @@
 class Entity
   include Mongoid::Document
   include Mongoid::Token
+  include GlobalID::Identification
+
   
   token :pattern => "ID-%C%C-%d%d%d-%d%d%d", :field_name => :number
 

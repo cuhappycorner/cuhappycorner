@@ -1,0 +1,11 @@
+- content_for :title do
+  = "Forgot your password?"
+
+h2 Forgot your password?
+p.hint-text.small Send me reset password instructions
+= form_for(resource, as: resource_name, url: password_path(resource_name), html: {class: "p-t-15", id: "password_recovery_form"}) do |f|
+  .form-group.form-group-default.required
+    = f.label :email
+    .controls
+      input#user_email.form-control type="text" name="user[email]" placeholder="#{t('users.sessions.new.form.email')}" required=true autofocus=true
+  button.btn.btn-primary.btn-cons.m-t-10 type="submit" = "Send"
