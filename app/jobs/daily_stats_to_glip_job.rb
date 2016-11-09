@@ -1,5 +1,4 @@
 class DailyStatsToGlipJob < ActiveJob::Base
-  queue_as :default
   def perform
     require 'glip_poster'
     date = Time.zone.today
@@ -53,25 +52,27 @@ class DailyStatsToGlipJob < ActiveJob::Base
       title: 'Auto Statistics of ' + date.to_s
     }
     message = "*Note: Number inside bracket = Total* \n\n"
-    message += "No. of User: ** "+ user_today.to_s + " ** (*" + user.to_s +  "*) \n"
-    message += "No. of Activated User: ** "+ activated_user_today.to_s + " ** (*" + activated_user.to_s +  "*) \n"
+    message += "No. of User: "+ user_today.to_s + "  (*" + user.to_s +  "*) \n"
+    message += "No. of Activated User:  "+ activated_user_today.to_s + "  (*" + activated_user.to_s +  "*) \n"
     message += "----------------------- \n"
-    message += "IN+OUT \n"
-    message += "No. of 2nd Hand Good Transaction: ** "+ second_hand_transaction_no_today.to_s + " ** (*" + second_hand_transaction_no.to_s +  "*) \n"
-    message += "Amount of 2nd Hand Good Transaction (in terms of CU Happy Coins): ** "+ second_hand_transaction_amount_today.to_s + " ** (*" + second_hand_transaction_amount.to_s +  "*) \n"
-    message += "Quantity of 2nd Hand Good Transaction (in terms of items): ** "+ second_hand_transaction_item_today.to_s + " ** (*" + second_hand_transaction_item.to_s +  "*) \n"
+    message += "[IN+OUT] \n"
+    message += "No. of 2nd Hand Good Transaction:  "+ second_hand_transaction_no_today.to_s + "  (*" + second_hand_transaction_no.to_s +  "*) \n"
+    message += "Amount of 2nd Hand Good Transaction (in terms of CU Happy Coins):  "+ second_hand_transaction_amount_today.to_s + "  (*" + second_hand_transaction_amount.to_s +  "*) \n"
+    message += "Quantity of 2nd Hand Good Transaction (in terms of items): *"+ second_hand_transaction_item_today.to_s + "  (*" + second_hand_transaction_item.to_s +  "*) \n"
     poster.send_message(message, options)
-    message += "[IN] \n"
-    message += "No. of 2nd Hand Good Transaction: ** "+ second_hand_transaction_in_no_today.to_s + " ** (*" + second_hand_transaction_in_no.to_s +  "*) \n"
-    message += "Amount of 2nd Hand Good Transaction (in terms of CU Happy Coins): ** "+ second_hand_transaction_in_amount_today.to_s + " ** (*" + second_hand_transaction_in_amount.to_s +  "*) \n"
-    message += "Quantity of 2nd Hand Good Transaction (in terms of items): ** "+ second_hand_transaction_in_item_today.to_s + " ** (*" + second_hand_transaction_in_item.to_s +  "*) \n"
+
+    message = "[IN] \n"
+    message += "No. of 2nd Hand Good Transaction:  "+ second_hand_transaction_in_no_today.to_s + "  (*" + second_hand_transaction_in_no.to_s +  "*) \n"
+    message += "Amount of 2nd Hand Good Transaction (in terms of CU Happy Coins):  "+ second_hand_transaction_in_amount_today.to_s + "  (*" + second_hand_transaction_in_amount.to_s +  "*) \n"
+    message += "Quantity of 2nd Hand Good Transaction (in terms of items):  "+ second_hand_transaction_in_item_today.to_s + "  (*" + second_hand_transaction_in_item.to_s +  "*) \n"
     message += "----------------------- \n"
     message += "[OUT] \n" 
-    message += "No. of 2nd Hand Good Transaction: **"+ second_hand_transaction_out_no_today.to_s + "** (*" + second_hand_transaction_out_no.to_s +  "*) \n"
-    message += "Amount of 2nd Hand Good Transaction (in terms of CU Happy Coins): ** "+ second_hand_transaction_out_amount_today.to_s + " ** (*" + second_hand_transaction_out_amount.to_s +  "*) \n"
-    message += "Quantity of 2nd Hand Good Transaction (in terms of items): ** "+ second_hand_transaction_out_item_today.to_s + " ** (*" + second_hand_transaction_out_item.to_s +  "*) \n"
+    message += "No. of 2nd Hand Good Transaction: "+ second_hand_transaction_out_no_today.to_s + " (*" + second_hand_transaction_out_no.to_s +  "*) \n"
+    message += "Amount of 2nd Hand Good Transaction (in terms of CU Happy Coins):  "+ second_hand_transaction_out_amount_today.to_s + "  (*" + second_hand_transaction_out_amount.to_s +  "*) \n"
+    message += "Quantity of 2nd Hand Good Transaction (in terms of items):  "+ second_hand_transaction_out_item_today.to_s + "  (*" + second_hand_transaction_out_item.to_s +  "*) \n"
     poster.send_message(message, options)
-    message += "[Detail] \n" 
+
+    message = "[Detail] \n" 
     Corner::Pos::SecondHandGood.all.each do |pro|
       good_tran_date = second_hand_transaction_each_today.where(product: pro)
       no_in = good_tran_date.where(flow_type: "debit").sum(:quantity)
