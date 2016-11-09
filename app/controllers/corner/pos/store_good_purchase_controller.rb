@@ -56,9 +56,12 @@ class Corner::Pos::StoreGoodPurchaseController < ApplicationController
         purchase_cash_price = 0
         sale_credit_price = 0
         sale_cash_price = 0
+
         purchase_credit_price = params[("price_"+i.to_s).to_sym].to_i
+        purchase_cash_price = params[("cash_"+i.to_s).to_sym].to_i
         flow_type = "debit"
-        @item_array << {'flow_type' => flow_type, 'quantity' => quantity, 'product' => good, 'purchase_credit_price' => purchase_credit_price, 'purchase_cash_price' => purchase_cash_price}
+        
+        @item_array << {'flow_type' => flow_type, 'quantity' => quantity, 'product' => good, 'purchase_credit_price' => purchase_credit_price, 'purchase_cash_price' => purchase_cash_price, 'sale_credit_price' => sale_credit_price, 'sale_cash_price' => sale_cash_price}
       end 
     end
 

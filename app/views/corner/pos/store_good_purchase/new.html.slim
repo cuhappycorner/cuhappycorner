@@ -50,10 +50,12 @@
         if (this.value != "empty") {
           $.getJSON('/corner/pos/store_good_purchase/get_price', {good: this.value}, function(data) {
             $('#price_1').val(data.purchase_credit_price);
+            $('#cash_1').val(data.purchase_cash_price);
             $('#quantity_1').val("1");
           });
         } else {
           $('#price_1').val("");
+          $('#cash_1').val("");
           $('#quantity_1').val("");
         }
       });
@@ -61,10 +63,12 @@
         if (this.value != "empty") {
           $.getJSON('/corner/pos/store_good_purchase/get_price', {good: this.value}, function(data) {
             $('#price_2').val(data.purchase_credit_price);
+            $('#cash_2').val(data.purchase_cash_price);
             $('#quantity_2').val("1");
           });
         } else {
           $('#price_2').val("");
+          $('#cash_2').val("");
           $('#quantity_2').val("");
         }
       });
@@ -72,10 +76,12 @@
         if (this.value != "empty") {
           $.getJSON('/corner/pos/store_good_purchase/get_price', {good: this.value}, function(data) {
             $('#price_3').val(data.purchase_credit_price);
+            $('#cash_3').val(data.purchase_cash_price);
             $('#quantity_3').val("1");
           });
         } else {
           $('#price_3').val("");
+          $('#cash_3').val("");
           $('#quantity_3').val("");
         }
       });
@@ -83,10 +89,12 @@
         if (this.value != "empty") {
           $.getJSON('/corner/pos/store_good_purchase/get_price', {good: this.value}, function(data) {
             $('#price_4').val(data.purchase_credit_price);
+            $('#cash_4').val(data.purchase_cash_price);
             $('#quantity_4').val("1");
           });
         } else {
           $('#price_4').val("");
+          $('#cash_4').val("");
           $('#quantity_4').val("");
         }
       });
@@ -94,10 +102,12 @@
         if (this.value != "empty") {
           $.getJSON('/corner/pos/store_good_purchase/get_price', {good: this.value}, function(data) {
             $('#price_5').val(data.purchase_credit_price);
+            $('#cash_5').val(data.purchase_cash_price);
             $('#quantity_5').val("1");
           });
         } else {
           $('#price_5').val("");
+          $('#cash_5').val("");
           $('#quantity_5').val("");
         }
       });
@@ -105,10 +115,12 @@
         if (this.value != "empty") {
           $.getJSON('/corner/pos/store_good_purchase/get_price', {good: this.value}, function(data) {
             $('#price_6').val(data.purchase_credit_price);
+            $('#cash_6').val(data.purchase_cash_price);
             $('#quantity_6').val("1");
           });
         } else {
           $('#price_6').val("");
+          $('#cash_6').val("");
           $('#quantity_6').val("");
         }
       });
@@ -116,10 +128,12 @@
         if (this.value != "empty") {
           $.getJSON('/corner/pos/store_good_purchase/get_price', {good: this.value}, function(data) {
             $('#price_7').val(data.purchase_credit_price);
+            $('#cash_7').val(data.purchase_cash_price);
             $('#quantity_7').val("1");
           });
         } else {
           $('#price_7').val("");
+          $('#cash_7').val("");
           $('#quantity_7').val("");
         }
       });
@@ -127,10 +141,12 @@
         if (this.value != "empty") {
           $.getJSON('/corner/pos/store_good_purchase/get_price', {good: this.value}, function(data) {
             $('#price_8').val(data.purchase_credit_price);
+            $('#cash_8').val(data.purchase_cash_price);
             $('#quantity_8').val("1");
           });
         } else {
           $('#price_8').val("");
+          $('#cash_8').val("");
           $('#quantity_8').val("");
         }
       });
@@ -138,10 +154,12 @@
         if (this.value != "empty") {
           $.getJSON('/corner/pos/store_good_purchase/get_price', {good: this.value}, function(data) {
             $('#price_9').val(data.purchase_credit_price);
+            $('#cash_9').val(data.purchase_cash_price);
             $('#quantity_9').val("1");
           });
         } else {
           $('#price_9').val("");
+          $('#cash_9').val("");
           $('#quantity_9').val("");
         }
       });
@@ -149,10 +167,12 @@
         if (this.value != "empty") {
           $.getJSON('/corner/pos/store_good_purchase/get_price', {good: this.value}, function(data) {
             $('#price_10').val(data.purchase_credit_price);
+            $('#cash_10').val(data.purchase_cash_price);
             $('#quantity_10').val("1");
           });
         } else {
           $('#price_10').val("");
+          $('#cash_10').val("");
           $('#quantity_10').val("");
         }
       });
@@ -203,7 +223,7 @@
                   td.col-md-1
                     = text_field_tag ("price_"+i.to_s), nil, class: "form-control", readonly: true
                   td.col-md-1
-                    = text_field_tag ("price_"+i.to_s), nil, class: "form-control", readonly: true
+                    = text_field_tag ("cash_"+i.to_s), nil, class: "form-control", readonly: true
                   td.col-md-2
                     = text_field_tag ("quantity_"+i.to_s), nil, class: "form-control"
         br
