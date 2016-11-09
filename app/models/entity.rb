@@ -1,5 +1,6 @@
 class Entity
   include Mongoid::Document
+  include Mongoid::Timestamps::Created::Short
   include Mongoid::Token
   include GlobalID::Identification
 
