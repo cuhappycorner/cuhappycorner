@@ -53,6 +53,7 @@ gem 'gemoji-parser'
 gem 'typhoeus', platforms: [:ruby]
 gem 'glip-poster'
 gem 'gibbon'
+gem 'rubocop', require: false
 
 
 source 'http://insecure.rails-assets.org' do
