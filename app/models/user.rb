@@ -81,6 +81,8 @@ class User < Entity
   validates :cuid,  uniqueness: true, presence: true
   # validates :cu_link_id,  uniqueness: true
 
+  after_create :subscribe_user_to_mailing_list
+  after_update :subscribe_user_to_mailing_list
 
   def self.new_with_session(params, session)
     params[:gender] = params[:gender].to_s.to_sym
@@ -113,5 +115,9 @@ class User < Entity
 
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later
+  end
+
+  def subscribe_user_to_mailing_list
+    SubscribeUserToMailingListJob.perform_later(self)
   end
 end
