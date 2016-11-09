@@ -35,19 +35,24 @@ gem 'enumerize'
 gem 'kaminari'
 gem 'slim'
 gem 'slim-rails'
-gem "browser"
+gem 'browser'
 gem 'simple_form'
 gem 'bootstrap-sass'
-gem "font-awesome-rails"
-gem "select2-rails"
-gem "seedbank", github: "ckho/seedbank"
-gem "mongoid_token", github: "williamatodd/mongoid_token"
+gem 'font-awesome-rails'
+gem 'select2-rails'
+gem 'seedbank', github: 'ckho/seedbank'
+gem 'mongoid_token', github: 'williamatodd/mongoid_token'
 gem 'money-rails'
-gem "sentry-raven"
+gem 'sentry-raven'
 gem 'sendgrid'
 gem 'sidekiq'
-gem "sidekiq-cron"
-gem "procodile", require: false
+gem 'sidekiq-cron'
+gem 'procodile', require: false
+gem 'searchkick'
+gem 'gemoji-parser'
+gem 'typhoeus', platforms: [:ruby]
+gem 'glip-poster'
+gem 'gibbon'
 
 
 source 'http://insecure.rails-assets.org' do
