@@ -1,6 +1,5 @@
 source 'http://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'bundler', '>= 1.8.4'
 
@@ -55,7 +54,6 @@ gem 'glip-poster'
 gem 'gibbon'
 gem 'rubocop', require: false
 
-
 source 'http://insecure.rails-assets.org' do
   gem 'rails-assets-modernizr', '2.8.3'
   gem 'rails-assets-twitter-bootstrap-wizard'
@@ -68,8 +66,6 @@ source 'http://insecure.rails-assets.org' do
   gem 'rails-assets-jquery.scrollbar'
   gem 'rails-assets-pace'
 end
-
-
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -3,19 +3,19 @@ class Bank::Transaction
   include Mongoid::Token
   include Mongoid::Timestamps::Created::Short
 
-  token :pattern => "TS-%C%C-%C%C%C-%C%C%C-%C%C%C", :field_name => :number
+  token pattern: 'TS-%C%C-%C%C%C-%C%C%C-%C%C%C', field_name: :number
 
   field :amount, type: Integer
-  belongs_to :operator, class_name: "Entity", inverse_of: :operated_bank_transaction
-  belongs_to :debitor, class_name: "Bank::Account", inverse_of: :debit
-  belongs_to :creditor, class_name: "Bank::Account", inverse_of: :credit
+  belongs_to :operator, class_name: 'Entity', inverse_of: :operated_bank_transaction
+  belongs_to :debitor, class_name: 'Bank::Account', inverse_of: :debit
+  belongs_to :creditor, class_name: 'Bank::Account', inverse_of: :credit
   field :debitor_new_balance, type: Integer
   field :creditor_new_balance, type: Integer
   field :detail, type: String
 
   # attr_readonly :amount, :operator, :debitor, :creditor, :debitor_new_balance, :creditor_new_balance, :detail
 
-  validates :amount, numericality: { :greater_than => 0}
+  validates :amount, numericality: { greater_than: 0 }
 
   validate :check_enough_balance, on: :create
 
@@ -39,18 +39,15 @@ class Bank::Transaction
 end
 
 class Bank::TransferTransaction < Bank::Transaction
-
 end
-
 
 ## Loan Module
 class Bank::LoanTransaction < Bank::Transaction
-  belongs_to :loan, class_name: "Bank::OrganizationalLoan", inverse_of: :transaction
+  belongs_to :loan, class_name: 'Bank::OrganizationalLoan', inverse_of: :transaction
   # attr_readonly :loan
 end
 
 class Bank::DrawdownLoanTransaction < Bank::LoanTransaction
-
 end
 
 class Bank::RepayInterestTransaction < Bank::LoanTransaction
@@ -75,5 +72,4 @@ end
 
 ##Distribution Module
 class Bank::DistributeTransaction < Bank::Transaction
-  # TODO
-end
+  # TODOend

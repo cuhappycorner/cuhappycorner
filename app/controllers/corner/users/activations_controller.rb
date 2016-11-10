@@ -6,7 +6,7 @@ class Corner::Users::ActivationsController < ApplicationController
 
   # GET
   def index
-    if !current_user.role.include? Role.find_by(name:"shopkeeper")
+    unless current_user.role.include? Role.find_by(name: 'shopkeeper')
       flash[:alert] = t('error.notauthorized')
       redirect_to(request.referrer || root_path) and return
     end
@@ -14,27 +14,27 @@ class Corner::Users::ActivationsController < ApplicationController
 
   # GET
   def show
-    if !current_user.role.include? Role.find_by(name:"shopkeeper")
+    unless current_user.role.include? Role.find_by(name: 'shopkeeper')
       flash[:alert] = t('error.notauthorized')
       redirect_to(request.referrer || root_path) and return
     end
     @user = User.find_by(cuid: params[:cuid])
-    if @user == nil
+    if @user.nil?
       flash[:notice] = t('corner.users.activations.show.error.notfound')
-      redirect_to action:'index' and return
+      redirect_to(action: 'index') and return
     end
   end
 
   # PUT
   def update
-    if !current_user.role.include? Role.find_by(name:"shopkeeper")
+    unless current_user.role.include? Role.find_by(name: 'shopkeeper')
       flash[:alert] = t('error.notauthorized')
       redirect_to(request.referrer || root_path) and return
     end
     @user = User.find_by(cuid: params[:cuid])
-    if @user == nil
+    if @user.nil?
       flash[:notice] = t('corner.users.activations.show.error.notfound')
-      redirect_to action:'index' and return
+      redirect_to(action: 'index') and return
     end
 
     @user.name_translations[:en] = params[:eng_name]
@@ -47,23 +47,18 @@ class Corner::Users::ActivationsController < ApplicationController
     @user.year_of_admission = params[:year_of_admission]
     @user.year_of_graduation = params[:year_of_graduation]
     @user.save
-    if not @user.valid?
+    unless @user.valid?
       flash[:error] = @user.errors.full_messages
       redirect_to(request.referrer || root_path) and return
     end
 
     member = activate_member(current_user, @user, params[:cu_link_id].upcase)
-    if not member
-      redirect_to(request.referrer || root_path) and return
-    end
+    redirect_to(request.referrer || root_path) and return unless member
 
     status = bank_create_individual_account(current_user, @user)
-    if not status
-      redirect_to(request.referrer || root_path) and return
-    end
+    redirect_to(request.referrer || root_path) and return unless status
 
     flash[:success] = t('corner.users.activations.show.success.activated')
-    redirect_to action:'index' and return
-
+    redirect_to(action: 'index') and return
   end
 end

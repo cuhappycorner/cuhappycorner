@@ -3,7 +3,7 @@ class UserController < ApplicationController
     if user_signed_in?
       if current_user.email == params[:user][:email]
         respond_to do |format|
-          format.json { render :json => true }
+          format.json { render json: true }
         end
         return
       end
@@ -11,7 +11,7 @@ class UserController < ApplicationController
     @user = User.find_by(email: params[:user][:email])
 
     respond_to do |format|
-      format.json { render :json => !@user }
+      format.json { render json: !@user }
     end
   end
 
@@ -19,7 +19,7 @@ class UserController < ApplicationController
     @user = User.find_by(cuid: params[:user][:cuid])
 
     respond_to do |format|
-      format.json { render :json => !@user }
+      format.json { render json: !@user }
     end
   end
 
@@ -27,19 +27,17 @@ class UserController < ApplicationController
     @user = User.find_by(cu_link_id: params[:cu_link_id].upcase)
 
     respond_to do |format|
-      format.json { render :json => !@user }
+      format.json { render json: !@user }
     end
   end
 
   def check_activated
     @user = User.find_by(cuid: params[:cuid])
     @activated = false
-    if @user.respond_to? :activated
-      @activated = @user.activated
-    end
+    @activated = @user.activated if @user.respond_to? :activated
 
     respond_to do |format|
-      format.json { render :json => @activated }
+      format.json { render json: @activated }
     end
   end
 end

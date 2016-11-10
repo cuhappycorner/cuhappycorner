@@ -3,14 +3,14 @@ class Corner::Loan::Loan
   include Mongoid::Timestamps::Created::Short
   include Mongoid::Token
 
-  token :pattern => "CL-%C%C-%d%d%d-%d%d%d", :field_name => :number
+  token pattern: 'CL-%C%C-%d%d%d-%d%d%d', field_name: :number
 
-  has_many :transaction, class_name: "Corner::Account::LoanTransaction", inverse_of: :loan
-  belongs_to :member, class_name: "User", inverse_of: :loan
+  has_many :transaction, class_name: 'Corner::Account::LoanTransaction', inverse_of: :loan
+  belongs_to :member, class_name: 'User', inverse_of: :loan
   field :amount, type: Integer, default: 0
   field :repayed_amount, type: Integer, default: 0
   field :deadline, type: Date
-  field :status, type: Integer, default: 1 #1: approved, 2:fully repayed, 3: bad debt
+  field :status, type: Integer, default: 1 # 1: approved, 2:fully repayed, 3: bad debt
 
   before_create :check_loan_limit_exceed
   after_create :increase_loan_limit

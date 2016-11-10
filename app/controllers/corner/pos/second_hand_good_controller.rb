@@ -4,14 +4,14 @@ class Corner::Pos::SecondHandGoodController < ApplicationController
 
   # GET
   def index
-    if !current_user.role.include? Role.find_by(name:"shopkeeper")
+    unless current_user.role.include? Role.find_by(name: 'shopkeeper')
       flash[:alert] = t('error.notauthorized')
       redirect_to(request.referrer || root_path) and return
     end
   end
 
   def new
-    if !current_user.role.include? Role.find_by(name:"shopkeeper")
+    unless current_user.role.include? Role.find_by(name: 'shopkeeper')
       flash[:alert] = t('error.notauthorized')
       redirect_to(request.referrer || root_path) and return
     end
@@ -30,66 +30,58 @@ class Corner::Pos::SecondHandGoodController < ApplicationController
   # end
 
   def edit
-    if !current_user.role.include? Role.find_by(name:"shopkeeper")
+    unless current_user.role.include? Role.find_by(name: 'shopkeeper')
       flash[:alert] = t('error.notauthorized')
       redirect_to(request.referrer || root_path) and return
     end
-
   end
 
   def update
-    if !current_user.role.include? Role.find_by(name:"shopkeeper")
+    unless current_user.role.include? Role.find_by(name: 'shopkeeper')
       flash[:alert] = t('error.notauthorized')
       redirect_to(request.referrer || root_path) and return
     end
-
   end
 
   def delete
-    if !current_user.role.include? Role.find_by(name:"shopkeeper")
+    unless current_user.role.include? Role.find_by(name: 'shopkeeper')
       flash[:alert] = t('error.notauthorized')
       redirect_to(request.referrer || root_path) and return
     end
-
   end
 
   def new_category
-    if !current_user.role.include? Role.find_by(name:"shopkeeper")
+    unless current_user.role.include? Role.find_by(name: 'shopkeeper')
       flash[:alert] = t('error.notauthorized')
       redirect_to(request.referrer || root_path) and return
     end
-
   end
 
   def create_category
-    if !current_user.role.include? Role.find_by(name:"shopkeeper")
+    unless current_user.role.include? Role.find_by(name: 'shopkeeper')
       flash[:alert] = t('error.notauthorized')
       redirect_to(request.referrer || root_path) and return
     end
-
   end
 
   def edit_category
-    if !current_user.role.include? Role.find_by(name:"shopkeeper")
+    unless current_user.role.include? Role.find_by(name: 'shopkeeper')
       flash[:alert] = t('error.notauthorized')
       redirect_to(request.referrer || root_path) and return
     end
-
   end
 
   def update_category
-    if !current_user.role.include? Role.find_by(name:"shopkeeper")
+    unless current_user.role.include? Role.find_by(name: 'shopkeeper')
       flash[:alert] = t('error.notauthorized')
       redirect_to(request.referrer || root_path) and return
     end
-
   end
 
   def delete_category
-    if !current_user.role.include? Role.find_by(name:"shopkeeper")
+    unless current_user.role.include? Role.find_by(name: 'shopkeeper')
       flash[:alert] = t('error.notauthorized')
       redirect_to(request.referrer || root_path) and return
     end
-
   end
 end

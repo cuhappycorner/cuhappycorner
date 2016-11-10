@@ -1,9 +1,9 @@
 class Corner::Account::CreditTransaction < Bank::Transaction
-  belongs_to :transaction, class_name: "Corner::Account::Transaction", inverse_of: :credit_transaction
+  belongs_to :transaction, class_name: 'Corner::Account::Transaction', inverse_of: :credit_transaction
 end
 
 class Corner::Account::GeneralCreditTransaction < Corner::Account::CreditTransaction
-  belongs_to :project, class_name: "Corner::Account::Project", inverse_of: :credit_transaction
+  belongs_to :project, class_name: 'Corner::Account::Project', inverse_of: :credit_transaction
   field :project_new_budget_remained, type: Integer
   field :project_new_income_created, type: Integer
 
@@ -33,21 +33,16 @@ class Corner::Account::GeneralCreditTransaction < Corner::Account::CreditTransac
 end
 
 class Corner::Account::MigrationCreditTransaction < Corner::Account::GeneralCreditTransaction
-
 end
 
 class Corner::Account::SalaryCreditTransaction < Corner::Account::GeneralCreditTransaction
-
 end
 
 class Corner::Account::DrawdownLoanCreditTransaction < Corner::Account::GeneralCreditTransaction
-
 end
 
 class Corner::Account::RepayLoanCreditTransaction < Corner::Account::GeneralCreditTransaction
-
 end
 
 class Corner::Account::PosCreditTransaction < Corner::Account::CreditTransaction
-  
 end

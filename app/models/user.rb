@@ -1,7 +1,7 @@
 class User < Entity
   extend Enumerize
-  
-  has_and_belongs_to_many :role, class_name: "Role", inverse_of: :user
+
+  has_and_belongs_to_many :role, class_name: 'Role', inverse_of: :user
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -9,8 +9,8 @@ class User < Entity
          :recoverable, :rememberable, :trackable, :validatable
 
   ## Database authenticatable
-  field :email,              type: String, default: ""
-  field :encrypted_password, type: String, default: ""
+  field :email,              type: String, default: ''
+  field :encrypted_password, type: String, default: ''
 
   ## Recoverable
   field :reset_password_token,   type: String
@@ -31,21 +31,20 @@ class User < Entity
 
   ## CU-ER Information
   enumerize :cuid_type, in: [:student, :staff, :alumni, :outside], default: :student
-  field :cuid,     type: String
+  field :cuid, type: String
 
   field :cu_link_id, type: String
 
-  field :cu_resident,         type: Boolean, default: false
-  belongs_to :major, class_name: "User::Major", inverse_of: :student
+  field :cu_resident, type: Boolean, default: false
+  belongs_to :major, class_name: 'User::Major', inverse_of: :student
   field :year_of_admission,   type: Integer
   field :year_of_graduation,  type: Integer
 
   ## Personal Information
   field :display_name,       type: String
   field :name,               localize: true
-  field :birthday,      type: String
+  field :birthday, type: String
   enumerize :gender, in: [:male, :female, :x], default: :x
-
 
   ## Confirmable
   # field :confirmation_token,   type: String
@@ -58,18 +57,18 @@ class User < Entity
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
 
-  has_and_belongs_to_many :organization, class_name: "Organization", inverse_of: :committee
+  has_and_belongs_to_many :organization, class_name: 'Organization', inverse_of: :committee
 
   ## Bank System
-  has_one :account, class_name: "Bank::IndividualAccount", inverse_of: :owner
-  has_and_belongs_to_many :organizational_account, class_name: "Bank::OrganizationalAccount", inverse_of: :authorized_person
+  has_one :account, class_name: 'Bank::IndividualAccount', inverse_of: :owner
+  has_and_belongs_to_many :organizational_account, class_name: 'Bank::OrganizationalAccount', inverse_of: :authorized_person
 
   ## Corner System - Loan Module
-  has_many :individual_loan, class_name: "Corner::Loan::Loan", inverse_of: :member
-  field :individual_loan_amount,  type: Integer, default: 0
+  has_many :individual_loan, class_name: 'Corner::Loan::Loan', inverse_of: :member
+  field :individual_loan_amount, type: Integer, default: 0
 
   ## Corner System - Project Account Module
-  has_and_belongs_to_many :corner_project, class_name: "Corner::Account::Project", inverse_of: :authorized_person
+  has_and_belongs_to_many :corner_project, class_name: 'Corner::Account::Project', inverse_of: :authorized_person
 
   ## Member System - Activation Module
 
@@ -78,7 +77,7 @@ class User < Entity
   field :activated,            type: Boolean, default: false
 
   # validates :mobile, uniqueness: true, presence: true
-  validates :cuid,  uniqueness: true, presence: true
+  validates :cuid, uniqueness: true, presence: true
   # validates :cu_link_id,  uniqueness: true
 
   after_create :subscribe_user_to_mailing_list
@@ -91,22 +90,22 @@ class User < Entity
     new(params)
   end
 
-  def active_for_authentication? 
-    super && activated? 
-  end 
-
-  def inactive_message 
-    if !activated? 
-      :not_activated 
-    else 
-      super # Use whatever other message 
-    end 
+  def active_for_authentication?
+    super && activated?
   end
 
-  def self.send_reset_password_instructions(attributes={})
+  def inactive_message
+    if !activated?
+      :not_activated
+    else
+      super # Use whatever other message
+    end
+  end
+
+  def self.send_reset_password_instructions(attributes = {})
     recoverable = find_or_initialize_with_errors(reset_password_keys, attributes, :not_found)
     if !recoverable.activated?
-      recoverable.errors[:base] << I18n.t("devise.failure.not_activated")
+      recoverable.errors[:base] << I18n.t('devise.failure.not_activated')
     elsif recoverable.persisted?
       recoverable.send_reset_password_instructions
     end

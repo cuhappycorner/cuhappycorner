@@ -4,15 +4,15 @@ class Corner::Users::ShopkeeperController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    if (!current_user.role.include? Role.find_by(name:"shopkeeper_manager")) && (!current_user.role.include? Role.find_by(name:"board"))
+    if (!current_user.role.include? Role.find_by(name: 'shopkeeper_manager')) && (!current_user.role.include? Role.find_by(name: 'board'))
       flash[:alert] = t('error.notauthorized')
       redirect_to(request.referrer || root_path) and return
     end
-    @shopkeepers = Role.find_by(name:"shopkeeper").user.order_by(name: :asc)
+    @shopkeepers = Role.find_by(name: 'shopkeeper').user.order_by(name: :asc)
   end
 
   def distribute
-    if (!current_user.role.include? Role.find_by(name:"shopkeeper_manager")) && (!current_user.role.include? Role.find_by(name:"board"))
+    if (!current_user.role.include? Role.find_by(name: 'shopkeeper_manager')) && (!current_user.role.include? Role.find_by(name: 'board'))
       flash[:alert] = t('error.notauthorized')
       redirect_to(request.referrer || root_path) and return
     end
@@ -23,16 +23,14 @@ class Corner::Users::ShopkeeperController < ApplicationController
     detail = params[:detail]
 
     status = corner_distribute_salary(current_user, entity, amount, detail)
-    if !status
-      redirect_to(action: "index") and return
-    end
+    redirect_to(action: 'index') and return unless status
 
-    flash[:success] = "Salary distribution succeed."
-    redirect_to(action: "index") and return
+    flash[:success] = 'Salary distribution succeed.'
+    redirect_to(action: 'index') and return
   end
 
   def get_user_info
-    if !current_user.role.include? Role.find_by(name:"shopkeeper")
+    unless current_user.role.include? Role.find_by(name: 'shopkeeper')
       flash[:alert] = t('error.notauthorized')
       redirect_to(request.referrer || root_path) and return
     end
@@ -43,16 +41,15 @@ class Corner::Users::ShopkeeperController < ApplicationController
     balance = 0
     entity = User.find_by(cuid: params[:cuid])
 
-    if entity != nil
+    unless entity.nil?
       exist = true
       name = entity.name
-      if entity.account != nil
+      unless entity.account.nil?
         activated = true
         balance = entity.account.balance
       end
     end
-    @status = {:exist => exist, :name => name, :activated => activated, :balance => balance}
+    @status = { exist: exist, name: name, activated: activated, balance: balance }
     render json: @status
   end
-
 end
