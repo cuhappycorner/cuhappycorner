@@ -11,6 +11,25 @@
   javascript:
     $(document).ready(function() {
       $('#cuid-submit').on('click', function() {
+
+        cashtotal = 0;
+        if ($('#good_1').val() != "empty") cashtotal += parseInt($('#cash_1').val())*parseInt($('#quantity_1').val());
+        if ($('#good_2').val() != "empty") cashtotal += parseInt($('#cash_2').val())*parseInt($('#quantity_2').val());
+        if ($('#good_3').val() != "empty") cashtotal += parseInt($('#cash_3').val())*parseInt($('#quantity_3').val());
+        if ($('#good_4').val() != "empty") cashtotal += parseInt($('#cash_4').val())*parseInt($('#quantity_4').val());
+        if ($('#good_5').val() != "empty") cashtotal += parseInt($('#cash_5').val())*parseInt($('#quantity_5').val());
+        if ($('#good_6').val() != "empty") cashtotal += parseInt($('#cash_6').val())*parseInt($('#quantity_6').val());
+        if ($('#good_7').val() != "empty") cashtotal += parseInt($('#cash_7').val())*parseInt($('#quantity_7').val());
+        if ($('#good_8').val() != "empty") cashtotal += parseInt($('#cash_8').val())*parseInt($('#quantity_8').val());
+        if ($('#good_9').val() != "empty") cashtotal += parseInt($('#cash_9').val())*parseInt($('#quantity_9').val());
+        if ($('#good_10').val() != "empty") cashtotal += parseInt($('#cash_10').val())*parseInt($('#quantity_10').val());
+
+        if (cashtotal > 0) {
+          $('#cuid-cash-amount').html("+" + String(cashtotal));
+        } else {
+          $('#cuid-cash-amount').html(String(cashtotal));
+        }
+
         total = 0;
         if ($('#good_1').val() != "empty") total += parseInt($('#price_1').val())*parseInt($('#quantity_1').val());
         if ($('#good_2').val() != "empty") total += parseInt($('#price_2').val())*parseInt($('#quantity_2').val());
@@ -253,8 +272,11 @@
             | Type: 
             span.bold Purchase
           p
-            | Amount Change: 
+            | Amount:
             span.bold#cuid-payment-amount
+          p
+            | Cash amount:
+            span.bold#cuid-cash-amount
           p
             | Balance after Transaction: 
             span.bold#cuid-debtor-balance
