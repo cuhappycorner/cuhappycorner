@@ -18,7 +18,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if resource.active_for_authentication?
         set_flash_message! :notice, :signed_up
         sign_up(resource_name, resource)
-        #respond_with resource, location: after_sign_up_path_for(resource)
+        # respond_with resource, location: after_sign_up_path_for(resource)
         render 'users/registrations/finish_registration'
         # redirect_to(controller: "custom_registration", action: "index") and return
       else
@@ -47,7 +47,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # DELETE /resource
   def destroy
-    flash[:alert] = "Account Destroy is not possible."
+    flash[:alert] = 'Account Destroy is not possible.'
     redirect_to(request.referrer || root_path) and return
   end
 
@@ -64,12 +64,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [{:name_translations => [:en, :zh_HK]}, :display_name, :gender, :birthday, :mobile, :cuid_type, :cuid, :cu_resident, :major, :year_of_admission, :year_of_graduation])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [{ name_translations: [:en, :zh_HK] }, :display_name, :gender, :birthday, :mobile, :cuid_type, :cuid, :cu_resident, :major, :year_of_admission, :year_of_graduation])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [{:name_translations => [:en, :zh_HK]}, :display_name, :gender, :birthday, :mobile, :major, :year_of_admission, :year_of_graduation])
+    devise_parameter_sanitizer.permit(:account_update, keys: [{ name_translations: [:en, :zh_HK] }, :display_name, :gender, :birthday, :mobile, :major, :year_of_admission, :year_of_graduation])
   end
 
   def update_resource(resource, params)
@@ -87,6 +87,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)
-  #   '/register_success' 
+  #   '/register_success'
   # end
 end

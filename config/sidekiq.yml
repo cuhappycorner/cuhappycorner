@@ -6,3 +6,5 @@
   - default
   - mailers
   - CUHappyCorner_production_mailers
+  - CUHappyCorner_production_default
+  - CUHappyCorner_production_CUHappyCorner_production_default

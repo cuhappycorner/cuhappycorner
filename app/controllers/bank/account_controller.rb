@@ -13,16 +13,15 @@ class Bank::AccountController < ApplicationController
   def show
     @account = Bank::Account.find_by_number(params[account_no])
     if @account.is_a? Bank::IndividualAccount
-      if not @account.owner.eql? (current_user)
+      unless @account.owner.eql? current_user
         flash[:alert] = t('error.notauthorized')
-        redirect_to(request.referrer || root_path) and return
+        redirect_to(request.referrer || root_path) && return
       end
     elsif @account.is_a? Bank::OrganizationalAccount
-      if not @account.authorized_person.exist? (current_user)
+      unless @account.authorized_person.exist? current_user
         flash[:alert] = t('error.notauthorized')
         redirect_to(request.referrer || root_path) and return
       end
     end
   end
-        
 end

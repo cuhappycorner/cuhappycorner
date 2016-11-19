@@ -4,25 +4,25 @@ class Corner::Account::ProductSubTransaction
   include Mongoid::Token
   extend Enumerize
 
-  token :pattern => "PST-%C%C-%d%d%d-%d%d%d", :field_name => :number
+  token pattern: 'PST-%C%C-%d%d%d-%d%d%d', field_name: :number
 
   # Credit=Sale, Debit=Purchase (Corner point of view)
-  enumerize :flow_type, in: [:credit, :debit]  
+  enumerize :flow_type, in: [:credit, :debit]
 
-  belongs_to :product, class_name: "Corner::Pos::Product", inverse_of: :product_sub_transaction
+  belongs_to :product, class_name: 'Corner::Pos::Product', inverse_of: :product_sub_transaction
 
   field :quantity, type: Integer
   field :unit_credit_price, type: Integer
-  field :unit_cash_price, type: Money #Cents
-  
+  field :unit_cash_price, type: Money # Cents
+
   field :credit_amount, type: Integer
-  field :cash_amount, type: Money #Cents
+  field :cash_amount, type: Money # Cents
 
-  belongs_to :project, class_name: "Corner::Account::Project", inverse_of: :product_sub_transaction
-  belongs_to :transaction, class_name: "Corner::Account::PosTransaction", inverse_of: :product_sub_transaction
+  belongs_to :project, class_name: 'Corner::Account::Project', inverse_of: :product_sub_transaction
+  belongs_to :transaction, class_name: 'Corner::Account::PosTransaction', inverse_of: :product_sub_transaction
 
-  field :project_new_money_income, type: Money #Cents
-  field :project_new_money_spent, type: Money #Cents
+  field :project_new_money_income, type: Money # Cents
+  field :project_new_money_spent, type: Money # Cents
 
   field :project_new_budget_remained, type: Integer
   field :project_new_income_created, type: Integer

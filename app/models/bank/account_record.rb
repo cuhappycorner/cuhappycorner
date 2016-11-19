@@ -3,15 +3,14 @@ class Bank::AccountRecord
   include Mongoid::Token
   include Mongoid::Timestamps::Created::Short
 
-  token :pattern => "AR-%C%C-%C%C%C-%C%C%C-%C%C%C", :field_name => :number
+  token pattern: 'AR-%C%C-%C%C%C-%C%C%C-%C%C%C', field_name: :number
 
-  belongs_to :operator, class_name: "Entity", inverse_of: :operated_bank_account_record
-  belongs_to :account, class_name: "Bank::Account", inverse_of: :record
+  belongs_to :operator, class_name: 'Entity', inverse_of: :operated_bank_account_record
+  belongs_to :account, class_name: 'Bank::Account', inverse_of: :record
   # attr_readonly :operator, :account
 end
 
 class Bank::CreateAccountRecord < Bank::AccountRecord
-
 end
 
 class Bank::FreezeAccountRecord < Bank::AccountRecord
@@ -36,7 +35,7 @@ end
 
 ## Loan Module
 class Bank::LoanRecord < Bank::AccountRecord
-  belongs_to :loan, class_name: "Bank::OrganizationalLoan", inverse_of: :record
+  belongs_to :loan, class_name: 'Bank::OrganizationalLoan', inverse_of: :record
   # attr_readonly :loan
 end
 
@@ -48,7 +47,7 @@ class Bank::RequestLoanRecord < Bank::LoanRecord
 end
 
 class Bank::ApproveLoanRecord < Bank::LoanRecord
-  field :reason, type:String
+  field :reason, type: String
   field :interest_rate, type: Array
   # attr_readonly :reason, :interest_rate
 end
@@ -66,7 +65,6 @@ end
 
 # NOT YET IMPLEMENT
 class Bank::CantRepayInterestRecord < Bank::LoanRecord
-
 end
 
 # NOT YET IMPLEMENT
@@ -77,12 +75,10 @@ end
 
 # NOT YET IMPLEMENT
 class Bank::OverdueLoanRecord < Bank::LoanRecord
-
 end
 
 # NOT YET IMPLEMENT
 class Bank::ReliefDebtRecord < Bank::LoanRecord
-
 end
 
 # NOT YET IMPLEMENT
@@ -94,25 +90,20 @@ end
 
 # NOT YET IMPLEMENT
 class Bank::RequestExtendOfInstallmentRecord < Bank::LoanRecord
-
 end
 
 # NOT YET IMPLEMENT
 class Bank::ReliefInterestRecord < Bank::LoanRecord
-
 end
 
 # NOT YET IMPLEMENT
 class Bank::ExtendNoOfInstallmentRecord < Bank::LoanRecord
-
 end
 
 # NOT YET IMPLEMENT
 class Bank::EnforceRepayLoanRecord < Bank::AccountRecord
-
 end
 
 # NOT YET IMPLEMENT
 class Bank::BankruptRecord < Bank::AccountRecord
-
 end

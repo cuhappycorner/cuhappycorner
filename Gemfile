@@ -1,6 +1,5 @@
 source 'http://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'bundler', '>= 1.8.4'
 
@@ -35,20 +34,25 @@ gem 'enumerize'
 gem 'kaminari'
 gem 'slim'
 gem 'slim-rails'
-gem "browser"
+gem 'browser'
 gem 'simple_form'
 gem 'bootstrap-sass'
-gem "font-awesome-rails"
-gem "select2-rails"
-gem "seedbank", github: "ckho/seedbank"
-gem "mongoid_token", github: "williamatodd/mongoid_token"
+gem 'font-awesome-rails'
+gem 'select2-rails'
+gem 'seedbank', github: 'ckho/seedbank'
+gem 'mongoid_token', github: 'williamatodd/mongoid_token'
 gem 'money-rails'
-gem "sentry-raven"
+gem 'sentry-raven'
 gem 'sendgrid'
 gem 'sidekiq'
-gem "sidekiq-cron"
-gem "procodile", require: false
-
+gem 'sidekiq-cron'
+gem 'procodile', require: false
+gem 'searchkick'
+gem 'gemoji-parser'
+gem 'typhoeus', platforms: [:ruby]
+gem 'glip-poster'
+gem 'gibbon'
+gem 'rubocop', require: false
 
 source 'http://insecure.rails-assets.org' do
   gem 'rails-assets-modernizr', '2.8.3'
@@ -62,8 +66,6 @@ source 'http://insecure.rails-assets.org' do
   gem 'rails-assets-jquery.scrollbar'
   gem 'rails-assets-pace'
 end
-
-
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

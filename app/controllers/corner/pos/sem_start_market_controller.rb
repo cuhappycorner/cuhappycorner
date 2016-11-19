@@ -4,22 +4,22 @@ class Corner::Pos::SemStartMarketController < ApplicationController
 
   # GET
   def index
-    if !current_user.role.include? Role.find_by(name:"shopkeeper")
+    unless current_user.role.include? Role.find_by(name: 'shopkeeper')
       flash[:alert] = t('error.notauthorized')
       redirect_to(request.referrer || root_path) and return
     end
   end
 
   def create
-    if !current_user.role.include? Role.find_by(name:"shopkeeper")
+    unless current_user.role.include? Role.find_by(name: 'shopkeeper')
       flash[:alert] = t('error.notauthorized')
       redirect_to(request.referrer || root_path) and return
     end
-    good1 = Corner::Pos::SemStartMarketGood.find_by(name: "Group 1 Item - SemStart Market")
-    good2 = Corner::Pos::SemStartMarketGood.find_by(name: "Group 2 Item - SemStart Market")
-    good3 = Corner::Pos::SemStartMarketGood.find_by(name: "Group 3 Item - SemStart Market")
-    good4 = Corner::Pos::SemStartMarketGood.find_by(name: "Group 4 Item - SemStart Market")
-    good5 = Corner::Pos::SemStartMarketGood.find_by(name: "Group 5 Item - SemStart Market")
+    good1 = Corner::Pos::SemStartMarketGood.find_by(name: 'Group 1 Item - SemStart Market')
+    good2 = Corner::Pos::SemStartMarketGood.find_by(name: 'Group 2 Item - SemStart Market')
+    good3 = Corner::Pos::SemStartMarketGood.find_by(name: 'Group 3 Item - SemStart Market')
+    good4 = Corner::Pos::SemStartMarketGood.find_by(name: 'Group 4 Item - SemStart Market')
+    good5 = Corner::Pos::SemStartMarketGood.find_by(name: 'Group 5 Item - SemStart Market')
 
     member = User.find_by(cuid: params[:cuid])
 
@@ -29,37 +29,33 @@ class Corner::Pos::SemStartMarketController < ApplicationController
     good4_q = params[:grp4_no].to_i
     good5_q = params[:grp5_no].to_i
 
-
-    @item_array = Array.new()
-    @item_array << {'flow_type' => "credit", 'quantity' => good1_q, 'product' => good1} if good1_q > 0
-    @item_array << {'flow_type' => "credit", 'quantity' => good2_q, 'product' => good2} if good2_q > 0
-    @item_array << {'flow_type' => "credit", 'quantity' => good3_q, 'product' => good3} if good3_q > 0
-    @item_array << {'flow_type' => "credit", 'quantity' => good4_q, 'product' => good4} if good4_q > 0
-    @item_array << {'flow_type' => "credit", 'quantity' => good5_q, 'product' => good5} if good5_q > 0
+    @item_array = []
+    @item_array << { 'flow_type' => 'credit', 'quantity' => good1_q, 'product' => good1 } if good1_q > 0
+    @item_array << { 'flow_type' => 'credit', 'quantity' => good2_q, 'product' => good2 } if good2_q > 0
+    @item_array << { 'flow_type' => 'credit', 'quantity' => good3_q, 'product' => good3 } if good3_q > 0
+    @item_array << { 'flow_type' => 'credit', 'quantity' => good4_q, 'product' => good4 } if good4_q > 0
+    @item_array << { 'flow_type' => 'credit', 'quantity' => good5_q, 'product' => good5 } if good5_q > 0
 
     status = corner_pos_create_transaction(current_user, member, @item_array)
-    if !status
-      redirect_to(action: "index") and return
-    end
+    redirect_to(action: 'index') and return unless status
 
-    flash[:success] = "Transaction succeed. Credit Remained: "+ member.account.balance.to_s
-    redirect_to(action: "index") and return
-
+    flash[:success] = 'Transaction succeed. Credit Remained: ' + member.account.balance.to_s
+    redirect_to(action: 'index') and return
   end
 
   def get_user_status
-    if !current_user.role.include? Role.find_by(name:"shopkeeper")
+    unless current_user.role.include? Role.find_by(name: 'shopkeeper')
       flash[:alert] = t('error.notauthorized')
       redirect_to(request.referrer || root_path) and return
     end
     exist = false
-    name = ""
+    name = ''
     activated = false
     balance = 0
-    cuid = ""
-    if params[:cuid] != nil
+    cuid = ''
+    if !params[:cuid].nil?
       user = User.find_by(cuid: params[:cuid])
-      if user != nil
+      unless user.nil?
         exist = true
         name = user.name
         cuid = user.cuid
@@ -68,9 +64,9 @@ class Corner::Pos::SemStartMarketController < ApplicationController
           balance = user.account.balance
         end
       end
-    elsif params[:cu_link_id] != nil
+    elsif !params[:cu_link_id].nil?
       user = User.find_by(cu_link_id: params[:cu_link_id])
-      if user != nil
+      unless user.nil?
         exist = true
         name = user.name
         cuid = user.cuid
@@ -80,8 +76,7 @@ class Corner::Pos::SemStartMarketController < ApplicationController
         end
       end
     end
-    @status = {:exist => exist, :name => name, :activated => activated, :balance => balance, :cuid => cuid}
+    @status = { exist: exist, name: name, activated: activated, balance: balance, cuid: cuid }
     render json: @status
   end
-
 end

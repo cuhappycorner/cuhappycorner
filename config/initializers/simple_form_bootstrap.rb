@@ -67,14 +67,14 @@ SimpleForm.setup do |config|
     end
   end
 
- config.wrappers :form_wizard, tag: 'div', class: 'form-group form-group-default', error_class: 'has-error' do |b|
+  config.wrappers :form_wizard, tag: 'div', class: 'form-group form-group-default', error_class: 'has-error' do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
     b.optional :pattern
     b.optional :min_max
     b.optional :readonly
-    
+
     b.use :label
     b.use :input, class: 'form-control'
     b.use :error, wrap_with: { tag: 'span', class: 'help-block' }

@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class Corner::Users::ActivationsPolicyTest < ActiveSupport::TestCase
-
   def test_scope
   end
 

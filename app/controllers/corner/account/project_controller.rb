@@ -4,7 +4,7 @@ class Corner::Account::ProjectController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    if !current_user.role.include? Role.find_by(name:"board")
+    unless current_user.role.include? Role.find_by(name: 'board')
       flash[:alert] = t('error.notauthorized')
       redirect_to(request.referrer || root_path) and return
     end
