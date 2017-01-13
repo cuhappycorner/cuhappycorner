@@ -64,7 +64,7 @@ module Corner::PosConcern
       else
         product_sub_transaction = Corner::Account::ProductSubTransaction.create(flow_type: 'credit', product: item['product'], quantity: item['quantity'], unit_credit_price: item['product'].sale_credit_price, unit_cash_price: item['product'].sale_cash_price, credit_amount: item['quantity'] * item['product'].sale_credit_price, cash_amount: item['quantity'] * item['product'].sale_cash_price, project: item['product'].project, transaction: transaction)
       end
-      return transaction
     end
+    return transaction
   end
 end

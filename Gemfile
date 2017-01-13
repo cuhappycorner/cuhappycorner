@@ -27,10 +27,10 @@ gem 'redis', '~> 3.0'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'mongoid'
-gem 'devise'
-# gem 'pundit'
-# gem 'mongoid-autoinc', github: 'ckho/mongoid-autoinc'
 gem 'enumerize'
+gem 'seedbank', github: 'ckho/seedbank'
+gem 'mongoid_token', github: 'williamatodd/mongoid_token'
+gem 'money-rails'
 gem 'kaminari'
 gem 'slim'
 gem 'slim-rails'
@@ -39,20 +39,19 @@ gem 'simple_form'
 gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 gem 'select2-rails'
-gem 'seedbank', github: 'ckho/seedbank'
-gem 'mongoid_token', github: 'williamatodd/mongoid_token'
-gem 'money-rails'
 gem 'sentry-raven'
 gem 'sendgrid'
 gem 'sidekiq'
 gem 'sidekiq-cron'
+gem 'sidekiq-statistic'
 gem 'procodile', require: false
-gem 'searchkick'
 gem 'gemoji-parser'
 gem 'typhoeus', platforms: [:ruby]
 gem 'glip-poster'
 gem 'gibbon'
 gem 'rubocop', require: false
+gem 'devise'
+
 
 source 'http://insecure.rails-assets.org' do
   gem 'rails-assets-modernizr', '2.8.3'
@@ -65,11 +64,13 @@ source 'http://insecure.rails-assets.org' do
   gem 'rails-assets-jquery.actual'
   gem 'rails-assets-jquery.scrollbar'
   gem 'rails-assets-pace'
+  gem 'rails-assets-classie'
 end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'railroady'
 end
 
 group :development do

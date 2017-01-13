@@ -45,7 +45,7 @@ class DailyStatsToGlipJob < ActiveJob::Base
     second_hand_transaction_out_item_today = second_hand_transaction_each_today.where(flow_type: "credit").sum(:quantity)
     second_hand_transaction_out_item = second_hand_transaction_each.where(flow_type: "credit").sum(:quantity)
 
-    poster = Glip::Poster.new("https://hooks.glip.com/webhook/72eb64e5-eecb-4139-9900-2e48791187aa")
+    poster = Glip::Poster.new("https://hooks.glip.com/webhook/2bbac007-4edc-4d8b-a7bf-a62f554b908c")
     options = {
       icon: 'http://app.cuhappycorner.com/assets/logo/logo-60c5cc385eadf51330f450f6139d0fbcab520081ea93e385ed0e0179bf4b686a.png',
       activity: 'CU Happy Corner Statistics',
@@ -59,9 +59,8 @@ class DailyStatsToGlipJob < ActiveJob::Base
     message += "No. of 2nd Hand Good Transaction:  "+ second_hand_transaction_no_today.to_s + "  (*" + second_hand_transaction_no.to_s +  "*) \n"
     message += "Amount of 2nd Hand Good Transaction (in terms of CU Happy Coins):  "+ second_hand_transaction_amount_today.to_s + "  (*" + second_hand_transaction_amount.to_s +  "*) \n"
     message += "Quantity of 2nd Hand Good Transaction (in terms of items): *"+ second_hand_transaction_item_today.to_s + "  (*" + second_hand_transaction_item.to_s +  "*) \n"
-    poster.send_message(message, options)
 
-    message = "[IN] \n"
+    message += "[IN] \n"
     message += "No. of 2nd Hand Good Transaction:  "+ second_hand_transaction_in_no_today.to_s + "  (*" + second_hand_transaction_in_no.to_s +  "*) \n"
     message += "Amount of 2nd Hand Good Transaction (in terms of CU Happy Coins):  "+ second_hand_transaction_in_amount_today.to_s + "  (*" + second_hand_transaction_in_amount.to_s +  "*) \n"
     message += "Quantity of 2nd Hand Good Transaction (in terms of items):  "+ second_hand_transaction_in_item_today.to_s + "  (*" + second_hand_transaction_in_item.to_s +  "*) \n"
@@ -72,16 +71,16 @@ class DailyStatsToGlipJob < ActiveJob::Base
     message += "Quantity of 2nd Hand Good Transaction (in terms of items):  "+ second_hand_transaction_out_item_today.to_s + "  (*" + second_hand_transaction_out_item.to_s +  "*) \n"
     poster.send_message(message, options)
 
-    message = "[Detail] \n" 
+    message2 = "[Detail] \n" 
     Corner::Pos::SecondHandGood.all.each do |pro|
       good_tran_date = second_hand_transaction_each_today.where(product: pro)
       no_in = good_tran_date.where(flow_type: "debit").sum(:quantity)
-      message += "[IN]" + pro.name + ": " + no_in.to_s + "\n" if no_in > 0
+      message2 += "[IN]" + pro.name + ": " + no_in.to_s + "\n" if no_in > 0
       no_out = good_tran_date.where(flow_type: "credit").sum(:quantity)
-      message += "[OUT]" + pro.name + ": " + no_out.to_s + "\n" if no_out > 0
+      message2 += "[OUT]" + pro.name + ": " + no_out.to_s + "\n" if no_out > 0
     end
 
-    poster.send_message(message, options)
+    poster.send_message(message2, options)
 
   end
 end

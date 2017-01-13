@@ -72,4 +72,5 @@ end
 
 ##Distribution Module
 class Bank::DistributeTransaction < Bank::Transaction
-  # TODOend
+  # TODO
+end

@@ -42,11 +42,11 @@ class Corner::Account::CollectionController < ApplicationController
     name = nil
     activated = false
     balance = 0
-    puts case params[:id_type]
-         when 'cuid'
-           entity = User.find_by(cuid: params[:cuid])
-         when 'cu_link_id'
-           entity = User.find_by(cu_link_id: params[:cu_link_id])
+    case params[:id_type]
+    when 'cuid'
+      entity = User.find_by(cuid: params[:cuid])
+    when 'cu_link_id'
+      entity = User.find_by(cu_link_id: params[:cu_link_id])
     end
     unless entity.nil?
       exist = true

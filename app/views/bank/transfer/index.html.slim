@@ -1,0 +1,330 @@
+- content_for :title do
+  = "Transfer"
+
+- content_for :breadcrumb do
+  li
+    p Bank
+  li
+    = link_to "Transfer", {action: "index"}, class: "active"
+
+- content_for :jscode do
+  javascript:
+    $(document).ready(function() {
+      $("#cuid-form-sender_acc_no").select2({ width: '100%' });
+      $("#acc_no-form-sender_acc_no").select2({ width: '100%' });
+      $("#cuid-form").validate(
+        { 
+          rules: {
+            "amount": {
+              required: true,
+              min: 1,
+              digits: true
+            }, 
+            "cuid-form-sender_acc_no": {
+              required: true
+            }
+          }
+        }
+      );
+      $("#acc_no-form-recipient_acc_no").change(function(){
+        $.getJSON("/bank/transfer/get_recipient_info",{ac_no:$("#acc_no-form-recipient_acc_no").val()}, function(data) {
+          $("#acc_no-form-recipient_name").html(data.name);
+          $("#acc_no-form-recipient_type").html(data.type);
+        });
+      });
+      $("#acc_no-form-submit").on("click", function() {
+        if ($("#acc_no-form-recipient_acc_no").val() == $("#acc_no-form-sender_acc_no").val()) {
+          $("body").pgNotification({
+            style: "flip",
+            message: "Sender and Recipient Account cannot be the same.",
+            position: "top-right",
+            timeout: 8000,
+            type: "danger"
+          }).show();
+        } else if ($("#acc_no-form").valid()) {
+          $.getJSON("/bank/transfer/get_recipient_info",{ac_no: $("#acc_no-form-recipient_acc_no").val()},  function(data) {
+            if (data.ok == false) {
+              $("body").pgNotification({
+                style: "flip",
+                message: "Recipient Error: Please check!",
+                position: "top-right",
+                timeout: 8000,
+                type: "danger"
+              }).show();
+            } else {
+              $("#acc_no-recipient").html(data.name);
+              $("#acc_no-recipient-acc_no").html(data.acc_no);
+              $("#acc_no-recipient-acc_type").html(data.type);
+              $("#acc_no-transfer-amount").html($("#acc_no-form-amount").val());
+              $("#acc_no-reason").html($("#acc_no-form-detail").val());
+              $.getJSON("/bank/transfer/get_sender_info",{account_no: $("#acc_no-form-sender_acc_no").val()},  function(data2) {
+                if (parseInt(data2.balance) - parseInt($("#acc_no-form-amount").val()) < 0) {
+                  $("body").pgNotification({
+                    style: "flip",
+                    message: "Not Enough Happy Coins!",
+                    position: "top-right",
+                    timeout: 8000,
+                    type: "danger"
+                  }).show();
+                } else {
+                  $("#acc_no-sender").html(data2.name);
+                  $("#acc_no-sender-acc_no").html($("#acc_no-form-sender_acc_no").val());
+                  $("#acc_no-sender-acc_type").html(data2.type);
+                  $("#acc_no-remaining-balance").html(parseInt(data2.balance) - parseInt($("#acc_no-form-amount").val()));
+                  $("#confirmation-acc_no-modal").modal("toggle");
+                }
+              });
+            }
+          });
+        }
+      });
+      $("#cuid-form-recipient_cuid").change(function(){
+        $.getJSON("/bank/transfer/get_recipient_info",{cuid: $("#cuid-form-recipient_cuid").val()}, function(data) {
+          $("#cuid-form-recipient_name").html(data.name);
+          $("#cuid-form-recipient_type").html(data.type);
+          $("#cuid-form-recipient_acc_no-show").html(data.acc_no);
+          $("#cuid-form-recipient_acc_no").val(data.acc_no);
+        });
+      });
+      $("#cuid-form-submit").on("click", function() {
+        if ($("#cuid-form-recipient_acc_no").val() == $("#cuid-form-sender_acc_no").val()) {
+          $("body").pgNotification({
+            style: "flip",
+            message: "Sender and Recipient Account cannot be the same.",
+            position: "top-right",
+            timeout: 8000,
+            type: "danger"
+          }).show();
+        } else if ($("#cuid-form").valid()) {
+          $.getJSON("/bank/transfer/get_recipient_info",{cuid: $("#cuid-form-recipient_cuid").val()},  function(data) {
+            if (data.ok == false) {
+              $("body").pgNotification({
+                style: "flip",
+                message: "Recipient Error: Please check!",
+                position: "top-right",
+                timeout: 8000,
+                type: "danger"
+              }).show();
+            } else {
+              $("#cuid-recipient").html(data.name);
+              $("#cuid-recipient-acc_no").html(data.acc_no);
+              $("#cuid-recipient-acc_type").html(data.type);
+              $("#cuid-transfer-amount").html($("#cuid-form-amount").val());
+              $("#cuid-reason").html($("#cuid-form-detail").val());
+              $("#cuid-form-recipient_acc_no").val(data.acc_no);
+              $.getJSON("/bank/transfer/get_sender_info",{account_no: $("#cuid-form-sender_acc_no").val()},  function(data2) {
+                if (parseInt(data2.balance) - parseInt($("#cuid-form-amount").val()) < 0) {
+                  $("body").pgNotification({
+                    style: "flip",
+                    message: "Not Enough Happy Coins!",
+                    position: "top-right",
+                    timeout: 8000,
+                    type: "danger"
+                  }).show();
+                } else {
+                  $("#cuid-sender").html(data2.name);
+                  $("#cuid-sender-acc_no").html($("#cuid-form-sender_acc_no").val());
+                  $("#cuid-sender-acc_type").html(data2.type);
+                  $("#cuid-remaining-balance").html(parseInt(data2.balance) - parseInt($("#cuid-form-amount").val()));
+                  $("#confirmation-cuid-modal").modal("toggle");
+                }
+              });
+            }
+          });
+        }
+      });
+      $("#cuid-confirm").on("click", function() {
+        $("#cuid-form").submit();
+      });
+      $("#acc_no-confirm").on("click", function() {
+        $("#acc_no-form").submit();
+      });
+    });
+
+
+.panel-body
+  .row
+    .col-sm-10
+      h2 Bank Transfer
+      .panel.panel-transparent
+        ul.nav.nav-tabs.nav-tabs-fillup data-init-reponsive-tabs="dropdownfx"
+          li.active
+            a data-toggle="tab" href="#cuid_tab"
+              span You have his/her SID
+          li
+            a data-toggle="tab" href="#ac_no_tab"
+              span You have his/her Account No.
+        .tab-content
+          .tab-pane.fade.active.in#cuid_tab
+            = form_tag({action: "transfer"}, method: "post", class: "form-horizontal", id:"cuid-form")
+              .form-group
+                = label_tag "sender_account_no", "Sender Account", class: "col-sm-3 control-label"
+                .col-sm-9
+                  select.required.full-width#cuid-form-sender_acc_no name="sender_account_no" data-init-plugin="select2"
+                    option value="" Choose an account
+                    option value="#{@account.number}" = "[Individual] "+ @account.owner.name + " (Happy Coins: " + @account.balance.to_s + ")"
+                    - @organizational_accounts.each do |org_ac|
+                      option value="#{org_ac.number}" = "[Organization] "+ org_ac.owner.name + " (Happy Coins: " + org_ac.balance.to_s + ")"
+              .form-group
+                = label_tag "cuid", "Recipient CUID", class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "cuid", nil, placeholder: "Student / Staff ID", class: "form-control", required: true, id: "cuid-form-recipient_cuid"
+              .form-group
+                = label_tag nil, "Recipient Name", class: "col-sm-3 control-label"
+                .col-sm-9
+                  span.bold#cuid-form-recipient_name -
+              .form-group
+                = label_tag nil, "Recipient Type", class: "col-sm-3 control-label"
+                .col-sm-9
+                  span.bold#cuid-form-recipient_type -
+              .form-group
+                = label_tag nil, "Recipient Account No.", class: "col-sm-3 control-label"
+                .col-sm-9
+                  span.bold#cuid-form-recipient_acc_no-show -
+              = hidden_field_tag "recipient_account_no", nil, id: "cuid-form-recipient_acc_no"
+
+              .form-group
+                = label_tag "amount", "Transfer Amount", class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "amount", nil, placeholder: "", class: "form-control", required: true, id: "cuid-form-amount"
+              .form-group
+                = label_tag "detail", "Transfer Note (Optional)", class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "detail", nil, placeholder: "Both Sender and Recipient can make use of the Transfer Note to identify the transfer.", class: "form-control", id: "cuid-form-detail"
+              br
+              .row
+                .col-sm-9.col-sm-offset-3
+                  button.btn.btn-success#cuid-form-submit type="button" Submit
+
+          .tab-pane.fade#ac_no_tab
+            = form_tag({action: "transfer"}, method: "post", class: "form-horizontal", id:"acc_no-form")
+              .form-group
+                = label_tag "sender_account_no", "Sender", class: "col-sm-3 control-label"
+                .col-sm-9
+                  select.required.full-width#acc_no-form-sender_acc_no name="sender_account_no" data-init-plugin="select2"
+                    option value="" Choose an account
+                    option value="#{@account.number}" = "[Individual] "+ @account.owner.name + " (Happy Coins: " + @account.balance.to_s + ")"
+                    - @organizational_accounts.each do |org_ac|
+                      option value="#{org_ac.number}" = "[Organization] "+ org_ac.owner.name + " (Happy Coins: " + org_ac.balance.to_s + ")"
+              .form-group
+                = label_tag "recipient_account_no", "Recipient Account No.", class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "recipient_account_no", nil, placeholder: "", class: "form-control", required: true, id: "acc_no-form-recipient_acc_no"
+              .form-group
+                = label_tag nil, "Recipient Name", class: "col-sm-3 control-label"
+                .col-sm-9
+                  span.bold#acc_no-form-recipient_name -
+              .form-group
+                = label_tag nil, "Recipient Type", class: "col-sm-3 control-label"
+                .col-sm-9
+                  span.bold#acc_no-form-recipient_type -
+
+              .form-group
+                = label_tag "amount", "Transfer Amount", class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "amount", nil, placeholder: "", class: "form-control", required: true, id: "acc_no-form-amount"
+              .form-group
+                = label_tag "detail", "Transfer Note (Optional)", class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "detail", nil, placeholder: "Both Sender and Recipient can make use of the Transfer Note to identify the transfer.", class: "form-control", id: "acc_no-form-detail"
+              br
+              .row
+                .col-sm-9.col-sm-offset-3
+                  button.btn.btn-success#acc_no-form-submit type="button" Submit
+
+
+
+
+
+.modal.fade.slide-up.disable-scroll#confirmation-cuid-modal tabindex="-1" role="dialog" aria-hidden="true"
+  .modal-dialog
+    .modal-content-wrapper
+      .modal-content
+        .modal-header.clearfix.text-left
+          h5
+            | Transfer 
+            span.semi-bold Confirmation
+        .modal-body
+          p You are about to transfer CU Happy Coins to that account, this procedure is irreversible.
+          p Do you want to proceed?
+          p
+            | Transfer Authorized Person: 
+            span.bold =current_user.name
+          p
+            | Sender: 
+            span.bold#cuid-sender
+          p
+            | Sender Account No.: 
+            span.bold#cuid-sender-acc_no
+          p
+            | Sender Account Type: 
+            span.bold#cuid-sender-acc_type
+          p
+            | Recipient: 
+            span.bold#cuid-recipient
+          p
+            | Recipient Account No.: 
+            span.bold#cuid-recipient-acc_no
+          p
+            | Recipient Account Type: 
+            span.bold#cuid-recipient-acc_type
+          p
+            | Transfer Amount: 
+            span.bold#cuid-transfer-amount
+          p
+            | Sender Account Balance after Transfer: 
+            span.bold#cuid-remaining-balance
+          p
+            | Transfer Note: 
+            span.bold#cuid-reason
+
+        .modal-footer
+          button.btn.btn-default data-dismiss="modal" Cancel
+          button.btn.btn-danger.btn-ok#cuid-confirm type="button" Confirm
+
+
+.modal.fade.slide-up.disable-scroll#confirmation-acc_no-modal tabindex="-1" role="dialog" aria-hidden="true"
+  .modal-dialog
+    .modal-content-wrapper
+      .modal-content
+        .modal-header.clearfix.text-left
+          h5
+            | Transfer 
+            span.semi-bold Confirmation
+        .modal-body
+          p You are about to transfer CU Happy Coins to that account, this procedure is irreversible.
+          p Do you want to proceed?
+          p
+            | Transfer Authorized Person: 
+            span.bold =current_user.name
+          p
+            | Sender: 
+            span.bold#acc_no-sender
+          p
+            | Sender Account No.: 
+            span.bold#acc_no-sender-acc_no
+          p
+            | Sender Account Type: 
+            span.bold#acc_no-sender-acc_type
+          p
+            | Recipient: 
+            span.bold#acc_no-recipient
+          p
+            | Recipient Account No.: 
+            span.bold#acc_no-recipient-acc_no
+          p
+            | Recipient Account Type: 
+            span.bold#acc_no-recipient-acc_type
+          p
+            | Transfer Amount: 
+            span.bold#acc_no-transfer-amount
+          p
+            | Sender Account Balance after Transfer: 
+            span.bold#acc_no-remaining-balance
+          p
+            | Transfer Note: 
+            span.bold#acc_no-reason
+
+        .modal-footer
+          button.btn.btn-default data-dismiss="modal" Cancel
+          button.btn.btn-danger.btn-ok#acc_no-confirm type="button" Confirm

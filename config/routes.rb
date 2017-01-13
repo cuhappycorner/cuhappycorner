@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions', passwords: 'users/passwords' }
 
+  get 'intranet/sso' => 'api/intranet_sso#sso'
   get 'users/check_email' => 'user#check_email'
   get 'users/check_cuid' => 'user#check_cuid'
   get 'users/check_cu_link_id' => 'user#check_cu_link_id'
@@ -13,6 +14,11 @@ Rails.application.routes.draw do
   root to: 'bank/account#index'
 
   get 'corner/account/project' => 'corner/account/project#index'
+
+  get 'bank/transfer' => 'bank/transfer#index'
+  post 'bank/transfer/transfer' => 'bank/transfer#transfer'
+  match 'bank/transfer/get_sender_info' => 'bank/transfer#get_sender_info', via: [:get, :put, :post]
+  match 'bank/transfer/get_recipient_info' => 'bank/transfer#get_recipient_info', via: [:get, :put, :post]
 
   get 'corner/users/shopkeeper' => 'corner/users/shopkeeper#index'
   post 'corner/users/shopkeeper/distribute' => 'corner/users/shopkeeper#distribute'
