@@ -15,6 +15,14 @@ class UserController < ApplicationController
     end
   end
 
+  def check_email2
+    @user = User.find_by(email: params[:user])
+
+    respond_to do |format|
+      format.json { render json: !@user }
+    end
+  end
+
   def check_cuid
     @user = User.find_by(cuid: params[:user][:cuid])
 

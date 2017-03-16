@@ -1,0 +1,168 @@
+- content_for :title do
+  = "Create Guest Account"
+
+- content_for :breadcrumb do
+  li
+    p Shopkeeper
+  li
+    = link_to "Create Guest Account", {action: "index"}, class: "active"
+
+- content_for :jscode do
+  javascript:
+    $(document).ready(function() {
+      $("#no-email-form").validate();
+    });
+    $("#user_major2").select2({ width: '100%' });
+
+
+.panel-body
+  .row
+    .col-sm-10
+      h2 Create Guest Account
+      .panel.panel-transparent
+        = form_tag({action: "create"}, method: "post", class: "form-horizontal", id:"no-email-form")
+          .form-group
+            = label_tag "u_name[en]", t('users.registrations.new.form.eng_name'), class: "col-sm-3 control-label"
+            .col-sm-9
+              = text_field_tag "u_name[en]", nil, placeholder: t('users.registrations.new.form.eng_name_placeholder'), class: "form-control", required: true
+          .form-group
+            = label_tag "u_name[zh_HK]", t('users.registrations.new.form.chi_name'), class: "col-sm-3 control-label"
+            .col-sm-9
+              = text_field_tag "u_name[zh_HK]", nil, placeholder: t('users.registrations.new.form.chi_name_placeholder'), class: "form-control"
+          .form-group
+            = label_tag "display_name", t('users.registrations.new.form.display_name'), class: "col-sm-3 control-label"
+            .col-sm-9
+              = text_field_tag "display_name", nil, placeholder: t('users.registrations.new.form.display_name_placeholder'), class: "form-control"
+          .form-group
+            = label_tag "gender", t('users.registrations.new.form.gender'), class: "col-sm-3 control-label"
+            .col-sm-9
+              .radio.radio-success style="margin-top: 0; margin-bottom: 0"
+                input#gender2_male type="radio" checked=true value="male" name="gender"
+                label for="gender2_male" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.gender_male')
+
+                input#gender2_female type="radio" value="female" name="gender"
+                label for="gender2_female" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.gender_female')
+
+                input#gender2_x type="radio" value="x" name="gender"
+                label for="gender2_x" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.gender_x')
+          .form-group
+            = label_tag "birthday", t('users.registrations.new.form.birthday'), class: "col-sm-3 control-label"
+            .col-sm-9
+              = text_field_tag "birthday", nil, placeholder: t('users.registrations.new.form.birthday_placeholder'), class: "form-control"
+          .form-group
+            = label_tag "mobile", t('users.registrations.new.form.mobile'), class: "col-sm-3 control-label"
+            .col-sm-9
+              = text_field_tag "mobile", nil, placeholder: t('users.registrations.new.form.mobile_placeholder'), class: "form-control", required: true
+          .form-group
+            = label_tag "major", t('users.registrations.new.form.major'), class: "col-sm-3 control-label"
+            .col-sm-9
+              select#user_major2.full-width name="major" data-init-plugin="select2"
+                - User::Faculty.all.each do |faculty|
+                  optgroup label="#{faculty.name_translations[:en]} #{faculty.name_translations[:zh_HK]}"
+                    - faculty.major.all.each do |major|
+                      option value=major.code #{major.name_translations[:en]} #{major.name_translations[:zh_HK]}
+          br
+          .row
+            .col-sm-9.col-sm-offset-3
+              input.btn.btn-success#no-email-submit type="submit"
+        /ul.nav.nav-tabs.nav-tabs-fillup data-init-reponsive-tabs="dropdownfx"
+          /li.active
+            a data-toggle="tab" href="#email_tab"
+              span the guest HAS EMAIL
+          li.active
+            a data-toggle="tab" href="#no_email_tab"
+              span the guest DOESNT HAS EMAIL
+        /.tab-content
+          /.tab-pane.fade.in#email_tab
+            = form_tag({action: "create"}, method: "post", class: "form-horizontal", id:"email-form")
+              .form-group
+                = label_tag "email", t('users.registrations.new.form.email'), class: "col-sm-3 control-label"
+                .col-sm-9
+                  = email_field_tag "email", nil, placeholder: t('users.registrations.new.form.email_placeholder'), class: "form-control", required: true
+              .form-group
+                = label_tag "u_name[en]", t('users.registrations.new.form.eng_name'), class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "u_name[en]", nil, placeholder: t('users.registrations.new.form.eng_name_placeholder'), class: "form-control", required: true
+              .form-group
+                = label_tag "u_name[zh_HK]", t('users.registrations.new.form.chi_name'), class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "u_name[zh_HK]", nil, placeholder: t('users.registrations.new.form.chi_name_placeholder'), class: "form-control"
+              .form-group
+                = label_tag "display_name", t('users.registrations.new.form.display_name'), class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "display_name", nil, placeholder: t('users.registrations.new.form.display_name_placeholder'), class: "form-control"
+              .form-group
+                = label_tag "gender", t('users.registrations.new.form.gender'), class: "col-sm-3 control-label"
+                .col-sm-9
+                  .radio.radio-success style="margin-top: 0; margin-bottom: 0"
+                    input#gender_male type="radio" checked=true value="male" name="user[gender]"
+                    label for="gender_male" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.gender_male')
+                    input#gender_female type="radio" value="female" name="user[gender]"
+                    label for="gender_female" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.gender_female')
+                    input#gender_x type="radio" value="x" name="user[gender]"
+                    label for="gender_x" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.gender_x')
+              .form-group
+                = label_tag "birthday", t('users.registrations.new.form.birthday'), class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "birthday", nil, placeholder: t('users.registrations.new.form.birthday_placeholder'), class: "form-control"
+              .form-group
+                = label_tag "mobile", t('users.registrations.new.form.mobile'), class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "mobile", nil, placeholder: t('users.registrations.new.form.mobile_placeholder'), class: "form-control", required: true
+              .form-group
+                = label_tag "major", t('users.registrations.new.form.major'), class: "col-sm-3 control-label"
+                .col-sm-9
+                  select#user_major.full-width name="user[major]" data-init-plugin="select2"
+                    - User::Faculty.all.each do |faculty|
+                      optgroup label="#{faculty.name_translations[:en]} #{faculty.name_translations[:zh_HK]}"
+                        - faculty.major.all.each do |major|
+                          option value=major.code #{major.name_translations[:en]} #{major.name_translations[:zh_HK]}
+              br
+              .row
+                .col-sm-9.col-sm-offset-3
+                  input.btn.btn-success#email-submit type="submit"
+
+          /.tab-pane.fade.active#no_email_tab
+            = form_tag({action: "create"}, method: "post", class: "form-horizontal", id:"no-email-form")
+              .form-group
+                = label_tag "u_name[en]", t('users.registrations.new.form.eng_name'), class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "u_name[en]", nil, placeholder: t('users.registrations.new.form.eng_name_placeholder'), class: "form-control", required: true
+              .form-group
+                = label_tag "u_name[zh_HK]", t('users.registrations.new.form.chi_name'), class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "u_name[zh_HK]", nil, placeholder: t('users.registrations.new.form.chi_name_placeholder'), class: "form-control"
+              .form-group
+                = label_tag "display_name", t('users.registrations.new.form.display_name'), class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "display_name", nil, placeholder: t('users.registrations.new.form.display_name_placeholder'), class: "form-control"
+              .form-group
+                = label_tag "gender", t('users.registrations.new.form.gender'), class: "col-sm-3 control-label"
+                .col-sm-9
+                  .radio.radio-success style="margin-top: 0; margin-bottom: 0"
+                    input#gender2_male type="radio" checked=true value="male" name="gender"
+                    label for="gender2_male" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.gender_male')
+                    input#gender2_female type="radio" value="female" name="gender"
+                    label for="gender2_female" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.gender_female')
+                    input#gender2_x type="radio" value="x" name="gender"
+                    label for="gender2_x" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.gender_x')
+              .form-group
+                = label_tag "birthday", t('users.registrations.new.form.birthday'), class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "birthday", nil, placeholder: t('users.registrations.new.form.birthday_placeholder'), class: "form-control"
+              .form-group
+                = label_tag "mobile", t('users.registrations.new.form.mobile'), class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "mobile", nil, placeholder: t('users.registrations.new.form.mobile_placeholder'), class: "form-control", required: true
+              .form-group
+                = label_tag "major", t('users.registrations.new.form.major'), class: "col-sm-3 control-label"
+                .col-sm-9
+                  select#user_major2.full-width name="major" data-init-plugin="select2"
+                    - User::Faculty.all.each do |faculty|
+                      optgroup label="#{faculty.name_translations[:en]} #{faculty.name_translations[:zh_HK]}"
+                        - faculty.major.all.each do |major|
+                          option value=major.code #{major.name_translations[:en]} #{major.name_translations[:zh_HK]}
+              br
+              .row
+                .col-sm-9.col-sm-offset-3
+                  input.btn.btn-success#no-email-submit type="submit"

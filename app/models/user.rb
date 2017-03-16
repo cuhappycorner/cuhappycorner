@@ -81,6 +81,7 @@ class User < Entity
   # validates :cu_link_id,  uniqueness: true
 
   after_create :subscribe_user_to_mailing_list
+  after_create :create_bank_account
   after_update :subscribe_user_to_mailing_list
 
   def self.new_with_session(params, session)
@@ -117,6 +118,21 @@ class User < Entity
   end
 
   def subscribe_user_to_mailing_list
-    SubscribeUserToMailingListJob.perform_later(self)
+    if !self.email.end_with? "@guest.cuhappycorner.com"
+      SubscribeUserToMailingListJob.perform_later(self)
+    end
+  end
+
+  def create_bank_account
+    account = Bank::IndividualAccount.create(owner: self)
+    unless account.valid?
+      flash[:error] = account.errors.full_messages
+    end
+
+    record = Bank::CreateAccountRecord.create(account: account, operator: Computer.first)
+    unless record.valid?
+      flash[:error] = record.errors.full_messages
+      return false
+    end
   end
 end

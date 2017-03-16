@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get 'intranet/sso' => 'api/intranet_sso#sso'
   get 'users/check_email' => 'user#check_email'
+  get 'users/check_email2' => 'user#check_email2'
   get 'users/check_cuid' => 'user#check_cuid'
   get 'users/check_cu_link_id' => 'user#check_cu_link_id'
   get 'users/check_activated' => 'user#check_activated'
@@ -62,6 +63,9 @@ Rails.application.routes.draw do
   match 'corner/loan/show' => 'corner/loan/loan#show', via: [:get, :put, :post]
   match 'corner/loan/create' => 'corner/loan/loan#create', via: [:get, :put, :post]
   match 'corner/loan/update' => 'corner/loan/loan#update', via: [:get, :put, :post]
+
+  get 'corner/users/new_guest' => 'corner/users/new_guest#index'
+  post 'corner/users/new_guest/create' => 'corner/users/new_guest#create'
 
   authenticate :user, lambda { |u| u.role.include? Role.find_by(name:"admin")} do
     mount Sidekiq::Web => '/sidekiq'

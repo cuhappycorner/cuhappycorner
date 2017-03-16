@@ -1,0 +1,45 @@
+- content_for :title do
+  = "Guest Account Created"
+
+- content_for :breadcrumb do
+  li
+    p Shopkeeper
+  li
+    = link_to "Guest Account Created", {action: "index"}, class: "active"
+
+/! START CONTAINER FLUID
+.container-fluid.container-fixed-lg.bg-white
+  /! START PANEL
+  .panel.panel-transparent
+    .panel-heading
+      .panel-title
+        | Guest Account Detail - Please mark down the following details
+      .clearfix
+    .panel-body
+      .table-responsive
+        table#basicTable.table.table-hover
+          thead
+            tr
+              th style="width:15%" Item
+              th style="width:85%" Detail
+          tbody
+            tr
+              td.v-align-middle
+                p Email
+              td.v-align-middle
+                p = @email
+            tr
+              td.v-align-middle
+                p CUID
+              td.v-align-middle
+                p = @cuid
+            tr
+              td.v-align-middle
+                p CU Link ID
+              td.v-align-middle
+                p = @cu_link_id
+            tr
+              td.v-align-middle
+                p Password
+              td.v-align-middle
+                p = @password

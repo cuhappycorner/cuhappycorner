@@ -55,8 +55,10 @@ class Corner::Users::ActivationsController < ApplicationController
     member = activate_member(current_user, @user, params[:cu_link_id].upcase)
     redirect_to(request.referrer || root_path) and return unless member
 
-    status = bank_create_individual_account(current_user, @user)
-    redirect_to(request.referrer || root_path) and return unless status
+    if user.account.nil?
+      status = bank_create_individual_account(current_user, @user)
+      redirect_to(request.referrer || root_path) and return unless status
+    end
 
     flash[:success] = t('corner.users.activations.show.success.activated')
     redirect_to(action: 'index') and return

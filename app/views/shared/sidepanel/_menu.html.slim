@@ -102,6 +102,10 @@ ul.menu-items
               = link_to "Loan", {:controller => "/corner/loan/loan", :action => :index}
               span.icon-thumbnail
                 i.fa.fa-money
+            li
+              = link_to "New Guest", {:controller => "/corner/users/new_guest", :action => :index}
+              span.icon-thumbnail
+                i.fa.fa-user-plus
             /li
               a href="ujavascript:;"  NOT OPENED
               span.icon-thumbnail Sm
