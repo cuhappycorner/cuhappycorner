@@ -9,6 +9,7 @@ class Corner::Users::ShopkeeperController < ApplicationController
       redirect_to(request.referrer || root_path) and return
     end
     @shopkeepers = Role.find_by(name: 'shopkeeper').user.order_by(name: :asc)
+    @salary_records = Corner::Account::SalaryCreditTransaction.all.order_by(c_at: :desc)
   end
 
   def distribute

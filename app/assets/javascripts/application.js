@@ -24,6 +24,8 @@
 //= require jquery.scrollbar
 //= require jquery-validation
 //= require select2-full
-//= require turbolinks
+//= require DataTables
+//= require datatables-responsive
+// require turbolinks
 //= require pages/pages
 //= require_tree

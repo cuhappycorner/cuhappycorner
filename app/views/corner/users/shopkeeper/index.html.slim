@@ -10,8 +10,26 @@
 - content_for :jscode do
   javascript:
     $(document).ready(function() {
+      var initTableWithSearch = function() {
+        var table = $('#tableWithSearch');
+        var settings = {
+            "sDom": "<t><'row'<p i>>",
+            "destroy": true,
+            "scrollCollapse": true,
+            "oLanguage": {
+                "sLengthMenu": "_MENU_ ",
+                "sInfo": "Showing <b>_START_ to _END_</b> of _TOTAL_ entries"
+            },
+            "iDisplayLength": 5
+        };
+        table.dataTable(settings);
+        $('#search-table').keyup(function() {
+            table.fnFilter($(this).val());
+        });
+      }
+      initTableWithSearch();
       $("#cuid_form").validate(
-        { 
+        {
           rules: {
             "amount": {
               required: true,
@@ -45,7 +63,6 @@
               $('#cuid-payment-amount').html($('#cuid_amount').val());
               $('#cuid-reason').html($('#cuid_detail').val());
               $('#confirmation-cuid-modal').modal('toggle');
-              
             }
           });
         }
@@ -61,26 +78,68 @@
     .col-sm-10
       h2 = "Salary Distribution"
       p = "For Authorized Person Use Only"
-      = form_tag({action: "distribute"}, method: "post", class: "form-horizontal", id:"cuid_form")
-        .form-group
-          = label_tag "", "Shopkeeper", class: "col-sm-3 control-label"
-          .col-sm-9
-            select.required.full-width#cuid name="cuid" data-init-plugin="select2"
-              option value="" Choose a shopkeeper
-              - @shopkeepers.each do |shopkeeper|
-                option value="#{shopkeeper.cuid}" = shopkeeper.name + " (" + shopkeeper.cuid + ")"
-        .form-group
-          = label_tag "amount", "Amount", class: "col-sm-3 control-label"
-          .col-sm-9
-            = text_field_tag "amount", nil, placeholder: "Amount of Happy Coins (e.g. 1 hour = 60 Happy Coins)", class: "form-control", required: true, id: "cuid_amount"
-        .form-group
-          = label_tag "detail", "Date/Detail", class: "col-sm-3 control-label"
-          .col-sm-9
-            = text_field_tag "detail", nil, placeholder: "On Duty Date / Week / Event", class: "form-control", required: true, id: "cuid_detail"
-        br
-        .row
-          .col-sm-9.col-sm-offset-3
-            button.btn.btn-success#cuid-submit type="button" Submit
+      .panel.panel-transparent
+        ul.nav.nav-tabs.nav-tabs-fillup data-init-reponsive-tabs="dropdownfx"
+          li.active
+            a data-toggle="tab" href="#distribute_tab"
+              span Distribute
+          li
+            a data-toggle="tab" href="#history_tab"
+              span History
+      .tab-content
+          .tab-pane.fade.active.in#distribute_tab
+            = form_tag({action: "distribute"}, method: "post", class: "form-horizontal", id:"cuid_form")
+              .form-group
+                = label_tag "", "Shopkeeper", class: "col-sm-3 control-label"
+                .col-sm-9
+                  select.required.full-width#cuid name="cuid" data-init-plugin="select2"
+                    option value="" Choose a shopkeeper
+                    - @shopkeepers.each do |shopkeeper|
+                      option value="#{shopkeeper.cuid}" = shopkeeper.name + " (" + shopkeeper.cuid + ")"
+              .form-group
+                = label_tag "amount", "Amount", class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "amount", nil, placeholder: "Amount of Happy Coins (e.g. 1 hour = 60 Happy Coins)", class: "form-control", required: true, id: "cuid_amount"
+              .form-group
+                = label_tag "detail", "Date/Detail", class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "detail", nil, placeholder: "On Duty Date / Week / Event", class: "form-control", required: true, id: "cuid_detail"
+              br
+              .row
+                .col-sm-9.col-sm-offset-3
+                  button.btn.btn-success#cuid-submit type="button" Submit
+          .tab-pane.fade#history_tab
+            .row
+              .col-xs-12
+                input.form-control.pull-right#search-table type="text" placeholder="Search"
+            .clearfix
+            .row
+              table.table.table-hover.demo-table-search.table-responsive-block#tableWithSearch
+                thead
+                  tr
+                    th style="width:160px" No.
+                    th style="width:100px" DateTime
+                    th style="width:150px" Receipt
+                    th CUID
+                    th Amount
+                    th Detail
+                tbody
+                  - @salary_records.each do |rec|
+                    tr
+                      td.v-align-middle.semi-bold
+                        = rec.number
+                      td.v-align-middle
+                        = rec.c_at.to_formatted_s(:db)
+                      td.v-align-middle
+                        = rec.creditor.owner.name
+                      td.v-align-middle
+                        = rec.creditor.owner.cuid
+                      td.v-align-middle
+                        = rec.amount.to_s
+                      td.v-align-middle
+                        = rec.detail
+
+
 
 .modal.fade.slide-up.disable-scroll#confirmation-cuid-modal tabindex="-1" role="dialog" aria-hidden="true"
   .modal-dialog

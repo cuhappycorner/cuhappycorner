@@ -65,6 +65,7 @@ source 'http://insecure.rails-assets.org' do
   gem 'rails-assets-jquery.scrollbar'
   gem 'rails-assets-pace'
   gem 'rails-assets-classie'
+  gem 'rails-assets-DataTables'
 end
 
 group :development, :test do
