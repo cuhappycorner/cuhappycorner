@@ -51,6 +51,7 @@ gem 'glip-poster'
 gem 'gibbon'
 gem 'rubocop', require: false
 gem 'devise'
+gem 'discourse_api'
 
 
 source 'http://insecure.rails-assets.org' do
