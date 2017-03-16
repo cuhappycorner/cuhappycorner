@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   require 'sidekiq/web'
   require 'sidekiq/cron/web'
+  use_doorkeeper
+
+  namespace :api do
+    namespace :v1 do
+      get '/me' => "credentials#me"
+    end
+  end
 
   devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions', passwords: 'users/passwords' }
 

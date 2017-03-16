@@ -52,6 +52,7 @@ gem 'gibbon'
 gem 'rubocop', require: false
 gem 'devise'
 gem 'discourse_api'
+gem 'doorkeeper-mongodb', github: 'michaeltrimm/doorkeeper-mongodb'
 
 
 source 'http://insecure.rails-assets.org' do
@@ -76,6 +77,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'derailed'
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console'
   gem 'listen', '~> 3.0.5'
