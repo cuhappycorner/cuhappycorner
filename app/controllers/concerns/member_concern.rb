@@ -13,7 +13,6 @@ module MemberConcern
     end
   end
 
-  # TO DO!
   def mirgrate_member(member, amount)
     operator = Computer.first
     project = Corner::Account::Project.find_by(name: "2016 Sep System Migration")

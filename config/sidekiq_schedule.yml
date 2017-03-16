@@ -1,4 +1,4 @@
-schedule_stats_to_glip_job:  
+schedule_stats_to_glip_job:
   cron: "0 21 * * * Asia/Hong_Kong"
   class: "DailyStatsToGlipJob"
   queue: default
