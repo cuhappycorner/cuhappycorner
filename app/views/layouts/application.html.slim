@@ -26,4 +26,20 @@ html
     / = render "shared/quickview"
     / = render "shared/overlay"
     = javascript_include_tag "application"
+    - flash.each do |key, value|
+      - if value != ""
+        javascript:
+          $(function() {
+            type = 'danger';
+            if ('#{key}' == 'success') {
+              type = 'success';
+            }
+            $('body').pgNotification({
+              style: 'flip',
+              message: '#{value}',
+              position: 'top-right',
+              timeout: 8000,
+              type: type
+            }).show();
+          })
     = yield(:jscode)

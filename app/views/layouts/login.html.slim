@@ -20,7 +20,7 @@ html
     - flash.each do |key, value|
       - if value != ""
         javascript:
-          document.addEventListener("turbolinks:load", function() {
+          $(function() {
             type = 'danger';
             if ('#{key}' == 'success') {
               type = 'success';
