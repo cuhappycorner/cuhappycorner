@@ -47,8 +47,8 @@
 # plugin :tmp_restart
 
 
-workers Integer(ENV['WEB_CONCURRENCY'] || 2)
-threads_count = Integer(ENV['RAILS_MAX_THREADS'] || 6)
+workers Integer(ENV['WEB_CONCURRENCY'] || 1)
+threads_count = Integer(ENV['RAILS_MAX_THREADS'] || 2)
 threads threads_count, threads_count
 
 preload_app!
