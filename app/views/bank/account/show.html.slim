@@ -1,0 +1,8 @@
+- content_for :title do
+  = "View Account"
+
+- content_for :breadcrumb do
+  li
+    p Bank
+  li
+    = link_to "View Account", {action: "show"}, class: "active"
