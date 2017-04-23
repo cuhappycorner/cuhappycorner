@@ -38,6 +38,10 @@ class Bank::Transaction
 
 end
 
+class Bank::ThirdPartyTransaction < Bank::Transaction
+  belongs_to :payment, class_name: 'Bank::ThirdPartyPayment', inverse_of: :transaction
+end
+
 class Bank::TransferTransaction < Bank::Transaction
 end
 
