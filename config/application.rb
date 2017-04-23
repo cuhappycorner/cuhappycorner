@@ -27,14 +27,16 @@ module CUHappyCorner
     config.i18n.available_locales = [:en, :zh_HK]
     config.time_zone = 'Asia/Hong_Kong'
     config.to_prepare do
+      Doorkeeper::ApplicationController.helper CUHappyCorner::Application.helpers
+
       # Only Applications list
-      # Doorkeeper::ApplicationsController.layout "my_layout"
+      Doorkeeper::ApplicationsController.layout "application"
 
       # Only Authorization endpoint
       Doorkeeper::AuthorizationsController.layout "doorkeeper/authorization"
 
       # Only Authorized Applications
-      # Doorkeeper::AuthorizedApplicationsController.layout "my_layout"
+      Doorkeeper::AuthorizedApplicationsController.layout "application"
     end
   end
 end

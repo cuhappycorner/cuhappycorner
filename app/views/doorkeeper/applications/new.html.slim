@@ -1,0 +1,8 @@
+- content_for :title do
+  = t('.title')
+
+- content_for :breadcrumb do
+  li
+    = t('.title')
+
+= render 'form', application: @application

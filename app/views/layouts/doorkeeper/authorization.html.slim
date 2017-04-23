@@ -13,11 +13,11 @@ html
           .col-sm-6.col-sm-height.col-middle
             .inline
               .thumbnail-wrapper.circular.d48.m-r-10
-                img alt="avator" height="43" src=main_app.current_user.gravatar_url width="43" /
+                img alt="avator" height="43" src=current_user.gravatar_url width="43" /
             .inline
               h5.logged.hint-text.no-margin
                 | Logged in as
-              h2.name.no-margin = main_app.current_user.display_name
+              h2.name.no-margin =current_user.display_name
           .col-sm-6.col-sm-height.col-middle
             = yield
     .pull-bottom.full-width
