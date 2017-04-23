@@ -53,6 +53,7 @@ gem 'rubocop', require: false
 gem 'devise'
 gem 'discourse_api'
 gem 'doorkeeper-mongodb', github: 'cuhappycorner/doorkeeper-mongodb'
+gem 'gravtastic'
 
 
 source 'http://insecure.rails-assets.org' do

@@ -1,4 +1,5 @@
 class User < Entity
+  include Gravtastic
   extend Enumerize
 
   has_and_belongs_to_many :role, class_name: 'Role', inverse_of: :user
@@ -7,6 +8,12 @@ class User < Entity
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  gravtastic :secure => true,
+             :filetype => :png,
+             :size => 512,
+             :rating => :PG,
+             :default => "identicon"
 
   ## Database authenticatable
   field :email,              type: String, default: ''
