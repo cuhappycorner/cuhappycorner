@@ -1,0 +1,13 @@
+h5.hint-text.no-margin
+  | Successfully Pay
+
+p.hinted-text.small.inline
+  | You will now be redirected to the application.
+
+- content_for :jscode do
+  javascript:
+    $(document).ready(function () {
+      window.setTimeout(function () {
+        location.href = "#{@payment.callback_url}";
+      }, 3000);
+    });
