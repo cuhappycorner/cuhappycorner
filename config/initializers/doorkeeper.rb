@@ -20,7 +20,11 @@ Doorkeeper.configure do
     if !current_user
       redirect_to(request.referrer || root_path)
     else
-      current_user.role.include? Role.find_by(name:"admin") || redirect_to(request.referrer || root_path)
+      if current_user.role.include? Role.find_by(name:"admin")
+        true
+      else
+        redirect_to(request.referrer || root_path)
+      end
     end
   end
 
