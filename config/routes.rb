@@ -5,11 +5,19 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      get '/me' => "credentials#me"
+      get '/me' => 'credentials#me'
+      get '/account_number' => 'account#account_number'
+      get '/account_balance' => 'account#account_balance'
+      get '/account_number/:cuid' => 'account#account_number_from_cuid'
+      post '/create_payment' => 'account#create_payment'
+      post '/check_payment_paid/:id' => 'account#ccheck_payment_paid'
     end
   end
 
   devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions', passwords: 'users/passwords' }
+
+  get 'payment/:id' => 'bank/third_party_payment#show'
+  post 'payment/:id' => 'bank/third_party_payment#pay'
 
   get 'intranet/sso' => 'api/intranet_sso#sso'
   get 'users/check_email' => 'user#check_email'
