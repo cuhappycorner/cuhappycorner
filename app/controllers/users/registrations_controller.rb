@@ -74,6 +74,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def update_resource(resource, params)
     if params[:current_password].blank?
+      if !params[:major].blank?
+        params[:major] = User::Major.find_by code: params[:major].to_s
+      end
       resource.update_without_password(params)
     else
       resource.update_with_password(params)
