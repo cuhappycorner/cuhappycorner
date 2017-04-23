@@ -18,7 +18,7 @@ module Api::V1
     def create_payment
       debitor = Bank::Account.find_by(number: params[:debitor])
       creditor = Bank::Account.find_by(number: params[:creditor])
-      amount = params[:amount]
+      amount = params[:amount].to_i
       detail = params[:detail]
       callback_url = params[:callback_url]
       if (!creditor || amount <= 0 || detail.blank? || callback_url.blank?)
@@ -37,15 +37,15 @@ module Api::V1
                                                debitor: debitor, creditor: creditor,
                                                amount: amount, detail: detail,
                                                callback_url: callback_url)
-      respond_with payment.id
+      respond_with payment.id, location: nil
     end
 
     def check_payment_paid
-      payment = Bank::ThirdPartyPayment.find_by(number: params[:id])
+      payment = Bank::ThirdPartyPayment.find_by(id: params[:id])
       unless payment
         render nothing: true, status: 403 and return
       end
-      response_with payment.paid
+      respond_with payment.paid
     end
   end
 end

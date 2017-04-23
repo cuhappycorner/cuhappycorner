@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       get '/account_balance' => 'account#account_balance'
       get '/account_number/:cuid' => 'account#account_number_from_cuid'
       post '/create_payment' => 'account#create_payment'
-      post '/check_payment_paid/:id' => 'account#ccheck_payment_paid'
+      get '/check_payment_paid/:id' => 'account#check_payment_paid'
     end
   end
 
