@@ -1,46 +1,31 @@
 - content_for :title do
   = "Payment"
 
-h5.hint-text.no-margin
-  | Payment Gateway
+h3.hint-text.no-margin
+  | Payment
+br
 
 = form_tag({action: "pay"}, method: "post")
   p
     | Sender Account: <br>
     span.bold
       = @payment.debitor.owner.name + " (Happy Coins: " + @payment.debitor.balance.to_s + ")"
-  - if @payment.debitor.is_a? Bank::IndividualAccount
-      p
-      | Recipient CUID: <br>
-      span.bold
-        = @payment.creditor.owner.cuid
   p
     | Recipient Name: <br>
     span.bold
       - if @payment.creditor.is_a? Bank::IndividualAccount
-        = @payment.creditor.owner.name.gsub(/\B[\p{Han}|\w]/,'*')
+        = @payment.creditor.owner.name.gsub(/\B[\p{Han}|\w]/,'*') + ' (Individual)'
       - elsif @payment.creditor.is_a? Bank::OrganizationalAccount
-        = @payment.creditor.owner.name
+        = @payment.creditor.owner.name + ' (Organization)'
   p
-    | Recipient Type: <br>
-    span.bold
-      - if @payment.creditor.is_a? Bank::IndividualAccount
-        | Individual Account
-      - elsif @payment.creditor.is_a? Bank::OrganizationalAccount
-        | Organizational Account
-  .row
-    | Recipient Account No.: <br>
-    span.bold
-      = @payment.creditor.number
-  .row
-    | Paymen Amount: <br>
+    | Payment Amount: 
     span.bold
       = @payment.amount.to_s
-  .row
-    | Balance after Payment: <br>
+  p
+    | Balance after Payment: 
     span.bold
       = (@payment.debitor.balance - @payment.amount).to_s
-  .row
+  p
     - if (@payment.debitor.balance - @payment.amount) >= 0
       = button_tag "Pay", data: { disable_with: t('form.pleasewait') }, class: "btn btn-success"
     - else
