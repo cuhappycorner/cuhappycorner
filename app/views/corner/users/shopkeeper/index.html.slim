@@ -110,7 +110,10 @@
                   button.btn.btn-success#cuid-submit type="button" Submit
           .tab-pane.fade#history_tab
             .row
-              .col-xs-12
+              .col-xs-3
+                = form_tag({action: "export_data"}, method: "post")
+                  button data-disable-with="Please wait..." class="btn btn-success" type="submit" Export as CSV
+              .col-xs-9
                 input.form-control.pull-right#search-table type="text" placeholder="Search"
             .clearfix
             .row

@@ -38,6 +38,7 @@ Rails.application.routes.draw do
 
   get 'corner/users/shopkeeper' => 'corner/users/shopkeeper#index'
   post 'corner/users/shopkeeper/distribute' => 'corner/users/shopkeeper#distribute'
+  post 'corner/users/shopkeeper/distribute/export' => 'corner/users/shopkeeper#export_data'
   match 'corner/users/shopkeeper/get_user_info' => 'corner/users/shopkeeper#get_user_info', via: [:get, :put, :post]
 
   get 'corner/account/payment' => 'corner/account/payment#index'

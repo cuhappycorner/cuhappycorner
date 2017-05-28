@@ -12,6 +12,24 @@ class Corner::Users::ShopkeeperController < ApplicationController
     @salary_records = Corner::Account::SalaryCreditTransaction.all.order_by(c_at: :desc)
   end
 
+  def export_data
+    if (!current_user.role.include? Role.find_by(name: 'shopkeeper_manager')) && (!current_user.role.include? Role.find_by(name: 'board'))
+      flash[:alert] = t('error.notauthorized')
+      redirect_to(request.referrer || root_path) and return
+    end
+    @salary_records = Corner::Account::SalaryCreditTransaction.all.order_by(c_at: :desc)
+
+    head = 'EF BB BF'.split(' ').map{|a|a.hex.chr}.join()
+    header = ['No.', 'DateTime', 'Receiver', 'CUID', 'Amount', 'Detail']
+    file  = CSV.generate(csv = head) do |csv|
+      csv << header
+      @salary_records.each do |rec|
+        csv << [rec.number, rec.c_at.to_formatted_s(:db), rec.creditor.owner.name, rec.creditor.owner.cuid, rec.amount.to_s, rec.detail]
+      end
+    end
+    send_data file, filename: "Salary-Statistics-#{Time.now.strftime("%y%m%d%H%M%S")}.csv", type: "text/csv"
+  end
+
   def distribute
     if (!current_user.role.include? Role.find_by(name: 'shopkeeper_manager')) && (!current_user.role.include? Role.find_by(name: 'board'))
       flash[:alert] = t('error.notauthorized')
