@@ -24,8 +24,18 @@
 //= require jquery.scrollbar
 //= require jquery-validation
 //= require select2-full
-//= require DataTables
-//= require datatables-responsive
+//= require datatables
+//= require datatables-buttons
+//= require datatables-buttons/buttons.html5.js
+//= require datatables-buttons/dataTables.buttons.js
+//= require datatables-buttons/buttons.flash.js
+//= require datatables-buttons/buttons.print.js
+//= require datatables-buttons/buttons.bootstrap.js
+//= require datatables-buttons/buttons.colVis.js
+//= require pdfmake
+//= require pdfmake/pdfmake.js
+//= require pdfmake/vfs_fonts.js
+//= require jszip
 // require turbolinks
 //= require pages/pages
 //= require_tree

@@ -63,28 +63,28 @@
           });
         }
 
-        if ($current > 1 && $current < $total) {
+        // if ($current > 1 && $current < $total) {
 
-          var nextIcon = li.next().find('.fa');
-          var nextIconClass = nextIcon.attr('class').match(/fa-[\w-]*/).join();
+        //   var nextIcon = li.next().find('.fa');
+        //   // var nextIconClass = nextIcon.attr('class').match(/fa-[\w-]*/).join();
 
-          removeIcons(btnNext);
-          btnNext.addClass(nextIconClass + ' btn-animated from-left fa');
+        //   // removeIcons(btnNext);
+        //   // btnNext.addClass(nextIconClass + ' btn-animated from-left fa');
 
-          var prevIcon = li.prev().find('.fa');
-          var prevIconClass = prevIcon.attr('class').match(/fa-[\w-]*/).join();
+        //   var prevIcon = li.prev().find('.fa');
+        //   // var prevIconClass = prevIcon.attr('class').match(/fa-[\w-]*/).join();
 
-          removeIcons(btnPrev);
-          btnPrev.addClass(prevIconClass + ' btn-animated from-left fa');
-        } else if ($current == 1) {
-          // remove classes needed for button animations from previous button
-          btnPrev.removeClass('btn-animated from-left fa');
-          removeIcons(btnPrev);
-        } else {
-          // remove classes needed for button animations from next button
-          btnNext.removeClass('btn-animated from-left fa');
-          removeIcons(btnNext);
-        }
+        //   // removeIcons(btnPrev);
+        //   // btnPrev.addClass(prevIconClass + ' btn-animated from-left fa');
+        // } else if ($current == 1) {
+        //   // remove classes needed for button animations from previous button
+        //   btnPrev.removeClass('btn-animated from-left fa');
+        //   removeIcons(btnPrev);
+        // } else {
+        //   // remove classes needed for button animations from next button
+        //   btnNext.removeClass('btn-animated from-left fa');
+        //   removeIcons(btnNext);
+        // }
       },
       onNext: function(tab, navigation, index) {
         console.log("Showing next tab");
