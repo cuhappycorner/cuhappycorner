@@ -82,6 +82,8 @@ Rails.application.routes.draw do
   match 'corner/loan/show' => 'corner/loan/loan#show', via: [:get, :put, :post]
   match 'corner/loan/create' => 'corner/loan/loan#create', via: [:get, :put, :post]
   match 'corner/loan/update' => 'corner/loan/loan#update', via: [:get, :put, :post]
+  match 'corner/loan/kill' => 'corner/loan/loan#kill_debt', via: [:get, :put, :post]
+  match 'corner/loan/export' => 'corner/loan/loan#export_data', via: [:get, :put, :post]
 
   get 'corner/users/new_guest' => 'corner/users/new_guest#index'
   post 'corner/users/new_guest/create' => 'corner/users/new_guest#create'

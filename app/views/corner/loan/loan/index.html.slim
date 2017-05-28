@@ -6,20 +6,145 @@
     p =t('corner.common.shopkeeper')
   li
     = link_to "Individual Loan", {action: "index"}, class: "active"
+
+- content_for :jscode do
+  javascript:
+    $(document).ready(function() {
+      var initTableWithSearch = function() {
+        var table = $('#tableWithSearch');
+        var settings = {
+            "sDom": "<t><'row'<p i>>",
+            "destroy": true,
+            "scrollCollapse": true,
+            "oLanguage": {
+                "sLengthMenu": "_MENU_ ",
+                "sInfo": "Showing <b>_START_ to _END_</b> of _TOTAL_ entries"
+            },
+            "iDisplayLength": 20
+        };
+        table.dataTable(settings);
+        $('#search-table').keyup(function() {
+            table.fnFilter($(this).val());
+        });
+      }
+      initTableWithSearch();
+    });
+
 .panel-body
   .row
-    .col-sm-10
-      h3 = "Please either press his/her CU Link Card or enter his/her CUID (Student/Staff ID)"
-      = form_tag({action: "show"}, method: "post", class: "form-horizontal")
-        .form-group
-          = label_tag "cu_link_id", "CU Link ID", class: "col-sm-3 control-label"
-          .col-sm-9
-            = text_field_tag "cu_link_id", nil, placeholder: "Press the CU Link here.", class: "form-control"
-        .form-group
-          = label_tag "cuid", "CUID", class: "col-sm-3 control-label"
-          .col-sm-9
-            = text_field_tag "cuid", nil, placeholder: "Student / Staff ID", class: "form-control"
-        br
-        .row
-          .col-sm-9.col-sm-offset-3
-            = button_tag "Submit", data: { disable_with: t('form.pleasewait') }, class: "btn btn-success"
+    .col-sm-12
+
+      .panel.panel-transparent
+        ul.nav.nav-tabs.nav-tabs-fillup data-init-reponsive-tabs="dropdownfx"
+          li.active
+            a data-toggle="tab" href="#process_tab"
+              span Process
+          li
+            a data-toggle="tab" href="#all_tab"
+              span All Records
+          li
+            a data-toggle="tab" href="#statistics_tab"
+              span Statistics
+      .tab-content
+          .tab-pane.fade.active.in#process_tab
+            h3 = "Please either press his/her CU Link Card or enter his/her CUID (Student/Staff ID)"
+            = form_tag({action: "show"}, method: "post", class: "form-horizontal")
+              .form-group
+                = label_tag "cu_link_id", "CU Link ID", class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "cu_link_id", nil, placeholder: "Press the CU Link here.", class: "form-control"
+              .form-group
+                = label_tag "cuid", "CUID", class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "cuid", nil, placeholder: "Student / Staff ID", class: "form-control"
+              br
+              .row
+                .col-sm-9.col-sm-offset-3
+                  = button_tag "Submit", data: { disable_with: t('form.pleasewait') }, class: "btn btn-success"
+          .tab-pane.fade.in#all_tab
+            .row
+              .col-xs-3
+                = form_tag({action: "export_data"}, method: "post")
+                  button data-disable-with="Please wait..." class="btn btn-success" type="submit" Export as CSV
+              .col-xs-9
+                input.form-control.pull-right#search-table type="text" placeholder="Search"
+            .clearfix
+            .row
+              table.table.table-hover.demo-table-search.table-responsive-block#tableWithSearch style="width:100%"
+                thead
+                  tr
+                    th style="width:10%" Loan No.
+                    th style="width:10%" Member
+                    th style="width:10%" CUID
+                    th style="width:5%" Amount
+                    th style="width:5%" Repayed Amount
+                    th style="width:10%" Date of Borrowing
+                    th style="width:10%" Deadline
+                    th style="width:10%" Status
+                    th style="width:20%" Repay
+                tbody
+                  - @loans.each do |loan|
+                    tr
+                      td.v-align-middle
+                        p = loan.number
+                      td.v-align-middle
+                        p = loan.member.name
+                      td.v-align-middle
+                        p = loan.member.cuid
+                      td.v-align-middle
+                        p = loan.amount
+                      td.v-align-middle
+                        p = loan.repayed_amount
+                      td.v-align-middle
+                        p = loan.created_at
+                      td.v-align-middle
+                        p = loan.deadline
+                      td.v-align-middle
+                        p 
+                          - case loan.status
+                            - when 1
+                              | Approved
+                            - when 2
+                              | Fully Repaid
+                            - when 3
+                              | Bad debt
+                      td.v-align-middle
+                        p
+                          - if loan.status == 1
+                            = form_tag({action: "update"}, method: "put", class: "input-group")
+                              input.form-control name="amount" type="text" placeholder="Repay amount"
+                              = hidden_field_tag 'loan_no', loan.number
+                              = hidden_field_tag 'cuid', loan.member.cuid
+                              span.input-group-btn
+                                = button_tag "Rapay", data: { disable_with: t('form.pleasewait') }, class: "btn btn-default"
+                            = form_tag({action: "kill_debt"}, method: "post", class: "input-group")
+                              = hidden_field_tag 'loan_no', loan.number
+                              = hidden_field_tag 'cuid', loan.member.cuid
+                              = button_tag "Kill Debt", data: { disable_with: t('form.pleasewait') }, class: "btn btn-default"
+
+          .tab-pane.fade.in#statistics_tab
+              table.table.table-hover
+                tr
+                  td.v-align-middle.semi-bold
+                    p 
+                      | Total Loan Amount (inc. to-be-repaid + repaid + bad debt):
+                  td.v-align-middle
+                    p = @loans.sum(:amount)
+                tr
+                  td.v-align-middle.semi-bold
+                    p 
+                      | Total Loan Amount To Be Repaid:
+                  td.v-align-middle
+                    p = @loans.sum(:amount) - @loans.sum(:repayed_amount) - @loans.where(status: 3).sum(:repayed_amount)
+                tr
+                  td.v-align-middle.semi-bold
+                    p 
+                      | Total Loan Amount Repaid:
+                  td.v-align-middle
+                    p = @loans.sum(:repayed_amount)
+                tr
+                  td.v-align-middle.semi-bold
+                    p 
+                      | Total Amount of Bad Debt:
+                  td.v-align-middle
+                    p = @loans.where(status: 3).sum(:repayed_amount)
