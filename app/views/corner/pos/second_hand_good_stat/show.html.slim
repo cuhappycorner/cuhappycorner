@@ -1,0 +1,95 @@
+- content_for :title do
+  = "Second Hand Good Statistics"
+
+- content_for :breadcrumb do
+  li
+    p =t('corner.common.shopkeeper')
+  li
+    = link_to "Second Hand Good Statistics", {action: "index"}, class: "active"
+
+- content_for :jscode do
+  javascript:
+    $(document).ready(function() {
+      $('#tableWithSearch').dataTable({
+        dom: 'Bfrtip',
+        buttons: [
+          {
+            extend: 'copyHtml5',
+            exportOptions: {
+             columns: ':contains("Office")'
+            }
+          },
+          'excelHtml5',
+          'csvHtml5',
+          'pdfHtml5'
+        ],
+        "sDom": "<t><'row'<p i>>",
+        "destroy": true,
+        "scrollCollapse": true,
+        "oLanguage": {
+            "sLengthMenu": "_MENU_ ",
+            "sInfo": "Showing <b>_START_ to _END_</b> of _TOTAL_ entries"
+        },
+        "iDisplayLength": 20,
+      });
+      $('#search-table').keyup(function() {
+          table.fnFilter($(this).val());
+      });
+    });
+
+
+.panel-body
+  .row
+    .col-sm-10
+      - if params[:type] == 'all'
+        h2 = "Statistics"
+      - elsif params[:type] == 'date'
+        h2 = "Statistics of " + @date.strftime("%B %d, %Y")
+      - else
+        h2 = "Statistics from " + @date.strftime("%B %d, %Y") + " to " + @end_date.yesterday.strftime("%B %d, %Y")
+      .row
+        .col-xs-3
+          = form_tag({action: "export_data"}, method: "post")
+            = hidden_field_tag(:type, params[:type])
+            - if params[:type] == 'month'
+              = hidden_field_tag(:s_year, params[:s_year])
+              = hidden_field_tag(:s_month, params[:s_month])
+            - elsif params[:type] == 'date'
+              = hidden_field_tag(:s_year, params[:s_year])
+              = hidden_field_tag(:s_month, params[:s_month])
+              = hidden_field_tag(:s_day, params[:s_day])
+            - elsif params[:type] == 'period'
+              = hidden_field_tag(:s_year, params[:s_year])
+              = hidden_field_tag(:s_month, params[:s_month])
+              = hidden_field_tag(:s_day, params[:s_day])
+              = hidden_field_tag(:e_year, params[:e_year])
+              = hidden_field_tag(:e_month, params[:e_month])
+              = hidden_field_tag(:e_day, params[:e_day])
+            button data-disable-with="Please wait..." class="btn btn-success" type="submit" Export as CSV
+        .col-xs-9
+          input.form-control.pull-right#search-table type="text" placeholder="Search"
+      .clearfix
+      .row
+        table.table.table-hover.demo-table-search.table-responsive-block#tableWithSearch
+          thead
+            tr
+              th Code
+              th style="width:100px" Category
+              th style="width:150px" Good
+              th In
+              th Out
+          tbody
+            - Corner::Pos::SecondHandGoodCategory.all.order_by(:order => 'asc').each do |category|
+              - category.item.all.order_by(:order => 'asc').each do |good|
+                tr
+                  td.v-align-middle
+                    = (category.order + 64).chr.to_s + ("%.2d" % good.order )
+                  td.v-align-middle.semi-bold
+                    = category.name
+                  td.v-align-middle.semi-bold
+                    = good.name
+                  td.v-align-middle
+                    = @second_hand_transaction.where(product: good).where(flow_type: "debit").sum(:quantity)
+                  td.v-align-middle
+                    = @second_hand_transaction.where(product: good).where(flow_type: "credit").sum(:quantity)
+

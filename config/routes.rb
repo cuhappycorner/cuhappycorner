@@ -74,6 +74,10 @@ Rails.application.routes.draw do
   post 'corner/pos/second_hand_good_transaction/create' => 'corner/pos/second_hand_good_transaction#create'
   match 'corner/pos/second_hand_good_transaction/get_price' => 'corner/pos/second_hand_good_transaction#get_price', via: [:get, :put, :post]
 
+  get 'corner/pos/second_hand_good_stat' => 'corner/pos/second_hand_good_stat#index'
+  post 'corner/pos/second_hand_good_stat/show' => 'corner/pos/second_hand_good_stat#show'
+  post 'corner/pos/second_hand_good_stat/export' => 'corner/pos/second_hand_good_stat#export_data'
+
   match 'corner/loan' => 'corner/loan/loan#index', via: [:get, :put, :post]
   match 'corner/loan/show' => 'corner/loan/loan#show', via: [:get, :put, :post]
   match 'corner/loan/create' => 'corner/loan/loan#create', via: [:get, :put, :post]
