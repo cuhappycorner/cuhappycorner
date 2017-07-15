@@ -26,7 +26,7 @@
           li
             a data-toggle="tab" href="#period_tab"
               span Period
-      .tab-content
+        .tab-content
           .tab-pane.fade.active.in#overall_tab
             = form_tag({action: "show"}, method: "post", class: "form-horizontal")
               = hidden_field_tag(:type, "all")
