@@ -58,6 +58,10 @@ Rails.application.routes.draw do
   get 'corner/users/management/:id/edit' => 'corner/users/management#edit'
   put 'corner/users/management/:id/edit' => 'corner/users/management#update'
 
+  get 'corner/users/role' => 'corner/users/role#index'
+  post 'corner/users/role/:role' => 'corner/users/role#add'
+  match 'corner/users/role/:role/:user' => 'corner/users/role#remove', via: [:get, :put, :post]
+
   get 'corner/users/activations' => 'corner/users/activations#index'
   post 'corner/users/activations' => 'corner/users/activations#show'
   put 'corner/users/activations' => 'corner/users/activations#update'

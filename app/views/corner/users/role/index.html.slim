@@ -1,0 +1,306 @@
+- content_for :title do
+  = "Role Management"
+
+- content_for :breadcrumb do
+  li
+    p = "Internal Corner"
+  li
+    = link_to "Role Management", {action: "index"}, class: "active"
+
+/! START CONTAINER FLUID
+.container-fluid.container-fixed-lg.bg-white
+  /! START PANEL
+  .panel.panel-transparent
+    ul.nav.nav-tabs.nav-tabs-fillup data-init-reponsive-tabs="dropdownfx"
+      li.active
+        a data-toggle="tab" href="#intranet_tab"
+          span Intranet Access
+      li
+        a data-toggle="tab" href="#shopkeeper_tab"
+          span Shopkeeper
+      li
+        a data-toggle="tab" href="#shopkeeper_manager_tab"
+          span Shopkeeper Manager
+      li
+        a data-toggle="tab" href="#banker_tab"
+          span Banker
+      li
+        a data-toggle="tab" href="#board_tab"
+          span Core
+    .tab-content
+      .tab-pane.fade.active.in#intranet_tab
+        .table-responsive
+          table#basicTable.table.table-hover
+            thead
+              tr
+                th style="width:10%" CUID
+                th style="width:15%" Name (Eng)
+                th style="width:10%" Name (Chi)
+                th style="width:10%" Nickname
+                th style="width:10%" Major
+                th style="width:15%" Mobile
+                th style="width:20%" Email
+                th style="width:10%" Remove
+            tbody
+              - @intranet.user.all.each do |user|
+                tr
+                  td.v-align-middle
+                    p = user.cuid
+                  td.v-align-middle
+                    p = user.name_translations[:en]
+                  td.v-align-middle
+                    p = user.name_translations[:zh_HK]
+                  td.v-align-middle
+                    p = user.display_name
+                  td.v-align-middle
+                    p = user.major.code
+                  td.v-align-middle
+                    p = user.mobile
+                  td.v-align-middle
+                    p = user.email
+                  td.v-align-middle
+                    p
+                      - if user.name.nil?
+                        = link_to "Remove", {action:'remove', role: 'banker', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove the user from Intranet Access?' }
+                      - else
+                        = link_to "Remove", {action:'remove', role: 'banker', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove ' + user.name + ' from Intranet Access?' }
+
+        br
+        br
+        .panel.panel-default
+          .panel-heading.separator
+            .panel-title
+              | Add
+          .panel-body
+            = form_tag({action: "add", role: 'intranet'}, method: "post", class: "form-horizontal", id: "intranet_form")
+              = hidden_field_tag 'cuid', @cuid
+              .form-group
+                = label_tag "cuid", "CUID(SID)", class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "cuid", nil, required: true, placeholder: "1155xxxxxx / CUID", class: "form-control"
+              br
+              .row
+                .col-sm-9.col-sm-offset-3
+                  = button_tag "Add", data: { disable_with: t('form.pleasewait') }, class: "btn btn-danger"
+
+      .tab-pane.fade.in#shopkeeper_tab
+        .table-responsive
+          table#basicTable.table.table-hover
+            thead
+              tr
+                th style="width:10%" CUID
+                th style="width:15%" Name (Eng)
+                th style="width:10%" Name (Chi)
+                th style="width:10%" Nickname
+                th style="width:10%" Major
+                th style="width:15%" Mobile
+                th style="width:20%" Email
+                th style="width:10%" Remove
+            tbody
+              - @shopkeeper.user.all.each do |user|
+                tr
+                  td.v-align-middle
+                    p = user.cuid
+                  td.v-align-middle
+                    p = user.name_translations[:en]
+                  td.v-align-middle
+                    p = user.name_translations[:zh_HK]
+                  td.v-align-middle
+                    p = user.display_name
+                  td.v-align-middle
+                    p = user.major.code
+                  td.v-align-middle
+                    p = user.mobile
+                  td.v-align-middle
+                    p = user.email
+                  td.v-align-middle
+                    p
+                      - if user.name.nil?
+                        = link_to "Remove", {action:'remove', role: 'banker', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove the user from Shopkeeper Role?' }
+                      - else
+                        = link_to "Remove", {action:'remove', role: 'banker', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove ' + user.name + ' from Shopkeeper Role?' }
+
+        br
+        br
+        .panel.panel-default
+          .panel-heading.separator
+            .panel-title
+              | Add
+          .panel-body
+            = form_tag({action: "add", role: 'shopkeeper'}, method: "post", class: "form-horizontal", id: "shopkeeper_form")
+              = hidden_field_tag 'cuid', @cuid
+              .form-group
+                = label_tag "cuid", "CUID(SID)", class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "cuid", nil, required: true, placeholder: "1155xxxxxx / CUID", class: "form-control"
+              br
+              .row
+                .col-sm-9.col-sm-offset-3
+                  = button_tag "Add", data: { disable_with: t('form.pleasewait') }, class: "btn btn-danger"
+
+      .tab-pane.fade.in#shopkeeper_manager_tab
+        .table-responsive
+          table#basicTable.table.table-hover
+            thead
+              tr
+                th style="width:10%" CUID
+                th style="width:15%" Name (Eng)
+                th style="width:10%" Name (Chi)
+                th style="width:10%" Nickname
+                th style="width:10%" Major
+                th style="width:15%" Mobile
+                th style="width:20%" Email
+                th style="width:10%" Remove
+            tbody
+              - @shopkeeper_manager.user.all.each do |user|
+                tr
+                  td.v-align-middle
+                    p = user.cuid
+                  td.v-align-middle
+                    p = user.name_translations[:en]
+                  td.v-align-middle
+                    p = user.name_translations[:zh_HK]
+                  td.v-align-middle
+                    p = user.display_name
+                  td.v-align-middle
+                    p = user.major.code
+                  td.v-align-middle
+                    p = user.mobile
+                  td.v-align-middle
+                    p = user.email
+                  td.v-align-middle
+                    p
+                      - if user.name.nil?
+                        = link_to "Remove", {action:'remove', role: 'banker', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove the user from Shopkeeper Manager Role?' }
+                      - else
+                        = link_to "Remove", {action:'remove', role: 'banker', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove ' + user.name + ' from Shopkeeper Manager Role?' }
+        br
+        br
+        .panel.panel-default
+          .panel-heading.separator
+            .panel-title
+              | Add
+          .panel-body
+            = form_tag({action: "add", role: 'shopkeeper_manager'}, method: "post", class: "form-horizontal", id: "shopkeeper_manager_form")
+              = hidden_field_tag 'cuid', @cuid
+              .form-group
+                = label_tag "cuid", "CUID(SID)", class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "cuid", nil, required: true, placeholder: "1155xxxxxx / CUID", class: "form-control"
+              br
+              .row
+                .col-sm-9.col-sm-offset-3
+                  = button_tag "Add", data: { disable_with: t('form.pleasewait') }, class: "btn btn-danger"
+
+      .tab-pane.fade.in#banker_tab
+        .table-responsive
+          table#basicTable.table.table-hover
+            thead
+              tr
+                th style="width:10%" CUID
+                th style="width:15%" Name (Eng)
+                th style="width:10%" Name (Chi)
+                th style="width:10%" Nickname
+                th style="width:10%" Major
+                th style="width:15%" Mobile
+                th style="width:20%" Email
+                th style="width:10%" Remove
+            tbody
+              - @banker.user.all.each do |user|
+                tr
+                  td.v-align-middle
+                    p = user.cuid
+                  td.v-align-middle
+                    p = user.name_translations[:en]
+                  td.v-align-middle
+                    p = user.name_translations[:zh_HK]
+                  td.v-align-middle
+                    p = user.display_name
+                  td.v-align-middle
+                    p = user.major.code
+                  td.v-align-middle
+                    p = user.mobile
+                  td.v-align-middle
+                    p = user.email
+                  td.v-align-middle
+                    p
+                      - if user.name.nil?
+                        = link_to "Remove", {action:'remove', role: 'banker', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove the user from Banker Role?' }
+                      - else
+                        = link_to "Remove", {action:'remove', role: 'banker', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove ' + user.name + ' from Banker Role?' }
+        br
+        br
+        .panel.panel-default
+          .panel-heading.separator
+            .panel-title
+              | Add
+          .panel-body
+            = form_tag({action: "add", role: 'banker'}, method: "post", class: "form-horizontal", id: "banker_form")
+              = hidden_field_tag 'cuid', @cuid
+              .form-group
+                = label_tag "cuid", "CUID(SID)", class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "cuid", nil, required: true, placeholder: "1155xxxxxx / CUID", class: "form-control"
+              br
+              .row
+                .col-sm-9.col-sm-offset-3
+                  = button_tag "Add", data: { disable_with: t('form.pleasewait') }, class: "btn btn-danger"
+
+      .tab-pane.fade.in#board_tab
+        .table-responsive
+          table#basicTable.table.table-hover
+            thead
+              tr
+                th style="width:10%" CUID
+                th style="width:15%" Name (Eng)
+                th style="width:10%" Name (Chi)
+                th style="width:10%" Nickname
+                th style="width:10%" Major
+                th style="width:15%" Mobile
+                th style="width:20%" Email
+                th style="width:10%" Remove
+            tbody
+              - @board.user.all.each do |user|
+                tr
+                  td.v-align-middle
+                    p = user.cuid
+                  td.v-align-middle
+                    p = user.name_translations[:en]
+                  td.v-align-middle
+                    p = user.name_translations[:zh_HK]
+                  td.v-align-middle
+                    p = user.display_name
+                  td.v-align-middle
+                    p = user.major.code
+                  td.v-align-middle
+                    p = user.mobile
+                  td.v-align-middle
+                    p = user.email
+                  td.v-align-middle
+                    p
+                      - if user.name.nil?
+                        = link_to "Remove", {action:'remove', role: 'banker', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove the user from Core Member Role?' }
+                      - else
+                        = link_to "Remove", {action:'remove', role: 'banker', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove ' + user.name + ' from Core Member Role?' }
+
+        br
+        br
+        .panel.panel-default
+          .panel-heading.separator
+            .panel-title
+              | Add
+          .panel-body
+            = form_tag({action: "add", role: 'board'}, method: "post", class: "form-horizontal", id: "board_form")
+              = hidden_field_tag 'cuid', @cuid
+              .form-group
+                = label_tag "cuid", "CUID(SID)", class: "col-sm-3 control-label"
+                .col-sm-9
+                  = text_field_tag "cuid", nil, required: true, placeholder: "1155xxxxxx / CUID", class: "form-control"
+              br
+              .row
+                .col-sm-9.col-sm-offset-3
+                  = button_tag "Add", data: { disable_with: t('form.pleasewait') }, class: "btn btn-danger"
+
+  /! END PANEL
+
+/! END CONTAINER FLUID
