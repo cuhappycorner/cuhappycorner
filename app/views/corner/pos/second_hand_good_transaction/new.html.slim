@@ -236,9 +236,11 @@
                       optgroup label="-"
                         option value="empty" -
                       - Corner::Pos::SecondHandGoodCategory.all.order_by(:order => 'asc').each do |category|
-                        optgroup label="#{(category.order + 64).chr.to_s + " " + category.name}"
-                          - category.item.all.order_by(:order => 'asc').each do |item|
-                            option value="#{item.number}" = (category.order + 64).chr.to_s + item.order.to_s + " " + item.name
+                        - if category.disabled != true
+                          optgroup label="#{(category.order + 64).chr.to_s + " " + category.name}"
+                            - category.item.all.order_by(:order => 'asc').each do |item|
+                              - if item.disabled != true
+                                option value="#{item.number}" = (category.order + 64).chr.to_s + item.order.to_s + " " + item.name
                   td
                     = text_field_tag ("price_"+i.to_s), nil, class: "form-control"
                   td

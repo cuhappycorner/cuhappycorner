@@ -3,4 +3,5 @@ class Corner::Pos::SecondHandGoodCategory
   has_many :item, class_name: 'Corner::Pos::SecondHandGood', inverse_of: :category
   field :order, type: Integer
   field :name, localize: true
+  field :disabled, type: Boolean, default: false
 end
