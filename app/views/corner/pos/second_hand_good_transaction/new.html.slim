@@ -201,8 +201,12 @@
 .panel-body
   .row
     .col-sm-10
-      h3 = t('shopkeeper_panel.transaction.page2.msg')
-      p = t('shopkeeper_panel.transaction.page2.msg2')
+      - if params[:type] == "purchase"
+        h3 換入
+      - else
+        h3 換出
+      /h3 = t('shopkeeper_panel.transaction.page2.msg')
+      /p = t('shopkeeper_panel.transaction.page2.msg2')
       br
       = form_tag({action: "create"}, method: "post", class: "form-horizontal", id:"cuid_form")
         = hidden_field_tag(:cuid, @user.cuid)
