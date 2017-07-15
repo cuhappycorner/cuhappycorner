@@ -7,6 +7,46 @@
   li
     = link_to "Individual Loan", {action: "index"}, class: "active"
 
+- content_for :jscode do
+  javascript:
+    $(document).ready(function() {
+      $('#loan-submit').on('click', function() {
+        $('#loan-amount').html($('#amount').val());
+        $('#confirmation-modal').modal('toggle');
+      });
+      $('#confirm').on('click', function() {
+        $("#loan_form").submit();
+      });
+    });
+
+.modal.fade.slide-up.disable-scroll#confirmation-modal tabindex="-1" role="dialog" aria-hidden="true"
+  .modal-dialog
+    .modal-content-wrapper
+      .modal-content
+        .modal-header.clearfix.text-left
+          h5
+            | Loan 
+            span.semi-bold Confirmation
+        .modal-body
+          p You are about to lend CU Happy Coins to the account.
+          p Do you want to proceed?
+          p
+            | Operator: 
+            span.bold =current_user.name
+          p
+            | Debtor Account: 
+            span.bold =@member.name
+          p
+            | Debtor CUID: 
+            span.bold =@member.cuid
+          p
+            | Loan Amount: 
+            span.bold#loan-amount
+
+        .modal-footer
+          button.btn.btn-default data-dismiss="modal" Cancel
+          button.btn.btn-danger.btn-ok#confirm type="button" Confirm
+
 .container-fluid.full-height.no-padding
   .row.full-height.no-margin
     .col-md-9.no-padding.b-r.b-grey.full-height
@@ -67,7 +107,7 @@
             h3
               |Quota remained: 
               = 300 - @loan_amount
-            = form_tag({action: "create"}, method: "put", class: "form-horizontal")
+            = form_tag({action: "create"}, method: "put", class: "form-horizontal", id: "loan_form")
               = hidden_field_tag 'cuid', @cuid
               .form-group
                 = label_tag "amount", "Amount", class: "col-sm-3 control-label"
@@ -76,4 +116,5 @@
               br
               .row
                 .col-sm-9.col-sm-offset-3
-                  = button_tag "Borrow", data: { disable_with: t('form.pleasewait') }, class: "btn btn-danger"
+                  button.btn.btn-success#loan-submit type="button" Borrow
+                  /= button_tag "Borrow", data: { disable_with: t('form.pleasewait') }, class: "btn btn-danger"
