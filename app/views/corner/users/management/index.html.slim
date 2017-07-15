@@ -1,0 +1,90 @@
+- content_for :title do
+  = "User List"
+
+- content_for :breadcrumb do
+  li
+    p = "User Management"
+  li
+    = link_to "List", {action: "index"}, class: "active"
+
+- content_for :jscode do
+  javascript:
+    $(document).ready(function() {
+      var initTableWithSearch = function() {
+        var table = $('#tableWithSearch');
+        var settings = {
+            "sDom": "<t><'row'<p i>>",
+            "destroy": true,
+            "scrollCollapse": true,
+            "oLanguage": {
+                "sLengthMenu": "_MENU_ ",
+                "sInfo": "Showing <b>_START_ to _END_</b> of _TOTAL_ entries"
+            },
+            "iDisplayLength": 20
+        };
+        table.dataTable(settings);
+        $('#search-table').keyup(function() {
+            table.fnFilter($(this).val());
+        });
+      }
+      initTableWithSearch();
+    });
+
+/! START CONTAINER FLUID
+.container-fluid.container-fixed-lg.bg-white
+  /! START PANEL
+  .panel.panel-transparent
+    .panel-heading
+      .panel-title
+        | User List
+      .clearfix
+    .panel-body
+      .row
+        .col-xs-9
+          input.form-control.pull-right#search-table type="text" placeholder="Search"
+      .clearfix
+      .row
+        table.table.table-hover.demo-table-search.table-responsive-block#tableWithSearch style="width:100%"
+          thead
+            tr
+              th style="width:10%" Reg at
+              th style="width:10%" CUID
+              th style="width:10%" Name (Eng)
+              th style="width:10%" Name (Chi)
+              th style="width:10%" Nickname
+              th style="width:5%" Major
+              th style="width:10%" Mobile
+              th style="width:15%" Email
+              th style="width:5%" CU Link
+              th style="width:5%" Activated
+              th style="width:10%" Edit
+          tbody
+            - User.all.each do |user|
+              tr
+                td.v-align-middle
+                  p = user.created_at
+                td.v-align-middle
+                  p = user.cuid
+                td.v-align-middle
+                  p = user.name_translations[:en]
+                td.v-align-middle
+                  p = user.name_translations[:zh_HK]
+                td.v-align-middle
+                  p = user.display_name
+                td.v-align-middle
+                  p = user.major.code
+                td.v-align-middle
+                  p = user.mobile
+                td.v-align-middle
+                  p = user.email
+                td.v-align-middle
+                  p = user.cu_link_id
+                td.v-align-middle
+                  p = user.activated
+                td.v-align-middle
+                  p
+                    = link_to "Edit", action:'edit', id: user.id
+
+
+  /! END PANEL
+/! END CONTAINER FLUID

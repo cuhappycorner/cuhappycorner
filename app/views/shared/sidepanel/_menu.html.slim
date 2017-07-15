@@ -106,6 +106,10 @@ ul.menu-items
               = link_to "New Guest", {:controller => "/corner/users/new_guest", :action => :index}
               span.icon-thumbnail
                 i.fa.fa-user-plus
+            li
+              = link_to "Management", {:controller => "/corner/users/management", :action => :index}
+              span.icon-thumbnail
+                i.fa.fa-user
             /li
               a href="ujavascript:;"  NOT OPENED
               span.icon-thumbnail Sm

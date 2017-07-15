@@ -1,0 +1,155 @@
+- content_for :title do
+  = "Edit User " + @user.name
+
+- content_for :breadcrumb do
+  li
+    p = "User Management"
+  li
+    = link_to "Edit User " + @user.name, {action: "index"}, class: "active"
+
+
+
+- content_for :jscode do
+  javascript:
+    $(document).ready(function() {
+      $("#user_major").select2({ width: '100%' });
+      $("#general-tab-form").validate();
+      $("#cuer-tab-form").validate();
+    });
+
+.panel.panel-transparent
+  ul.nav.nav-tabs.nav-tabs-simple.nav-tabs-left.bg-white#tab-3
+    li.active
+      a data-toggle="tab" href="#general-tab" General
+    li
+      a data-toggle="tab" href="#cuer-tab" CU-ER
+
+  .tab-content.bg-white
+    .tab-pane.active#general-tab
+      = form_tag({action: "update"}, method: "put", class: "form-horizontal", id:"general-tab-form")
+        .form-group
+          = label_tag "user_name_translations_en", t('users.registrations.new.form.eng_name'), class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "user_name_translations_en", @user.name_translations[:en], placeholder: t('users.registrations.new.form.eng_name_placeholder'), class: "form-control", required: true, id: "user_name_translations_en"
+        .form-group
+          = label_tag "user_name_translations_zh_HK", t('users.registrations.new.form.chi_name'), class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "user_name_translations_zh_HK", @user.name_translations[:zh_HK], placeholder: t('users.registrations.new.form.chi_name_placeholder'), class: "form-control", required: true, id: "user_name_translations_zh_HK"
+        .form-group
+          = label_tag "user_display_name", t('users.registrations.new.form.display_name'), class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "user_display_name", @user.display_name, placeholder: t('users.registrations.new.form.display_name_placeholder'), class: "form-control", required: true, id: "user_display_name"
+        /Gender
+        .form-group
+          = label_tag "user_gender", t('users.registrations.new.form.gender'), class: "col-sm-3 control-label"
+          .col-sm-9
+            .radio.radio-success style="margin-top: 0; margin-bottom: 0"
+              - if @user.gender == :male
+                input#gender_male type="radio" checked=true value="male" name="user_gender"
+              - else
+                input#gender_male type="radio" value="male" name="user_gender"
+              label for="gender_male" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.gender_male')
+              - if @user.gender == :female
+                input#gender_female type="radio" checked=true value="female" name="user_gender"
+              - else
+                input#gender_female type="radio" value="female" name="user_gender"
+              label for="gender_female" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.gender_female')
+              - if @user.gender == :x
+                input#gender_x type="radio" checked=true value="x" name="user_gender" 
+              - else
+                input#gender_x type="radio" value="x" name="user_gender" 
+              label for="gender_x" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.gender_x')
+        /Birthday
+        .form-group
+          = label_tag "user_birthday", t('users.registrations.new.form.birthday'), class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "user_birthday", @user.birthday, placeholder: t('users.registrations.new.form.birthday_placeholder'), class: "form-control", id: "user_birthday"
+        /Mobile No.
+        .form-group
+          = label_tag "user_mobile", t('users.registrations.new.form.mobile'), class: "col-sm-3 control-label"
+          .col-sm-9
+            = telephone_field_tag "user_mobile", @user.mobile, placeholder: t('users.registrations.new.form.mobile_placeholder'), class: "form-control", required: true, id: "user_mobile"
+        .form-group
+          = label_tag "user_email", t('users.registrations.new.form.email'), class: "col-sm-3 control-label"
+          .col-sm-9
+            = email_field_tag "user_email", @user.email, placeholder: t('users.registrations.new.form.email_placeholder'), class: "form-control", required: true, id: "user_email"
+        p.pull-right
+          br
+          = hidden_field_tag 'page', 'general'
+          = button_tag "Update", data: { disable_with: t('form.pleasewait') }, class: "btn btn-success btn-cons"
+    .tab-pane#cuer-tab
+      = form_tag({action: "update"}, method: "put", class: "form-horizontal", id:"cuer-tab-form")
+        .form-group
+          = label_tag "user_cuid", t('users.registrations.new.form.cuid'), class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "user_cuid", @user.cuid, class: "form-control", required: true, id: "user_cuid"
+        .form-group
+          = label_tag "user_cuid_type", "Type", class: "col-sm-3 control-label"
+          .col-sm-9
+            .radio.radio-success style="margin-top: 0; margin-bottom: 0"
+              - if @user.cuid_type == 'student'
+                input#user_cuid_type_student type="radio" checked=true value="student" name="user_cuid_type"
+              - else
+                input#user_cuid_type_student type="radio" value="student" name="user_cuid_type"
+              label for="user_cuid_type_student" style="display:inline;margin-right: 15px;" = "Student"
+
+              - if @user.cuid_type == 'staff'
+                input#user_cuid_type_staff type="radio" checked=true value="staff" name="user_cuid_type"
+              - else
+                input#user_cuid_type_staff type="radio" value="staff" name="user_cuid_type"
+              label for="user_cuid_type_staff" style="display:inline;margin-right: 15px;" = "Staff"
+
+              - if @user.cuid_type == 'alumni'
+                input#user_cuid_type_alumni type="radio" checked=true value="alumni" name="user_cuid_type"
+              - else
+                input#user_cuid_type_alumni type="radio" value="alumni" name="user_cuid_type"
+              label for="user_cuid_type_alumni" style="display:inline;margin-right: 15px;" = "Alumni"
+
+              - if @user.cuid_type == 'outside'
+                input#user_cuid_type_outside type="radio" checked=true value="outside" name="user_cuid_type"
+              - else
+                input#user_cuid_type_outside type="radio" value="outside" name="user_cuid_type"
+              label for="user_cuid_type_outside" style="display:inline;margin-right: 15px;" = "Outsider"
+
+        .form-group
+          = label_tag "user_cu_link_id", "CU Link Card ID", class: "col-sm-3 control-label"
+          .col-sm-9
+            p.bold = @user.cu_link_id
+            p.hint-text.small Please use Shopkeeper -> Members -> Change CU Link to change it.
+        .form-group
+          = label_tag "user_cu_resident", t('users.registrations.new.form.cu_resident'), class: "col-sm-3 control-label"
+          .col-sm-9
+            .radio.radio-success style="margin-top: 0; margin-bottom: 0"
+              - if !@user.cu_resident
+                input#cu_resident_false type="radio" checked=true value="false" name="user_cu_resident"
+              - else
+                input#cu_resident_false type="radio" value="false" name="user_cu_resident"
+              label for="cu_resident_false" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.cu_resident_false')
+              - if @user.cu_resident
+                input#cu_resident_true type="radio" checked=true value="true" name="user_cu_resident"
+              - else
+                input#cu_resident_true type="radio" value="true" name="user_cu_resident"
+              label for="cu_resident_true" style="display:inline;margin-right: 15px;" =t('users.registrations.new.form.cu_resident_true')
+        .form-group
+          = label_tag "user_major", t('users.registrations.new.form.major'), class: "col-sm-3 control-label"
+          .col-sm-9
+            select#user_major.full-width name="user_major" data-init-plugin="select2"
+              - User::Faculty.all.each do |faculty|
+                optgroup label="#{faculty.name_translations[:en]} #{faculty.name_translations[:zh_HK]}"
+                  - faculty.major.all.each do |major|
+                    - if @user.major.code.eql? major.code
+                      option value=major.code selected=true #{major.name_translations[:en]} #{major.name_translations[:zh_HK]}
+                    - else
+                      option value=major.code #{major.name_translations[:en]} #{major.name_translations[:zh_HK]}
+        .form-group
+          = label_tag "user_year_of_admission", t('users.registrations.new.form.year_of_admission'), class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "user_year_of_admission", @user.year_of_admission, placeholder: t('users.registrations.new.form.year_of_admission_placeholder'), class: "form-control", required: true, id: "user_year_of_admission"
+        .form-group
+          = label_tag "user_year_of_graduation", t('users.registrations.new.form.year_of_graduation'), class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "user_year_of_graduation", @user.year_of_graduation, placeholder: t('users.registrations.new.form.year_of_graduation_placeholder'), class: "form-control", required: true, id: "user_year_of_graduation"
+        p.pull-right
+          br
+          = hidden_field_tag 'page', 'cuer'
+          = button_tag "Update", data: { disable_with: t('form.pleasewait') }, class: "btn btn-success btn-cons"

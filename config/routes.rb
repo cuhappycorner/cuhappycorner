@@ -54,6 +54,10 @@ Rails.application.routes.draw do
   put 'corner/users/change_card/update' => 'corner/users/change_card#update'
   match 'corner/users/change_card/get_info' => 'corner/users/change_card#get_info', via: [:get, :put, :post]
 
+  get 'corner/users/management' => 'corner/users/management#index'
+  get 'corner/users/management/:id/edit' => 'corner/users/management#edit'
+  put 'corner/users/management/:id/edit' => 'corner/users/management#update'
+
   get 'corner/users/activations' => 'corner/users/activations#index'
   post 'corner/users/activations' => 'corner/users/activations#show'
   put 'corner/users/activations' => 'corner/users/activations#update'
