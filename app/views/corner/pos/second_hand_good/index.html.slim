@@ -1,0 +1,75 @@
+- content_for :title do
+  = "Second Hand Good Category"
+
+- content_for :breadcrumb do
+  li
+    p =t('corner.common.shopkeeper')
+  li
+    = link_to "Second Hand Good", {action: "index"}, class: "active"
+
+/! START CONTAINER FLUID
+.container-fluid.container-fixed-lg.bg-white
+  /! START PANEL
+  .panel.panel-transparent
+    .panel-heading
+      .panel-title
+        | Enabled Categories
+      .btn-group.pull-right.m-b-10
+        = link_to "New Category", {action: "c_new"}, class: "btn btn-default"
+      .clearfix
+    .panel-body
+      .table-responsive
+        table#basicTable.table.table-hover
+          thead
+            tr
+              th style="width:10%" Order
+              th style="width:50%" Name
+              th style="width:20%" Edit Category
+              th style="width:20%" Show Goods
+          tbody
+            - Corner::Pos::SecondHandGoodCategory.all.order_by(:order => 'asc').each do |category|
+              - if category.disabled != true
+                tr
+                  td.v-align-middle
+                    p = category.order
+                  td.v-align-middle
+                    p = category.name
+                  td.v-align-middle
+                    p
+                      = link_to "Edit", action:'c_edit', category: category.id
+                  td.v-align-middle
+                    p
+                      = link_to "Show", action:'c_show', category: category.id
+  /! END PANEL
+  /! START PANEL
+  .panel.panel-transparent
+    .panel-heading
+      .panel-title
+        | Disabled Categories
+      .clearfix
+    .panel-body
+      .table-responsive
+        table#basicTable.table.table-hover
+          thead
+            tr
+              th style="width:10%" Order
+              th style="width:50%" Name
+              th style="width:20%" Edit Category
+              th style="width:20%" Show Goods
+          tbody
+            - Corner::Pos::SecondHandGoodCategory.all.order_by(:order => 'asc').each do |category|
+              - if category.disabled == true
+                tr
+                  td.v-align-middle
+                    p = category.order
+                  td.v-align-middle
+                    p = category.name
+                  td.v-align-middle
+                    p
+                      = link_to "Edit", action:'c_edit', category: category.id
+                  td.v-align-middle
+                    p
+                      = link_to "Show", action:'c_show', category: category.id
+
+  /! END PANEL
+/! END CONTAINER FLUID

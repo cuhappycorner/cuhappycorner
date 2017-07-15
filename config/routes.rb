@@ -70,6 +70,18 @@ Rails.application.routes.draw do
   post 'corner/pos/sem_start_market/create' => 'corner/pos/sem_start_market#create'
   match 'corner/pos/sem_start_market/get_user_status' => 'corner/pos/sem_start_market#get_user_status', via: [:get, :put, :post]
 
+
+  get 'corner/pos/second_hand_good' => 'corner/pos/second_hand_good#index'
+  get 'corner/pos/second_hand_good/c/new' => 'corner/pos/second_hand_good#c_new'
+  post 'corner/pos/second_hand_good/c/new' => 'corner/pos/second_hand_good#c_create'
+  get 'corner/pos/second_hand_good/c/:category/edit' => 'corner/pos/second_hand_good#c_edit'
+  put 'corner/pos/second_hand_good/c/:category/edit' => 'corner/pos/second_hand_good#c_update'
+  get 'corner/pos/second_hand_good/c/:category/show' => 'corner/pos/second_hand_good#c_show'
+  get 'corner/pos/second_hand_good/g/new' => 'corner/pos/second_hand_good#g_new'
+  post 'corner/pos/second_hand_good/g/new' => 'corner/pos/second_hand_good#g_create'
+  get 'corner/pos/second_hand_good/g/:good/edit' => 'corner/pos/second_hand_good#g_edit'
+  put 'corner/pos/second_hand_good/g/:good/edit' => 'corner/pos/second_hand_good#g_update'
+
   get 'corner/pos/second_hand_good_transaction' => 'corner/pos/second_hand_good_transaction#index'
   post 'corner/pos/second_hand_good_transaction/new' => 'corner/pos/second_hand_good_transaction#new'
   post 'corner/pos/second_hand_good_transaction/create' => 'corner/pos/second_hand_good_transaction#create'

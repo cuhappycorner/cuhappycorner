@@ -1,0 +1,85 @@
+- content_for :title do
+  = "Second Hand Goods of Category " + @category.name
+
+- content_for :breadcrumb do
+  li
+    p =t('corner.common.shopkeeper')
+  li
+    = link_to "Second Hand Good", {action: "index"}, class: "active"
+
+/! START CONTAINER FLUID
+.container-fluid.container-fixed-lg.bg-white
+  h3
+    = "Second Hand Goods of Category " + @category.name
+
+  /! START PANEL
+  .panel.panel-transparent
+    .panel-heading
+      .panel-title
+        | Enabled Goods
+      .btn-group.pull-right.m-b-10
+        = link_to "New Good", {action: "g_new"}, class: "btn btn-default"
+        = link_to "View All Categories", {action: "index"}, class: "btn btn-default"
+      .clearfix
+    .panel-body
+      .table-responsive
+        table#basicTable.table.table-hover
+          thead
+            tr
+              th style="width:10%" Order
+              th style="width:50%" Name
+              th style="width:10%" 建議換入價
+              th style="width:10%" 建議換出價
+              th style="width:20%" Edit Good
+          tbody
+            - @category.item.all.order_by(:order => 'asc').each do |good|
+              - if good.disabled != true
+                tr
+                  td.v-align-middle
+                    p = good.order
+                  td.v-align-middle
+                    p = good.name
+                  td.v-align-middle
+                    p = good.purchase_credit_price
+                  td.v-align-middle
+                    p = good.sale_credit_price
+                  td.v-align-middle
+                    p
+                      = link_to "Edit", action:'g_edit', good: good.id
+
+  /! END PANEL
+  /! START PANEL
+  .panel.panel-transparent
+    .panel-heading
+      .panel-title
+        | Disabled Goods
+      .clearfix
+    .panel-body
+      .table-responsive
+        table#basicTable.table.table-hover
+          thead
+            tr
+              th style="width:10%" Order
+              th style="width:50%" Name
+              th style="width:10%" 建議換入價
+              th style="width:10%" 建議換出價
+              th style="width:20%" Edit Good
+          tbody
+            - @category.item.all.order_by(:order => 'asc').each do |good|
+              - if good.disabled == true
+                tr
+                  td.v-align-middle
+                    p = good.order
+                  td.v-align-middle
+                    p = good.name
+                  td.v-align-middle
+                    p = good.purchase_credit_price
+                  td.v-align-middle
+                    p = good.sale_credit_price
+                  td.v-align-middle
+                    p
+                      = link_to "Edit", action:'g_edit', good: good.id
+
+
+  /! END PANEL
+/! END CONTAINER FLUID

@@ -1,0 +1,81 @@
+- content_for :title do
+  = "Edit Good " + @good.name
+
+- content_for :breadcrumb do
+  li
+    p =t('corner.common.shopkeeper')
+  li
+    = link_to "Second Hand Good", {action: "index"}, class: "active"
+
+- content_for :jscode do
+  javascript:
+    $(document).ready(function() {
+      $("#edit-good-form").validate();
+    });
+
+/! START CONTAINER FLUID
+.container-fluid.container-fixed-lg.bg-white
+  /! START PANEL
+  .panel.panel-transparent
+    .panel-heading
+      .panel-title
+        = "Edit Good " + @good.name
+      .btn-group.pull-right.m-b-10
+        = link_to "Return", {action: "c_show", category: @good.category.id}, class: "btn btn-default"
+      .clearfix
+    .panel-body
+      = form_tag({action: "g_update"}, method: "put", class: "form-horizontal", id:"edit-good-form")
+        .form-group
+          = label_tag "name", "Name", class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "name", @good.name, class: "form-control", required: true
+        .form-group
+          = label_tag "order", "Order", class: "col-sm-3 control-label"
+          .col-sm-9
+            = number_field_tag "order", @good.order, min: 1, class: "form-control", required: true
+        .form-group
+          = label_tag :category, "Category", class: "col-sm-3 control-label"
+          .col-sm-9
+            select.full-width.form-control name="category" data-init-plugin="select2"
+              optgroup label="Enabled"
+                - Corner::Pos::SecondHandGoodCategory.all.order_by(:order => 'asc').each do |category|
+                  - if category.disabled != true
+                    - if @good.category.id.eql? category.id
+                      option value=category.id selected=true #{(category.order + 64).chr.to_s + " " + category.name}
+                    - else
+                      option value=category.id #{(category.order + 64).chr.to_s + " " + category.name}
+              optgroup label="Disabled"
+                - Corner::Pos::SecondHandGoodCategory.all.order_by(:order => 'asc').each do |category|
+                  - if category.disabled == true
+                    - if @good.category.id.eql? category.id
+                      option value=category.id selected=true #{(category.order + 64).chr.to_s + " " + category.name}
+                    - else
+                      option value=category.id #{(category.order + 64).chr.to_s + " " + category.name}
+
+        .form-group
+          = label_tag "purchase_credit_price", "建議換入價", class: "col-sm-3 control-label"
+          .col-sm-9
+            = number_field_tag "purchase_credit_price", @good.purchase_credit_price, min: 0, class: "form-control", required: true
+        .form-group
+          = label_tag "sale_credit_price", "建議換出價", class: "col-sm-3 control-label"
+          .col-sm-9
+            = number_field_tag "sale_credit_price", @good.sale_credit_price, min: 0, class: "form-control", required: true
+        .form-group
+          = label_tag "disabled", "Status", class: "col-sm-3 control-label"
+          .col-sm-9
+            .radio.radio-success style="margin-top: 0; margin-bottom: 0"
+              - if @good.disabled != true
+                input#disabled_false type="radio" checked=true value="false" name="disabled"
+                label for="disabled_false" style="display:inline;margin-right: 15px;" = "Enabled"
+                input#disabled_true type="radio" value="true" name="disabled"
+                label for="disabled_true" style="display:inline;margin-right: 15px;" = "Disabled"
+              - else
+                input#disabled_false type="radio" value="false" name="disabled"
+                label for="disabled_false" style="display:inline;margin-right: 15px;" = "Enabled"
+                input#disabled_true type="radio" checked=true value="true" name="disabled"
+                label for="disabled_true" style="display:inline;margin-right: 15px;" = "Disabled"
+
+        br
+        .row
+          .col-sm-9.col-sm-offset-3
+            input.btn.btn-success#submit type="submit"

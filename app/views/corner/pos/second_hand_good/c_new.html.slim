@@ -1,0 +1,40 @@
+- content_for :title do
+  = "New Category"
+
+- content_for :breadcrumb do
+  li
+    p =t('corner.common.shopkeeper')
+  li
+    = link_to "Second Hand Good", {action: "index"}, class: "active"
+
+- content_for :jscode do
+  javascript:
+    $(document).ready(function() {
+      $("#new-category-form").validate();
+    });
+
+/! START CONTAINER FLUID
+.container-fluid.container-fixed-lg.bg-white
+
+  /! START PANEL
+  .panel.panel-transparent
+    .panel-heading
+      .panel-title
+        | New Category
+      .btn-group.pull-right.m-b-10
+        = link_to "Return", {action: "index"}, class: "btn btn-default"
+      .clearfix
+    .panel-body
+      = form_tag({action: "c_create"}, method: "post", class: "form-horizontal", id:"new-category-form")
+        .form-group
+          = label_tag "name", "Name", class: "col-sm-3 control-label"
+          .col-sm-9
+            = text_field_tag "name", nil, class: "form-control", required: true
+        .form-group
+          = label_tag "order", "Order", class: "col-sm-3 control-label"
+          .col-sm-9
+            = number_field_tag "order", "1", min: 1, class: "form-control", required: true
+        br
+        .row
+          .col-sm-9.col-sm-offset-3
+            input.btn.btn-success#submit type="submit"
