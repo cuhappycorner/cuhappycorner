@@ -42,24 +42,24 @@ class Corner::Loan::LoanController < ApplicationController
       flash[:alert] = t('error.notauthorized')
       redirect_to(action: 'index') and return
     end
-    member = nil
+    @member = nil
     if !params[:cuid].nil? && (params[:cuid] != '')
-      member = User.find_by(cuid: params[:cuid])
+      @member = User.find_by(cuid: params[:cuid])
     elsif !params[:cu_link_id].nil? && (params[:cu_link_id] != '')
-      member = User.find_by(cu_link_id: params[:cu_link_id])
+      @member = User.find_by(cu_link_id: params[:cu_link_id])
     end
-    if member.nil?
+    if @member.nil?
       flash[:alert] = 'Member Not Existed'
       redirect_to(action: 'index') and return
-    elsif member.activated == false
+    elsif @member.activated == false
       flash[:alert] = 'Member Not Activated'
       redirect_to(action: 'index') and return
     end
 
-    @loans = member.individual_loan
-    @loan_amount = member.individual_loan_amount
-    @loan_amount = 0 if member.individual_loan_amount.nil?
-    @cuid = member.cuid
+    @loans = @member.individual_loan
+    @loan_amount = @member.individual_loan_amount
+    @loan_amount = 0 if @member.individual_loan_amount.nil?
+    @cuid = @member.cuid
   end
 
   def create
