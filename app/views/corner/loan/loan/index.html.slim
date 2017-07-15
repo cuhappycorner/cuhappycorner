@@ -135,7 +135,7 @@
                     p 
                       | Total Loan Amount To Be Repaid:
                   td.v-align-middle
-                    p = @loans.sum(:amount) - @loans.sum(:repayed_amount) - @loans.where(status: 3).sum(:repayed_amount)
+                    p = @loans.sum(:amount) - @loans.sum(:repayed_amount) - (@loans.where(status: 3).sum(:amount) - @loans.where(status: 3).sum(:repayed_amount))
                 tr
                   td.v-align-middle.semi-bold
                     p 
@@ -147,4 +147,4 @@
                     p 
                       | Total Amount of Bad Debt:
                   td.v-align-middle
-                    p = @loans.where(status: 3).sum(:repayed_amount)
+                    p = @loans.where(status: 3).sum(:amount) - @loans.where(status: 3).sum(:repayed_amount)
