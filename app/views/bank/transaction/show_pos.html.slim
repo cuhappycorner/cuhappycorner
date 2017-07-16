@@ -1,0 +1,38 @@
+- content_for :title do
+  = "Transaction #" + @transaction.created_at.to_s
+
+- content_for :breadcrumb do
+  li
+    p Bank
+  li
+    = "Transaction #" + @transaction.created_at.to_s
+
+/! START CONTAINER FLUID
+.container-fluid.container-fixed-lg.bg-white
+  /! START PANEL
+  .panel.panel-transparent
+    .table-responsive
+      table#basicTable.table.table-hover
+        thead
+          tr
+            th style="width:10%" Category
+            th style="width:15%" Item
+            th style="width:10%" Quantity
+            th style="width:10%" Price (Credit)
+            th style="width:10%" Amount
+        tbody
+          - @sub_transactions.each do |subtran|
+            tr
+              td.v-align-middle
+                - if subtran.product.is_a? Corner::Pos::SecondHandGood
+                  p = subtran.product.category.name
+                - else
+                  p = "N/A"
+              td.v-align-middle
+                p = subtran.product.name
+              td.v-align-middle
+                p = subtran.quantity
+              td.v-align-middle
+                p = subtran.unit_credit_price
+              td.v-align-middle
+                p = subtran.credit_amount

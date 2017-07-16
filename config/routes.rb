@@ -29,6 +29,12 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'bank/account#index'
 
+  get 'bank/account/:account_no' => 'bank/account#show'
+
+  get 'bank/transaction' => 'bank/transaction#index'
+  get 'bank/transaction/pos/:id' => 'bank/transaction#show_pos'
+  put 'bank/transaction/:id' => 'bank/transaction#update'
+
   get 'corner/account/project' => 'corner/account/project#index'
 
   get 'bank/transfer' => 'bank/transfer#index'
@@ -60,7 +66,7 @@ Rails.application.routes.draw do
 
   get 'corner/users/role' => 'corner/users/role#index'
   post 'corner/users/role/:role' => 'corner/users/role#add'
-  match 'corner/users/role/:role/:user' => 'corner/users/role#remove', via: [:get, :put, :post]
+  delete 'corner/users/role/:role/:user' => 'corner/users/role#remove'
 
   get 'corner/users/activations' => 'corner/users/activations#index'
   post 'corner/users/activations' => 'corner/users/activations#show'

@@ -142,7 +142,10 @@ ul.menu-items
               = link_to "Category - 2nd Hand Goods", {:controller => "/corner/pos/second_hand_good"}
               span.icon-thumbnail
                 i.pg-shopping_cart
-
+        li
+          = link_to "All Transactions", {:controller => "/bank/transaction", :action => :index}
+          span.icon-thumbnail
+            i.fa.fa-money
 
   /li
     a.detailed href="javascript:;"

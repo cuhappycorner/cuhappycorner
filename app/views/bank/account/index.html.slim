@@ -49,7 +49,8 @@
                     td.v-align-middle
                       p = @account.balance
                     td.v-align-middle
-                      p = "View (Function not yet opened)"
+                      p = link_to "View", action: "show", account_no: @account.number
+                      /p = "View (Function not yet opened)"
             #tab-organizational.tab-pane
               - if @organizational_accounts.count == 0
                 h2 Not Opened Yet
@@ -71,6 +72,7 @@
                         td.v-align-middle
                           p = acc.balance
                         td.v-align-middle
+                          p = link_to "View", action: "show", account_no: acc.number
                           /p = link_to "Loan", controller: "bank/organizational_loan" , action: "index", account_no: acc.number
 
 /! END PANEL

@@ -1,11 +1,11 @@
 - content_for :title do
-  = "View Account"
+  = "All Transactions"
 
 - content_for :breadcrumb do
   li
     p Bank
   li
-    = link_to "View Account", {action: "show"}, class: "active"
+    = link_to "All Transactions", {action: "index"}, class: "active"
 
 - content_for :jscode do
   javascript:
@@ -20,7 +20,7 @@
                 "sLengthMenu": "_MENU_ ",
                 "sInfo": "Showing <b>_START_ to _END_</b> of _TOTAL_ entries"
             },
-            "iDisplayLength": 10
+            "iDisplayLength": 20
         };
         table.dataTable(settings);
         $('#search-table').keyup(function() {
@@ -48,26 +48,21 @@
           thead
             tr
               th style="width:10%" Finished at
-              th style="width:10%" Debit/Credit
               th style="width:20%" Debitor
               th style="width:20%" Creditor
+              th style="width:10%" Operator
               th style="width:5%" Amount
               th style="width:10%" Category
               th style="width:20%" Details
               th style="width:5%"
           tbody
-            - @transactions.each do |transaction|
+            - Bank::Transaction.all.each do |transaction|
               tr
                 td.v-align-middle
                   p = transaction.created_at
                 td.v-align-middle
-                  - if transaction.creditor.eql? @account
-                    p.text-success = "Credit"
-                  - else
-                    p.text-danger = "Debit"
-                td.v-align-middle
                   - if ((transaction.debitor.is_a? Bank::IndividualAccount) || (transaction.debitor.is_a? Bank::OrganizationalAccount))
-                    - if transaction.debitor.eql? @account
+                    - if transaction.debitor.eql? HappyCorner.first.account.first
                       p style="font-style: italic" = transaction.debitor.owner.name + "(" + transaction.debitor.number + ")"
                     - else
                       p.bold = transaction.debitor.owner.name + "(" + transaction.debitor.number + ")"
@@ -75,17 +70,16 @@
                     p.bold = transaction.debitor.number
                 td.v-align-middle
                   - if ((transaction.creditor.is_a? Bank::IndividualAccount) || (transaction.creditor.is_a? Bank::OrganizationalAccount))
-                    - if transaction.creditor.eql? @account
+                    - if transaction.creditor.eql? HappyCorner.first.account.first
                       p style="font-style: italic" = transaction.creditor.owner.name + "(" + transaction.creditor.number + ")"
                     - else
                       p.bold = transaction.creditor.owner.name + "(" + transaction.creditor.number + ")"
                   - else
                     p.bold = transaction.creditor.number
                 td.v-align-middle
-                  - if transaction.creditor.eql? @account
-                    p.text-success = "(+) " + transaction.amount.to_s
-                  - else
-                    p.text-danger = "(-) " + transaction.amount.to_s
+                  p = transaction.operator.name
+                td.v-align-middle
+                  p = transaction.amount.to_s
                 td.v-align-middle
                   - if transaction.is_a? Bank::ThirdPartyTransaction
                     p = "3rd Party"
@@ -109,7 +103,11 @@
                   - else
                     p = "Other"
                 td.v-align-middle
-                  p = transaction.detail
+                  = form_tag({action: "update", id: transaction.id}, method: "put", class: "input-group")
+                    input.form-control name="detail" value=transaction.detail type="text" placeholder="Detail"
+                    span.input-group-btn
+                      = button_tag "Modify", data: { disable_with: t('form.pleasewait') }, class: "btn btn-default"
+                  /p = transaction.detail
                 td.v-align-middle
                   - if transaction.is_a? Corner::Account::PosCreditTransaction
                     p
