@@ -80,6 +80,9 @@ Rails.application.routes.draw do
   get 'banker/organizational_loan/view' => 'banker/organizational_loan#show'
   match 'banker/organizational_loan/update' => 'banker/organizational_loan#update', via: [:put, :post]
 
+  get 'banker/money_creation' => 'banker/money_creation#index'
+  post 'banker/money_creation' => 'banker/money_creation#create'
+
   get 'corner/pos/sem_start_market' => 'corner/pos/sem_start_market#index'
   post 'corner/pos/sem_start_market/create' => 'corner/pos/sem_start_market#create'
   match 'corner/pos/sem_start_market/get_user_status' => 'corner/pos/sem_start_market#get_user_status', via: [:get, :put, :post]

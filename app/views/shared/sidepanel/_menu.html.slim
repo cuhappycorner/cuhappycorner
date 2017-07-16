@@ -163,8 +163,11 @@ ul.menu-items
         i.fa.fa-usd
       ul.sub-menu
         li
-          / a href="javascript:;" Loan
           = link_to "Loan", {:controller => "/banker/organizational_loan", :action => :index}
+          span.icon-thumbnail
+            i.fa.fa-money
+        li
+          = link_to "Money Creation", {:controller => "/banker/money_creation", :action => :index}
           span.icon-thumbnail
             i.fa.fa-money
   - if current_user.role.include? Role.find_by(name:"intranet")
