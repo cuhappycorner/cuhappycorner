@@ -90,7 +90,7 @@
                     = link_to "Edit", action:'edit', id: user.id
                     - if user.activated
                       br
-                      = link_to "Show Transactions", controller: "bank/account", action: "show", account_no: user.account.number
+                      = link_to "Show Transactions", controller: "/bank/account", action: "show", account_no: user.account.number
 
 
   /! END PANEL
