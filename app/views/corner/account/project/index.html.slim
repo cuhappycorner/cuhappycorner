@@ -14,19 +14,25 @@
     .panel-heading
       .panel-title
         | Project Account
+      .btn-group.pull-right.m-b-10 style="width:30%"
+        = form_tag({action: "create"}, method: "post", class: "input-group")
+          input.form-control type="text" name="name" placeholder="Identifier" required="required"
+          span.input-group-btn
+            = button_tag "New Project", data: { disable_with: t('form.pleasewait') }, class: "btn btn-default"
       .clearfix
     .panel-body
       .table-responsive
         table#basicTable.table.table-hover
           thead
             tr
-              th style="width:15%" Project No.
+              th style="width:10%" Project No.
               th style="width:15%" Identifier
               th style="width:10%" Credit Budget Remained
               th style="width:10%" Credit Budget Spent
               th style="width:10%" Money Income
               th style="width:10%" Money Spent
               th style="width:10%" Authorized Person
+              th style="width:15%" Add Budget
           tbody
             - @projects.each do |project|
               tr
@@ -43,10 +49,12 @@
                 td.v-align-middle
                   p = number_to_currency(project.money_spent)
                 td.v-align-middle
-                  p 
-                    - if project.respond_to? :authorized_person
-                      - project.authorized_person.each do |person|
-                        = person.name
-                        br
-                    - else
-                      | /
+                  - if ((project.name == "Individual Loan") || (project.name == "Second Hand Goods") || (project.name == "Salary"))
+                    p = "N/A"
+                  - else
+                    p = link_to "Show and Edit", action:'show', id: project.id
+                td.v-align-middle
+                  = form_tag({action: "add_budget", id: project.id}, method: "post", class: "input-group")
+                    input.form-control type="number" name="amount" placeholder="Amount" required="required" min="1"
+                    span.input-group-btn
+                      = button_tag "Add", data: { disable_with: t('form.pleasewait') }, class: "btn btn-default"

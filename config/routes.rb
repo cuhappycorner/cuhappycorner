@@ -36,6 +36,11 @@ Rails.application.routes.draw do
   put 'bank/transaction/:id' => 'bank/transaction#update'
 
   get 'corner/account/project' => 'corner/account/project#index'
+  post 'corner/account/new' => 'corner/account/project#create'
+  post 'corner/account/:id/add_budget' => 'corner/account/project#add_budget'
+  get 'corner/account/:id' => 'corner/account/project#show'
+  post 'corner/account/:id/person' => 'corner/account/project#add_person'
+  delete 'corner/account/:id/person/:user' => 'corner/account/project#remove_person'
 
   get 'bank/transfer' => 'bank/transfer#index'
   post 'bank/transfer/transfer' => 'bank/transfer#transfer'

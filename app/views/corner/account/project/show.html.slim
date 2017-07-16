@@ -1,0 +1,68 @@
+- content_for :title do
+  = "Authorized Persons of Project " + @project.name
+
+- content_for :breadcrumb do
+  li
+    p = "Internal Corner"
+  li
+    = "Authorized Persons of Project " + @project.name
+
+/! START CONTAINER FLUID
+.container-fluid.container-fixed-lg.bg-white
+  /! START PANEL
+  .panel.panel-transparent
+    .table-responsive
+      table#basicTable.table.table-hover
+        thead
+          tr
+            th style="width:10%" CUID
+            th style="width:15%" Name (Eng)
+            th style="width:10%" Name (Chi)
+            th style="width:10%" Nickname
+            th style="width:10%" Major
+            th style="width:15%" Mobile
+            th style="width:20%" Email
+            th style="width:10%" Remove
+        tbody
+          - @project.authorized_person.all.each do |user|
+            tr
+              td.v-align-middle
+                p = user.cuid
+              td.v-align-middle
+                p = user.name_translations[:en]
+              td.v-align-middle
+                p = user.name_translations[:zh_HK]
+              td.v-align-middle
+                p = user.display_name
+              td.v-align-middle
+                p = user.major.code
+              td.v-align-middle
+                p = user.mobile
+              td.v-align-middle
+                p = user.email
+              td.v-align-middle
+                p
+                  - if user.name.nil?
+                    = link_to "Remove", {action:'remove_person', id: @project.id, user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove the user from authorized person?' }
+                  - else
+                    = link_to "Remove", {action:'remove_person', id: @project.id, user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove ' + user.name + ' from authorized person?' }
+    br
+    br
+    .panel.panel-default
+      .panel-heading.separator
+        .panel-title
+          | Add
+      .panel-body
+        = form_tag({action: "add_person", id: @project.id}, method: "post", class: "form-horizontal", id: "intranet_form")
+          = hidden_field_tag 'cuid', @cuid
+          .form-group
+            = label_tag "", "Shopkeeper", class: "col-sm-3 control-label"
+            .col-sm-9
+              select.required.full-width#user name="user" data-init-plugin="select2"
+                option value="" Choose a shopkeeper
+                - @shopkeepers.each do |shopkeeper|
+                  option value="#{shopkeeper.id}" = shopkeeper.name + " (" + shopkeeper.cuid + ")"
+          br
+          .row
+            .col-sm-9.col-sm-offset-3
+              = button_tag "Add", data: { disable_with: t('form.pleasewait') }, class: "btn btn-danger"
