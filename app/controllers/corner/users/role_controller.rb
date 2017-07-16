@@ -22,13 +22,15 @@ class Corner::Users::RoleController < ApplicationController
     @user = User.find_by(cuid: params[:cuid])
     @role = Role.find_by(name: params[:role])
 
-
     if @user.nil?
       flash[:success] = "User Not Found."
     elsif @user.role.include? @role
       flash[:success] = 'Role Already Assigned.'
     else
       @user.role << @role
+      if params[:role] == "banker"
+        HappyCorner.first.account.first.authorized_person << @user
+      end
       @user.save
       @role.save
       flash[:success] = 'Role Assigned.'
@@ -46,6 +48,9 @@ class Corner::Users::RoleController < ApplicationController
 
     if @user.role.include? @role
       @user.role.delete(@role)
+      if params[:role] == "banker"
+        HappyCorner.first.account.first.authorized_person.delete(@user)
+      end
       @user.save
       @role.save
       flash[:success] = 'Removed from Role.'
