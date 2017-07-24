@@ -35,6 +35,15 @@ Rails.application.routes.draw do
   get 'bank/transaction/pos/:id' => 'bank/transaction#show_pos'
   put 'bank/transaction/:id' => 'bank/transaction#update'
 
+  get 'corner/account/payment' => 'corner/account/payment#index'
+  post 'corner/account/payment/pay' => 'corner/account/payment#pay'
+  match 'corner/account/payment/get_user_info' => 'corner/account/payment#get_user_info', via: [:get, :put, :post]
+  match 'corner/account/payment/get_project_info' => 'corner/account/payment#get_project_info', via: [:get, :put, :post]
+
+  get 'corner/account/collection' => 'corner/account/collection#index'
+  post 'corner/account/collection/collect' => 'corner/account/collection#collect'
+  match 'corner/account/collection/get_info' => 'corner/account/collection#get_info', via: [:get, :put, :post]
+
   get 'corner/account/project' => 'corner/account/project#index'
   post 'corner/account/new' => 'corner/account/project#create'
   post 'corner/account/:id/add_budget' => 'corner/account/project#add_budget'
@@ -51,15 +60,6 @@ Rails.application.routes.draw do
   post 'corner/users/shopkeeper/distribute' => 'corner/users/shopkeeper#distribute'
   post 'corner/users/shopkeeper/distribute/export' => 'corner/users/shopkeeper#export_data'
   match 'corner/users/shopkeeper/get_user_info' => 'corner/users/shopkeeper#get_user_info', via: [:get, :put, :post]
-
-  get 'corner/account/payment' => 'corner/account/payment#index'
-  post 'corner/account/payment/pay' => 'corner/account/payment#pay'
-  match 'corner/account/payment/get_user_info' => 'corner/account/payment#get_user_info', via: [:get, :put, :post]
-  match 'corner/account/payment/get_project_info' => 'corner/account/payment#get_project_info', via: [:get, :put, :post]
-
-  get 'corner/account/collection' => 'corner/account/collection#index'
-  post 'corner/account/collection/collect' => 'corner/account/collection#collect'
-  match 'corner/account/collection/get_info' => 'corner/account/collection#get_info', via: [:get, :put, :post]
 
   get 'corner/users/change_card' => 'corner/users/change_card#index'
   put 'corner/users/change_card/update' => 'corner/users/change_card#update'
