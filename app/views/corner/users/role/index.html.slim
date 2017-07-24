@@ -61,9 +61,9 @@
                   td.v-align-middle
                     p
                       - if user.name.nil?
-                        = link_to "Remove", {action:'remove', role: 'banker', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove the user from Intranet Access?' }
+                        = link_to "Remove", {action:'remove', role: 'intranet', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove the user from Intranet Access?' }
                       - else
-                        = link_to "Remove", {action:'remove', role: 'banker', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove ' + user.name + ' from Intranet Access?' }
+                        = link_to "Remove", {action:'remove', role: 'intranet', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove ' + user.name + ' from Intranet Access?' }
 
         br
         br
@@ -116,9 +116,9 @@
                   td.v-align-middle
                     p
                       - if user.name.nil?
-                        = link_to "Remove", {action:'remove', role: 'banker', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove the user from Shopkeeper Role?' }
+                        = link_to "Remove", {action:'remove', role: 'shopkeeper', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove the user from Shopkeeper Role?' }
                       - else
-                        = link_to "Remove", {action:'remove', role: 'banker', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove ' + user.name + ' from Shopkeeper Role?' }
+                        = link_to "Remove", {action:'remove', role: 'shopkeeper', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove ' + user.name + ' from Shopkeeper Role?' }
 
         br
         br
@@ -171,9 +171,9 @@
                   td.v-align-middle
                     p
                       - if user.name.nil?
-                        = link_to "Remove", {action:'remove', role: 'banker', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove the user from Shopkeeper Manager Role?' }
+                        = link_to "Remove", {action:'remove', role: 'shopkeeper_manager', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove the user from Shopkeeper Manager Role?' }
                       - else
-                        = link_to "Remove", {action:'remove', role: 'banker', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove ' + user.name + ' from Shopkeeper Manager Role?' }
+                        = link_to "Remove", {action:'remove', role: 'shopkeeper_manager', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove ' + user.name + ' from Shopkeeper Manager Role?' }
         br
         br
         .panel.panel-default
@@ -279,9 +279,9 @@
                   td.v-align-middle
                     p
                       - if user.name.nil?
-                        = link_to "Remove", {action:'remove', role: 'banker', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove the user from Core Member Role?' }
+                        = link_to "Remove", {action:'remove', role: 'board', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove the user from Core Member Role?' }
                       - else
-                        = link_to "Remove", {action:'remove', role: 'banker', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove ' + user.name + ' from Core Member Role?' }
+                        = link_to "Remove", {action:'remove', role: 'board', user: user.id}, method: :delete, data: { confirm: 'Are you sure to remove ' + user.name + ' from Core Member Role?' }
 
         br
         br
