@@ -31,7 +31,7 @@ class Corner::Users::ManagementController < ApplicationController
       @user.gender = params[:user_gender]
       @user.birthday = params[:user_birthday]
       @user.mobile = params[:user_mobile]
-      @user.email = params[:email]
+      @user.email = params[:user_email]
     elsif params[:page] == "cuer"
       @user.cuid = params[:user_cuid]
       @user.cuid_type = params[:user_cuid_type]
