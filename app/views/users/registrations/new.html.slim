@@ -129,6 +129,7 @@ html
                 .col-md-7
                   .padding-30.m-t-40
                     .form-group-attached
+                      p.error#email_suggestion style="display:none" =""
                       = f.input :email, as: :email, label: t('users.registrations.new.form.email'), required: true, placeholder: t('users.registrations.new.form.email_placeholder')
                       = f.input :password, as: :password, label: t('users.registrations.new.form.password'), placeholder: t('users.registrations.new.form.password_placeholder'), required: true, input_html: { :minlength => 8 }
                       = f.input :password_confirmation, as: :password, label: t('users.registrations.new.form.password_confirmation'), placeholder: t('users.registrations.new.form.password_confirmation_placeholder'), required: true, input_html: { :minlength => 8 }
@@ -137,7 +138,7 @@ html
               .padding-30
                 i.fa.fa-check-square-o.fa-2x.hint-text
                 h2 = t('users.registrations.new.form.tab4_terms')
-                iframe src="https://docs.google.com/document/d/1R3fSdyNGRJecxIKehakxe1wHCZUCwqAF_aar9gEC3Og/pub?embedded=true" style="height:100%; width: 400px"
+                iframe src="https://docs.google.com/document/d/1R3fSdyNGRJecxIKehakxe1wHCZUCwqAF_aar9gEC3Og/pub?embedded=true" style="height:400px; width: 100%"
                 / = t('users.registrations.new.form.tab4_content_html')
           .padding-20.bg-white
             ul.pager.wizard
@@ -158,5 +159,27 @@ html
   = javascript_include_tag "application"
 
   javascript:
-    $("#user_major").select2({ width: '100%' });
-    
+    $(document).ready(function() {
+      $("#user_major").select2({ width: '100%' });
+      var domains = ['hotmail.com', 'gmail.com', 'yahoo.com.hk', 'live.com', 'link.cuhk.edu.hk', 'cuhk.edu.hk', 'outlook.com', '126.com'];
+      var topLevelDomains = ["com", "net", "org", "hk", "edu"];
+      $('#user_email').on('blur', function(event) {
+        $(this).mailcheck({
+          domains: domains,
+          topLevelDomains: topLevelDomains,
+          suggested: function(element, suggestion) {
+            $('#email_suggestion').html("Did you mean <b><i><a href='#' id='suggestion_full'><span class='suggestion'>" + suggestion.full + "</span></a></b></i>?");
+            $('#email_suggestion').fadeIn(150);
+          },
+          empty: function(element) {
+            $('#email_suggestion').hide();
+          }
+        });
+      });
+      $('#email_suggestion').on('click','#suggestion_full', function() {
+        $('#user_email').val($(".suggestion").text());
+        $('#email_suggestion').fadeOut(200, function() {
+          $(this).empty();
+        });
+      });
+    });
