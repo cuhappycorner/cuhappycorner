@@ -36,6 +36,7 @@
 //= require pdfmake/pdfmake.js
 //= require pdfmake/vfs_fonts.js
 //= require jszip
+//= require mailcheck
 // require turbolinks
 //= require pages/pages
 //= require_tree
