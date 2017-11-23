@@ -72,6 +72,7 @@ source 'http://insecure.rails-assets.org' do
   gem 'rails-assets-datatables-buttons'
   gem 'rails-assets-pdfmake'
   gem 'rails-assets-jszip'
+  gem 'rails-assets-mailcheck'
 end
 
 group :development, :test do
