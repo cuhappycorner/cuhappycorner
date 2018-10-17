@@ -23,7 +23,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'mongoid', '~> 5.0.0'
 
-gem 'devise', '>= 3.5.3'
+gem 'devise', '>= 4.5.0'
 
 gem 'passenger'
 
@@ -37,15 +37,15 @@ gem 'cancancan', '~> 1.13'
 
 gem 'rolify'
 
-gem 'mongoid-autoinc'
+gem 'mongoid-autoinc', '>= 5.0.2'
 
-gem 'axlsx_rails'
+gem 'axlsx_rails', '>= 0.5.2'
 
-gem "font-awesome-rails"
+gem "font-awesome-rails", ">= 4.7.0.4"
 
 gem "bower-rails"
 
-gem 'rails_admin'
+gem 'rails_admin', '>= 1.4.2'
 
 
 # Use ActiveModel has_secure_password
