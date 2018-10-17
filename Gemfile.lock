@@ -49,7 +49,7 @@ GEM
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
     bower-rails (0.11.0)
-    bson (4.0.0)
+    bson (4.3.0)
     builder (3.2.3)
     byebug (8.2.1)
     cancancan (1.17.0)
@@ -120,13 +120,13 @@ GEM
     loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    mail (2.7.0)
+    mail (2.7.1)
       mini_mime (>= 0.1.1)
     mini_mime (1.0.1)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
-    mongo (2.2.1)
-      bson (~> 4.0)
+    mongo (2.6.2)
+      bson (>= 4.3.0, < 5.0.0)
     mongoid (5.0.2)
       activemodel (~> 4.0)
       mongo (~> 2.1)
@@ -140,7 +140,7 @@ GEM
       mini_portile2 (~> 2.3.0)
     nokogiri (1.8.5-x86-mingw32)
       mini_portile2 (~> 2.3.0)
-    origin (2.1.1)
+    origin (2.3.1)
     orm_adapter (0.5.0)
     passenger (5.0.23)
       rack
@@ -252,23 +252,23 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
-  axlsx_rails
+  axlsx_rails (>= 0.5.2)
   bower-rails
   byebug
   cancancan (~> 1.13)
   coffee-rails (~> 4.1.1)
-  devise (>= 3.5.3)
+  devise (>= 4.5.0)
   execjs
-  font-awesome-rails
+  font-awesome-rails (>= 4.7.0.4)
   io-console
   jbuilder (~> 2.0)
   jquery-rails (>= 4.1.0)
   less-rails (>= 2.7.1)
   mongoid (~> 5.0.0)
-  mongoid-autoinc
+  mongoid-autoinc (>= 5.0.2)
   passenger
   rails (= 4.2.5)
-  rails_admin
+  rails_admin (>= 1.4.2)
   rolify
   sass-rails (~> 5.0, >= 5.0.4)
   sdoc (~> 0.4.0)
