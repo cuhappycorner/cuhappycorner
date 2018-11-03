@@ -78,7 +78,6 @@ GEM
       railties (>= 3.2, < 6.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
-    grease (0.3.1)
     haml (5.0.4)
       temple (>= 0.8.0)
       tilt
@@ -110,14 +109,12 @@ GEM
     kaminari-core (1.1.1)
     less (2.6.0)
       commonjs (~> 0.2.7)
-    less-rails (3.0.0)
-      actionpack (>= 4.0)
-      grease
+    less-rails (4.0.0)
+      actionpack (>= 4)
       less (~> 2.6.0)
-      sprockets (> 2, < 4)
-      tilt
+      sprockets (>= 2)
     libv8 (3.16.14.19)
-    loofah (2.2.2)
+    loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -262,21 +259,21 @@ DEPENDENCIES
   font-awesome-rails (>= 4.7.0.4)
   io-console
   jbuilder (~> 2.0)
-  jquery-rails (>= 4.1.0)
-  less-rails (>= 2.7.1)
+  jquery-rails (>= 4.3.3)
+  less-rails (>= 3.0.0)
   mongoid (~> 5.0.0)
   mongoid-autoinc (>= 5.0.2)
   passenger
   rails (= 4.2.5)
   rails_admin (>= 1.4.2)
   rolify
-  sass-rails (~> 5.0, >= 5.0.4)
+  sass-rails (~> 5.0, >= 5.0.7)
   sdoc (~> 0.4.0)
   therubyracer
   turbolinks (>= 2.5.3)
   tzinfo-data
   uglifier (>= 1.3.0)
-  web-console (~> 2.2, >= 2.2.1)
+  web-console (~> 2.3, >= 2.3.0)
 
 BUNDLED WITH
    1.16.6
