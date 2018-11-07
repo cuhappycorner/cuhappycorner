@@ -61,7 +61,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     commonjs (0.2.7)
-    concurrent-ruby (1.0.5)
+    concurrent-ruby (1.1.3)
     crass (1.0.4)
     debug_inspector (0.0.3)
     devise (4.5.0)
@@ -139,10 +139,10 @@ GEM
       mini_portile2 (~> 2.3.0)
     origin (2.3.1)
     orm_adapter (0.5.0)
-    passenger (5.0.23)
+    passenger (5.3.6)
       rack
       rake (>= 0.8.1)
-    rack (1.6.10)
+    rack (1.6.11)
     rack-pjax (1.0.0)
       nokogiri (~> 1.5)
       rack (>= 1.1)
@@ -198,7 +198,7 @@ GEM
       railties (>= 4.2.0, < 5.3)
     rolify (5.2.0)
     rubyzip (1.0.0)
-    sass (3.6.0)
+    sass (3.7.0)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -260,10 +260,10 @@ DEPENDENCIES
   io-console
   jbuilder (~> 2.0)
   jquery-rails (>= 4.3.3)
-  less-rails (>= 3.0.0)
+  less-rails (>= 4.0.0)
   mongoid (~> 5.0.0)
   mongoid-autoinc (>= 5.0.2)
-  passenger
+  passenger (>= 5.0.23)
   rails (= 4.2.5)
   rails_admin (>= 1.4.2)
   rolify

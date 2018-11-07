@@ -25,11 +25,11 @@ gem 'mongoid', '~> 5.0.0'
 
 gem 'devise', '>= 4.5.0'
 
-gem 'passenger'
+gem 'passenger', '>= 5.0.23'
 
 gem 'execjs'
 
-gem 'less-rails', '>= 3.0.0'
+gem 'less-rails', '>= 4.0.0'
 
 gem 'io-console'
 
