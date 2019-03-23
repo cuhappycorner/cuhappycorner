@@ -23,7 +23,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'mongoid', '~> 5.0.0'
 
-gem 'devise', '>= 4.5.0'
+gem 'devise', '>= 4.6.0'
 
 gem 'passenger', '>= 5.0.23'
 
