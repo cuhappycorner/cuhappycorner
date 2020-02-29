@@ -25,7 +25,7 @@ gem 'mongoid', '~> 5.0.0'
 
 gem 'devise', '>= 4.5.0'
 
-gem 'passenger', '>= 5.0.23'
+gem 'passenger', '>= 5.3.6'
 
 gem 'execjs'
 
