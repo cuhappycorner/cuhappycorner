@@ -1,23 +1,23 @@
 GIT
-  remote: git://github.com/ckho/seedbank.git
-  revision: cf8eb4fcfda7049a9f8b229c8f993b66b5a46e93
-  specs:
-    seedbank (0.5.0.pre)
-      rake (>= 10.0)
-
-GIT
-  remote: git://github.com/michaeltrimm/doorkeeper-mongodb.git
+  remote: git://github.com/cuhappycorner/doorkeeper-mongodb.git
   revision: 9053cc301b27479fa40c3f329e7dad677c52df45
   specs:
     doorkeeper-mongodb (3.0.1)
       doorkeeper (>= 4.0.0)
 
 GIT
-  remote: git://github.com/williamatodd/mongoid_token.git
-  revision: 27241ed0d82631ac40b90a7d2a053ccb53b29e11
+  remote: git://github.com/cuhappycorner/mongoid_token.git
+  revision: 710b3b5b92aa12c9c112ccf06b4ca6e7adc3ee56
   specs:
     mongoid_token (4.0.0)
       mongoid (>= 6.0.0.beta)
+
+GIT
+  remote: git://github.com/cuhappycorner/seedbank.git
+  revision: 52dd2214c69de58295ef898009ac500b99db2653
+  specs:
+    seedbank (0.5.0.pre)
+      rake (>= 10.0)
 
 GEM
   remote: http://rubygems.org/
@@ -75,7 +75,7 @@ GEM
     brakeman (3.5.0)
     browser (2.3.0)
     bson (4.2.1)
-    builder (3.2.3)
+    builder (3.2.4)
     byebug (9.0.6)
     capistrano (3.8.0)
       airbrussh (>= 1.0.0)
@@ -101,8 +101,9 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.0.5)
+    concurrent-ruby (1.1.6)
     connection_pool (2.2.1)
+    crass (1.0.6)
     debug_inspector (0.0.2)
     derailed (0.1.0)
       derailed_benchmarks
@@ -124,8 +125,8 @@ GEM
       faraday (~> 0.9)
       faraday_middleware (~> 0.10)
       rack (>= 1.6)
-    doorkeeper (4.2.5)
-      railties (>= 4.2)
+    doorkeeper (5.4.0)
+      railties (>= 5)
     enumerize (2.0.1)
       activesupport (>= 3.2)
     erubis (2.7.0)
@@ -152,8 +153,9 @@ GEM
       faraday_middleware (~> 0, >= 0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    gravtastic (3.2.6)
     heapy (0.1.2)
-    i18n (0.8.1)
+    i18n (0.8.6)
     jbuilder (2.6.3)
       activesupport (>= 3.0.0, < 5.2)
       multi_json (~> 1.2)
@@ -162,23 +164,24 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (2.0.3)
-    kaminari (1.0.1)
+    kaminari (1.2.1)
       activesupport (>= 4.1.0)
-      kaminari-actionview (= 1.0.1)
-      kaminari-activerecord (= 1.0.1)
-      kaminari-core (= 1.0.1)
-    kaminari-actionview (1.0.1)
+      kaminari-actionview (= 1.2.1)
+      kaminari-activerecord (= 1.2.1)
+      kaminari-core (= 1.2.1)
+    kaminari-actionview (1.2.1)
       actionview
-      kaminari-core (= 1.0.1)
-    kaminari-activerecord (1.0.1)
+      kaminari-core (= 1.2.1)
+    kaminari-activerecord (1.2.1)
       activerecord
-      kaminari-core (= 1.0.1)
-    kaminari-core (1.0.1)
+      kaminari-core (= 1.2.1)
+    kaminari-core (1.2.1)
     libv8 (3.16.14.19)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
-    loofah (2.0.3)
+    loofah (2.6.0)
+      crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
@@ -187,8 +190,8 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
-    mini_portile2 (2.1.0)
-    minitest (5.10.1)
+    mini_portile2 (2.4.0)
+    minitest (5.14.1)
     monetize (1.6.0)
       money (~> 6.8)
     money (6.8.2)
@@ -210,10 +213,10 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (4.1.0)
     nio4r (2.0.0)
-    nokogiri (1.7.0.1)
-      mini_portile2 (~> 2.1.0)
-    nokogiri (1.7.0.1-x64-mingw32)
-      mini_portile2 (~> 2.1.0)
+    nokogiri (1.10.9)
+      mini_portile2 (~> 2.4.0)
+    nokogiri (1.10.9-x64-mingw32)
+      mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     parser (2.4.0.0)
       ast (~> 2.2)
@@ -239,11 +242,14 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 5.0.2)
       sprockets-rails (>= 2.0.0)
-    rails-assets-DataTables (1.10.13)
-      rails-assets-jquery (>= 1.7.0)
     rails-assets-bootstrap (3.3.7)
       rails-assets-jquery (>= 1.9.1, < 4)
     rails-assets-classie (1.0.1)
+    rails-assets-datatables (1.10.19)
+      rails-assets-jquery (>= 1.7.0)
+    rails-assets-datatables-buttons (1.5.4)
+      rails-assets-datatables (>= 1.10.8)
+      rails-assets-jquery (>= 1.7.0)
     rails-assets-ioslist (2.0.6)
       rails-assets-jquery (~> 2.0.3)
     rails-assets-jquery (2.0.3)
@@ -256,17 +262,20 @@ GEM
       rails-assets-jquery (>= 1.2.1)
     rails-assets-jquery.scrollbar (0.2.11)
       rails-assets-jquery (>= 1.7)
+    rails-assets-jszip (3.2.2)
+    rails-assets-mailcheck (1.1.2)
     rails-assets-modernizr (2.8.3)
     rails-assets-pace (1.0.2)
+    rails-assets-pdfmake (0.1.58)
     rails-assets-twitter-bootstrap-wizard (1.4.2)
       rails-assets-bootstrap (>= 3.3.0)
       rails-assets-jquery (>= 1.9.1)
     rails-assets-unveil (1.3.0)
-    rails-dom-testing (2.0.2)
-      activesupport (>= 4.2.0, < 6.0)
-      nokogiri (~> 1.6)
-    rails-html-sanitizer (1.0.3)
-      loofah (~> 2.0)
+    rails-dom-testing (2.0.3)
+      activesupport (>= 4.2.0)
+      nokogiri (>= 1.6)
+    rails-html-sanitizer (1.3.0)
+      loofah (~> 2.3)
     railties (5.0.2)
       actionpack (= 5.0.2)
       activesupport (= 5.0.2)
@@ -350,12 +359,9 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.6)
-    turbolinks (5.0.1)
-      turbolinks-source (~> 5)
-    turbolinks-source (5.0.0)
     typhoeus (1.1.2)
       ethon (>= 0.9.0)
-    tzinfo (1.2.2)
+    tzinfo (1.2.7)
       thread_safe (~> 0.1)
     tzinfo-data (1.2017.1)
       tzinfo (>= 1.0.0)
@@ -398,6 +404,7 @@ DEPENDENCIES
   gemoji-parser
   gibbon
   glip-poster
+  gravtastic
   jbuilder (~> 2.5)
   jquery-rails
   kaminari
@@ -409,16 +416,20 @@ DEPENDENCIES
   puma (~> 3.0)
   railroady
   rails (~> 5.0.0, >= 5.0.0.1)
-  rails-assets-DataTables!
   rails-assets-classie!
+  rails-assets-datatables!
+  rails-assets-datatables-buttons!
   rails-assets-ioslist!
   rails-assets-jquery-bez!
   rails-assets-jquery-validation!
   rails-assets-jquery.actual!
   rails-assets-jquery.easing!
   rails-assets-jquery.scrollbar!
+  rails-assets-jszip!
+  rails-assets-mailcheck!
   rails-assets-modernizr (= 2.8.3)!
   rails-assets-pace!
+  rails-assets-pdfmake!
   rails-assets-twitter-bootstrap-wizard!
   rails-assets-unveil!
   redis (~> 3.0)
@@ -437,7 +448,6 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   therubyracer
-  turbolinks (~> 5)
   typhoeus
   tzinfo-data
   uglifier (>= 1.3.0)
