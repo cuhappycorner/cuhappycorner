@@ -1,23 +1,23 @@
 GIT
-  remote: git://github.com/ckho/seedbank.git
-  revision: cf8eb4fcfda7049a9f8b229c8f993b66b5a46e93
-  specs:
-    seedbank (0.5.0.pre)
-      rake (>= 10.0)
-
-GIT
-  remote: git://github.com/michaeltrimm/doorkeeper-mongodb.git
+  remote: git://github.com/cuhappycorner/doorkeeper-mongodb.git
   revision: 9053cc301b27479fa40c3f329e7dad677c52df45
   specs:
     doorkeeper-mongodb (3.0.1)
       doorkeeper (>= 4.0.0)
 
 GIT
-  remote: git://github.com/williamatodd/mongoid_token.git
-  revision: 27241ed0d82631ac40b90a7d2a053ccb53b29e11
+  remote: git://github.com/cuhappycorner/mongoid_token.git
+  revision: 710b3b5b92aa12c9c112ccf06b4ca6e7adc3ee56
   specs:
     mongoid_token (4.0.0)
       mongoid (>= 6.0.0.beta)
+
+GIT
+  remote: git://github.com/cuhappycorner/seedbank.git
+  revision: 52dd2214c69de58295ef898009ac500b99db2653
+  specs:
+    seedbank (0.5.0.pre)
+      rake (>= 10.0)
 
 GEM
   remote: http://rubygems.org/
@@ -124,8 +124,8 @@ GEM
       faraday (~> 0.9)
       faraday_middleware (~> 0.10)
       rack (>= 1.6)
-    doorkeeper (4.2.5)
-      railties (>= 4.2)
+    doorkeeper (5.4.0)
+      railties (>= 5)
     enumerize (2.0.1)
       activesupport (>= 3.2)
     erubis (2.7.0)
@@ -152,6 +152,7 @@ GEM
       faraday_middleware (~> 0, >= 0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    gravtastic (3.2.6)
     heapy (0.1.2)
     i18n (0.8.1)
     jbuilder (2.6.3)
@@ -220,7 +221,8 @@ GEM
     powerpack (0.1.1)
     procodile (1.0.10)
       json
-    puma (3.8.2)
+    puma (4.3.5)
+      nio4r (~> 2.0)
     rack (2.0.1)
     rack-protection (1.5.3)
       rack
@@ -239,11 +241,14 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 5.0.2)
       sprockets-rails (>= 2.0.0)
-    rails-assets-DataTables (1.10.13)
-      rails-assets-jquery (>= 1.7.0)
     rails-assets-bootstrap (3.3.7)
       rails-assets-jquery (>= 1.9.1, < 4)
     rails-assets-classie (1.0.1)
+    rails-assets-datatables (1.10.19)
+      rails-assets-jquery (>= 1.7.0)
+    rails-assets-datatables-buttons (1.5.4)
+      rails-assets-datatables (>= 1.10.8)
+      rails-assets-jquery (>= 1.7.0)
     rails-assets-ioslist (2.0.6)
       rails-assets-jquery (~> 2.0.3)
     rails-assets-jquery (2.0.3)
@@ -256,8 +261,11 @@ GEM
       rails-assets-jquery (>= 1.2.1)
     rails-assets-jquery.scrollbar (0.2.11)
       rails-assets-jquery (>= 1.7)
+    rails-assets-jszip (3.2.2)
+    rails-assets-mailcheck (1.1.2)
     rails-assets-modernizr (2.8.3)
     rails-assets-pace (1.0.2)
+    rails-assets-pdfmake (0.1.58)
     rails-assets-twitter-bootstrap-wizard (1.4.2)
       rails-assets-bootstrap (>= 3.3.0)
       rails-assets-jquery (>= 1.9.1)
@@ -350,9 +358,6 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.6)
-    turbolinks (5.0.1)
-      turbolinks-source (~> 5)
-    turbolinks-source (5.0.0)
     typhoeus (1.1.2)
       ethon (>= 0.9.0)
     tzinfo (1.2.2)
@@ -398,6 +403,7 @@ DEPENDENCIES
   gemoji-parser
   gibbon
   glip-poster
+  gravtastic
   jbuilder (~> 2.5)
   jquery-rails
   kaminari
@@ -406,19 +412,23 @@ DEPENDENCIES
   mongoid
   mongoid_token!
   procodile
-  puma (~> 3.0)
+  puma (~> 4.3)
   railroady
   rails (~> 5.0.0, >= 5.0.0.1)
-  rails-assets-DataTables!
   rails-assets-classie!
+  rails-assets-datatables!
+  rails-assets-datatables-buttons!
   rails-assets-ioslist!
   rails-assets-jquery-bez!
   rails-assets-jquery-validation!
   rails-assets-jquery.actual!
   rails-assets-jquery.easing!
   rails-assets-jquery.scrollbar!
+  rails-assets-jszip!
+  rails-assets-mailcheck!
   rails-assets-modernizr (= 2.8.3)!
   rails-assets-pace!
+  rails-assets-pdfmake!
   rails-assets-twitter-bootstrap-wizard!
   rails-assets-unveil!
   redis (~> 3.0)
@@ -437,7 +447,6 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   therubyracer
-  turbolinks (~> 5)
   typhoeus
   tzinfo-data
   uglifier (>= 1.3.0)
