@@ -225,7 +225,7 @@ GEM
       json
     puma (4.3.5)
       nio4r (~> 2.0)
-    rack (2.0.1)
+    rack (2.2.3)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
@@ -327,9 +327,9 @@ GEM
       sidekiq (>= 4.2.1)
     sidekiq-statistic (1.2.0)
       sidekiq (>= 3.3.4, < 5)
-    simple_form (3.4.0)
-      actionpack (> 4, < 5.1)
-      activemodel (> 4, < 5.1)
+    simple_form (5.0.2)
+      actionpack (>= 5.0)
+      activemodel (>= 5.0)
     sixarm_ruby_unaccent (1.1.1)
     slim (3.0.7)
       temple (~> 0.7.6)
