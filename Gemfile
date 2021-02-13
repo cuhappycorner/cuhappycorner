@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.11.1'
+gem 'rails', '6.0.3.5'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0', '>= 5.0.7'
 # Use Uglifier as compressor for JavaScript assets
@@ -45,7 +45,7 @@ gem "font-awesome-rails", ">= 4.7.0.4"
 
 gem "bower-rails"
 
-gem 'rails_admin', '>= 1.4.2'
+gem 'rails_admin', '>= 2.0.0'
 
 
 # Use ActiveModel has_secure_password
