@@ -218,7 +218,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (4.1.0)
-    nio4r (2.0.0)
+    nio4r (2.5.7)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
     nokogiri (1.10.9-x64-mingw32)
@@ -229,7 +229,7 @@ GEM
     powerpack (0.1.1)
     procodile (1.0.10)
       json
-    puma (4.3.5)
+    puma (5.3.1)
       nio4r (~> 2.0)
     rack (2.2.3)
     rack-protection (1.5.3)
@@ -423,7 +423,7 @@ DEPENDENCIES
   mongoid
   mongoid_token!
   procodile
-  puma (~> 4.3)
+  puma (~> 5.3)
   railroady
   rails (~> 5.0.0, >= 5.0.0.1)
   rails-assets-classie!
